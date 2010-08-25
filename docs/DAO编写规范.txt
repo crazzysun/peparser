@@ -1,0 +1,70 @@
+DAO编写规范
+
+编写的DAO应该放在模块的server.dao包下
+
+1.	编写DAO接口，定义需要的数据访问函数
+
+2.	编写DAO实现，从BaseDao继承，并实现定义的DAO接口
+	在DAO实现中可以使用从BaseDao继承下来的成员变量esql，对数据库进行访问。
+
+
+考虑到绝大部分工作都是管理工作，对性能的要求很低，编写的主要侧重点就放在保证数据正确性和方便性上来。
+请按照以下规范编写DAO实现函数
+
+1.	数据库表名请以t_开头，并用单数形式，比如用户表：t_user。其目的是为了将来方便查找。
+
+2.	数据库表的列请仔细斟酌，只在主表中保留确定需要的内容，其他的额外内容使用附表存储，并定义一对一的联系
+
+	例如，新闻文档
+	-- 主表
+	t_news (id, author_id, publisher_id, category_id, title, department_id, hit_count, top, date);
+
+	-- 新闻内容就放在附表中
+	t_news_content (id, content);
+	
+	-- 新闻审核信息也放在附表中
+	t_news_detail (id, status_id, approver_id, recommended);
+
+
+3.	Java实体对象中应该包含所有的主表属性，附表的属性可以直接定义在实体对象中，也可以通过弱实体的方式定义
+	如果分割附表的目的是为了将大数据单独存放，就可以直接定义在实体对象中，例如，新闻内容，
+	如果分割附表的目的是为了不同的工作目的，特别是为了适应不同的版本，可以考虑采用弱实体方式
+
+4.	如果需要从一个对象访问其引用的其他对象，应该在实体对象中定义相应的成员变量
+	不要为了方便，在实体对象中定义其引用对象的属性
+	
+	例如，帐号对象引用了用户对象，并且需要从帐号对象访问用户的名称等信息，就应该在Account类中定义user成员
+	
+	private User user;
+	
+	而不要定义用户的名称
+	
+	private String userName;
+	
+
+4.	如果查询的对象引用了其他的对象，请通过一次主查询，外带多次次查询得到。
+	比起直接用连接查询，要清晰得多，虽然效率有所下降
+	DAO函数应该是最基本的不包含业务逻辑，只有在必要的情况下，才在DAO中查出引用对象
+
+	例如，查询账户列表
+
+	String sql1 = "select * from t_account order by id offset ? limit ?";
+	List<Account> accounts = esql.list(Account.class, sql1, offset, limit);
+	
+	String sql2 = "select * from t_user where id = ?";
+	for (Account account : accounts)
+	{
+		User user = esql.query(User.class, sql2, account.getUserId());
+		account.setUser(user);
+	}
+	
+5.	插入对象，请使用esql的insert函数，例如
+	
+	// 插入新的user对象，不指定id字段的值
+	esql.insert(user, "t_user", null, "id");
+	
+6.	更新对象，请使用esql的update1函数，例如
+
+	// 仅更新指定user对象的name字段
+	esql.update1(user, "t_user", "name", null, "id = ?", user.getId());
+	
