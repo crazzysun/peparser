@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>部门列表管理</title>
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/table.css" type="text/css" />
+<script type="text/javascript" src="script/common.js"></script>
+
+<script>
+$import("rpc.js");
+
+/** 初始化部门信息表格 */
+function LoadHavedRole()
+{
+	var callback = function(o)
+	{
+		alert("前台返回！")
+	}
+	var operation = new Operation("PE分析.分析单个文件");
+	operation.execute(callback);
+}
+</script>
+</head>
+
+<body>
+<div id="ur_here"><img src="../public/images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 系统管理 » 组织机构管理 </div>
+<div id="wrap">
+<div id="containaer">
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" id="" style=''>
+		<tr>
+		<td style="padding-left:15px">
+			<input type="button" value="我要测试" onclick="LoadHavedRole()"/>
+		</td>
+		</tr>
+	</table>
+</div>
+</div>
+</body>
+</html>

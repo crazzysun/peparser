@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<script type="text/javascript" src="script/script_left_bar.js"></script>
+<style type="text/css">
+* {margin:0; padding:0;}
+a{text-decoration : none;color:#333 /**width:130px;*/ }
+a{blr:e­xpression(this.onFocus=this.close());} /* 只支持IE，过多使用效率低 */
+a{blr:e­xpression(this.onFocus=this.blur());} /* 只支持IE，过多使用效率低 */
+a {star : expression(onfocus=this.blur);}
+a:focus { -moz-outline-style: none; } /* IE不支持 */
+
+body{background:#E7EEF8 url('images/left_bar_right_fg.gif') repeat-y right top;font-size:12px;font-family:'宋体',Arial;
+/*overflow-y:scroll*/
+}
+ul{margin:0px;padding:0px}
+ul li{list-style-type:none;margin:0px;padding:0px}
+
+#left_bar_out{width:220px;background:url(images/left_bar_out_bg.gif) repeat-y ;min-height:500px}
+#left_bar_right_fg{ background:url(images/left_bar_right_fg.gif);width:9px;min-height:500px}
+#container{text-align:left;}
+#main{text-align:left;width:100%;clear:both;background:url(images/left_border.gif) repeat-y right top ;min-height:500px;}
+
+#slider{margin:0px;padding:0px}
+#left_bar{width:175px;margin:6px auto;}
+#left_bar_top{width:175px;height:33px;background:url(images/left_bar_top.gif) no-repeat top left}
+#left_bar_body {width:175px;background:url(images/left_bar_body_bg.gif) repeat-y top left;font:12px Verdana,Arial; color:#033;}
+
+#left_bar_body .title_normal {width: 173px; height: 23px;color:#0C2742;font-weight:bold; font-size: 12px;background:url(images/left_bar_tit_off.gif) no-repeat; padding: 8px 0 0 35px;  cursor: pointer;   }
+#left_bar_body .title_select {width: 173px; height: 23px; color:#0C2742;font-weight:bold; font-size: 12px;background:url(images/left_bar_tit_on.gif) no-repeat; padding: 8px 0 0 35px; color: #0c2742; cursor: pointer;  }
+#left_bar_body ul {list-style-type: none; height: auto; overflow: hidden;margin-top:0px}
+
+#left_bar_body .body_normal {width: 173px; height: 20px; background:url(images/left_bar_dl.gif) no-repeat 15px 8px;padding: 5px 0 0 27px; color: #525252; cursor: pointer; }
+#left_bar_body .body_select {width: 173px; height: 20px; background:url(images/left_bar_li_a_bg.gif) no-repeat 10px top; padding: 5px 0 0 27px; color: #525252; cursor: pointer; }
+#left_bar_bottom{width:175px;height:30px;background:url(images/left_bar_bottom.gif) no-repeat top left}
+</style>
+
+<script type="text/javascript">
+
+function loadMenu()
+{
+	var Temp=new Sliderl(null,0,{"title_normal":"title_normal","title_select":"title_select","body_normal":"body_normal","body_select":"body_select"});
+}
+</script>
+
+<title>Left Menu</title>
+</head>
+<body style="margin-left: 2px" onload = "loadMenu()">
+	<div id="left_bar" style="display: block">
+		<div id="left_bar_top"></div>
+		<div id="left_bar_body">
+			<h3>文件分析</h3>
+			<ul>
+				<li><a href="parser/file_select.html" target='main'>单个文件分析</a></li>
+				<li><a href="test.html" target="main">多个文件分析</a></li>
+			</ul>
+			<h3>病毒分析</h3>
+			<ul>
+				<li><a href="#" target="main">病毒分析</a></li>
+			</ul>
+		</div>
+		<div id="left_bar_bottom"></div>
+	</div>
+</body>
+</html>

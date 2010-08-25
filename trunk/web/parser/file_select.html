@@ -1,0 +1,57 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>PE文件分析</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script type="text/javascript">
+
+function getFullPath(obj)
+{
+	if(obj)
+	{
+		//ie
+		if (window.navigator.userAgent.indexOf("MSIE")>=1)
+		{
+			obj.select();
+			return document.selection.createRange().text;
+		}
+		//firefox
+		else if(window.navigator.userAgent.indexOf("Firefox")>=1)
+		{
+			if(obj.files)
+			{
+				return obj.files.item(0).getAsText("utf-8");
+			}
+			return obj.value;
+		}
+		return obj.value;
+	}
+} 
+
+function onSubmit()
+{
+	document.getElementById("progress").style.display = "inline";
+	document.getElementById("fileForm").submit();
+}
+</script>
+
+</head>
+<body>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » PE单个文件分析 </div>
+<div id="wrap">
+<div id="containaer" >
+	<div class="control_bar" >
+		<form id="fileForm" name="fileForm" action = "../servlet/parser" method="post" enctype="multipart/form-data" >
+			&nbsp;文件路径：
+			<input name="fileName" type="file" id="fileName" size="40" style="margin-right: 50px;"/>
+			<input class="button_infile" type="button" onclick="onSubmit()" value=" 查看分析结果 "/>
+			&nbsp;&nbsp;
+			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
+		</form> 
+		
+	</div>
+</div>
+</div>
+</body>
+</html>
