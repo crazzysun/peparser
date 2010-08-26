@@ -4,19 +4,19 @@
 <dwr>
 
 	<init>
-	    <converter id="operation" class="com.operation.OperationConverter"/>
+	    <converter id="operation" class="com.pe.operation.OperationConverter"/>
 	</init>
 
 	<allow>
 
 		<create creator="none" javascript="RPC">
-			<param name="class" value="com.web.dwr.RPC" />
+			<param name="class" value="com.pe.web.dwr.RPC" />
 		</create>
 
 		<!-- =============================================================================== -->
-		<convert match="com.operation.Operation" converter="operation"/>
+		<convert match="com.pe.operation.Operation" converter="operation"/>
 
-		<convert match="com.entity.Bean" converter="bean"/>
+		<convert match="com.pe.entity.Bean" converter="bean"/>
 
 		<convert match="java.lang.Exception" converter="exception">
 			<param name='include' value='message,lineNumber'/>
