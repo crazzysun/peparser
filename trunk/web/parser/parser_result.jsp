@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page language="java" import="java.util.*, com.entity.parser.*" %>
 <jsp:useBean id="fileInfo" class="com.entity.parser.FileInfo" scope="session" />
 <jsp:useBean id="headers" class="java.util.Vector" scope="session" />

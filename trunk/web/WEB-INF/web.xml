@@ -4,7 +4,7 @@
 <web-app>
 	<servlet>
 		<servlet-name>launcher</servlet-name>
-		<servlet-class>com.web.servlet.Launcher</servlet-class>
+		<servlet-class>com.pe.web.servlet.Launcher</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
@@ -26,7 +26,7 @@
 	<!-- 分析pe文件的Servlet -->
 	<servlet>
 		<servlet-name>parser</servlet-name>
-		<servlet-class>com.web.servlet.ParserServlet</servlet-class>
+		<servlet-class>com.pe.web.servlet.ParserServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>parser</servlet-name>
