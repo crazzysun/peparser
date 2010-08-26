@@ -4,35 +4,69 @@
 <title>PE文件分析</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
 <script type="text/javascript">
 
-function getFullPath(obj)
-{
-	if(obj)
-	{
-		//ie
-		if (window.navigator.userAgent.indexOf("MSIE")>=1)
-		{
-			obj.select();
-			return document.selection.createRange().text;
-		}
-		//firefox
-		else if(window.navigator.userAgent.indexOf("Firefox")>=1)
-		{
-			if(obj.files)
-			{
-				return obj.files.item(0).getAsText("utf-8");
-			}
-			return obj.value;
-		}
-		return obj.value;
-	}
-} 
+$import("rpc.js");
+$import("debug.js");
+
+var path = "";
+var status = null;
+var completed = false;
 
 function onSubmit()
 {
-	document.getElementById("progress").style.display = "inline";
-	document.getElementById("fileForm").submit();
+	completed = false;
+	status = null;
+
+	if ($("fileName").value == "")
+	{
+		alert("请选择要分析的文件");
+		return;
+	}
+
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
+	}
+	$("progress").style.display = "inline";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = path;
+	operation.execute(callback);
+}
+
+/** 检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				alert("上载完成");
+				status = null;
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
+	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
 }
 </script>
 
@@ -42,14 +76,14 @@ function onSubmit()
 <div id="wrap">
 <div id="containaer" >
 	<div class="control_bar" >
-		<form id="fileForm" name="fileForm" action = "../servlet/parser" method="post" enctype="multipart/form-data" >
+		<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
 			&nbsp;文件路径：
 			<input name="fileName" type="file" id="fileName" size="40" style="margin-right: 50px;"/>
 			<input class="button_infile" type="button" onclick="onSubmit()" value=" 查看分析结果 "/>
 			&nbsp;&nbsp;
 			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
 		</form> 
-		
+		<iframe name="upload_result" id="upload_result" width="0" height="0" style="display:none"></iframe>
 	</div>
 </div>
 </div>

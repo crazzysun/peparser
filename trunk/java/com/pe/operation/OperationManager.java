@@ -55,7 +55,7 @@ public class OperationManager
 	
 	public static void initialize() throws Exception
 	{
-		String clazz = "com.operation.OperationManager";
+		String clazz = "com.pe.operation.OperationManager";
 		
 		instance = (OperationManager) Class.forName(clazz).newInstance();
 		instance.startup();
@@ -79,7 +79,7 @@ public class OperationManager
 //		{
 //			dm.begin();
 
-			operationPackageName = "com.operation";
+			operationPackageName = "com.pe.operation";
 			
 			loadOperationClasses();
 			
