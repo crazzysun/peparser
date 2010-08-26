@@ -11,7 +11,7 @@ public abstract class AbstractFileOperation
 {
 	protected File getHomeDirectory()
 	{
-		File home = new File("d:/work/peparser/data/");
+		File home = new File("d:/work/peparser/data");
 		if (!home.exists()) home.mkdirs();
 
 		return home;

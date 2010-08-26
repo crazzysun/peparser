@@ -58,7 +58,7 @@ public class RPC
 		
 		HttpServletRequest request = wc.getHttpServletRequest();
 		HttpServletResponse response = wc.getHttpServletResponse();
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		
 		OperationContext context = new OperationContext();
 		OperationContext.setContext(context);
