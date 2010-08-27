@@ -9,6 +9,7 @@
 
 $import("rpc.js");
 $import("debug.js");
+$import("tab.js");
 
 var path = "";
 var status = null;
@@ -59,6 +60,7 @@ function check()
 				completed = true;
 				alert("上载完成");
 				status = null;
+				peAnalyzer();
 				return;
 			}
 		}
@@ -68,6 +70,19 @@ function check()
 	var operation = new Operation("文件.获取上载进度");
 	operation.execute(callback);
 }
+
+/** 分析上传后的PE文件 */
+function peAnalyzer()
+{
+	var callback = function (o)
+	{
+		
+	}
+	var operation = new Operation("PE分析.分析单个文件");
+	operation.fileName = $("fileName").value;
+	operation.execute();
+}
+
 </script>
 
 </head>
@@ -75,16 +90,30 @@ function check()
 <div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » PE单个文件分析 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div class="control_bar" >
+
+	<div class="title">
 		<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
-			&nbsp;文件路径：
+			选取分析文件:
 			<input name="fileName" type="file" id="fileName" size="40" style="margin-right: 50px;"/>
-			<input class="button_infile" type="button" onclick="onSubmit()" value=" 查看分析结果 "/>
+			<input class="pe_result" type="button" onclick="onSubmit()"/>
 			&nbsp;&nbsp;
 			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
 		</form> 
 		<iframe name="upload_result" id="upload_result" width="0" height="0" style="display:none"></iframe>
 	</div>
+	
+	<div id="tab_bar">
+        <ul>
+            <li id="" class="on" onclick="tab_show(3,0)">角色维护</li>
+            <li id="" onclick="tab_show(3,1)">角色权限设置</li>
+            <li id="" onclick="tab_show(3,2)">账号管理</li>
+        </ul>
+	</div>
+    
+	<div id="tab_content_0">
+		<iframe src="../pe_struct.html" height='700px' width='100%' frameborder='0'></iframe>
+	</div>
+
 </div>
 </div>
 </body>

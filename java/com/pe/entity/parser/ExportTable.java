@@ -13,9 +13,10 @@ public class ExportTable implements Bean
 {
 	private static final long serialVersionUID = 1L;
 
-	private String dllName;
-	private int functionNum;
-	private int functionNameNum;
+	private String dllName;				//导出文件名
+	private int functionCount;			//导出函数个数
+	private int functionNameNum;		//导出有名函数名
+	
 	private List<ExportFunction> exportFunction;
 	
 	public String getDllName()
@@ -26,13 +27,13 @@ public class ExportTable implements Bean
 	{
 		this.dllName = dllName;
 	}
-	public int getFunctionNum()
+	public int getFunctionCount()
 	{
-		return functionNum;
+		return functionCount;
 	}
-	public void setFunctionNum(int functionNum)
+	public void setFunctionCount(int functionCount)
 	{
-		this.functionNum = functionNum;
+		this.functionCount = functionCount;
 	}
 	public int getFunctionNameNum()
 	{
