@@ -31,6 +31,11 @@ public interface PEAnalyzerDll extends Library
 	public String GetFileCreateTime();
 	public String GetFileModifyTime();
 	
+	/** 获取资源目录 */
+	public String GetDataDirectoryItemName(int DataDirectoryItemIndex);
+	public int GetDataDirectoryItemVirtualAddress(int DataDirectoryItemIndex);
+	public int GetDataDirectoryItemSize(int DataDirectoryItemIndex);
+	
 	/** 获取节表信息 */
 	public int GetSectionCount();
 	public String GetSectionName(int SectionIndex);
@@ -39,29 +44,35 @@ public interface PEAnalyzerDll extends Library
 	public int GetSectionMemberLen(int SectionIndex, int MemberIndex);
 	public int GetSectionMemberValue(int SectionIndex, int MemberIndex);
 	
+	/** 获取导入表信息 */
+	public int GetImportDllCount();
+	public String GetImportDllName(int DllIndex);
+	public int GetImportDllFunCount(int DllIndex);
+	public String GetImportDllFunName(int DllIndex, int FunIndex);
 	
-//	PEANALYZER_API int GetImportDllCount(void);
-//	PEANALYZER_API char* GetImportDllName(int DllIndex);
-//	PEANALYZER_API int GetImportDllFunCount(int DllIndex);
-//	PEANALYZER_API char* GetImportDllFunName(int DllIndex, int FunIndex);
-//	PEANALYZER_API char* GetExportDllName(void);
-//	PEANALYZER_API int GetExportFunCount(void);
-//	PEANALYZER_API int GetExportFunNameCount(void);
-//	PEANALYZER_API char* GetExportFunName(int FunIndex);
-//	PEANALYZER_API char* GetExportFunRVA(int FunIndex);
-//	PEANALYZER_API char* GetExportFunIndex(int FunIndex);
-//	PEANALYZER_API int GetRelocCount(void);
-//	PEANALYZER_API char* GetRelocName(int RelocIndex);
-//	PEANALYZER_API int GetRelocIndex(int RelocIndex);
-//	PEANALYZER_API int GetRelocChunkCount(int RelocIndex);
-//	PEANALYZER_API int GetRelocChunkIndex(int RelocIndex, int ChunkIndex);
-//	PEANALYZER_API int GetRelocChunkRVA(int RelocIndex, int ChunkIndex);
-//	PEANALYZER_API unsigned int GetRelocChunkFarAddr(int RelocIndex, int ChunkIndex);
-//	PEANALYZER_API char* GetRelocChunkType(int RelocIndex, int ChunkIndex);
-//	PEANALYZER_API int GetRSCCount(void);
-//	PEANALYZER_API char* GetRSCType(int RSCIndex);
-//	PEANALYZER_API int GetRSCItemCount(int RSCIndex);
-//	PEANALYZER_API char* GetRSCItemName(int RSCIndex, int ItemIndex);
-//	PEANALYZER_API unsigned int GetRSCItemRVA(int RSCIndex, int ItemIndex);
-//	PEANALYZER_API int GetRSCItemSize(int RSCIndex, int ItemIndex);
+	/** 获取导出表信息 */
+	public String GetExportDllName();
+	public int GetExportFunCount();
+	public int GetExportFunNameCount();
+	public String GetExportFunName(int FunIndex);
+	public String GetExportFunRVA(int FunIndex);
+	public String GetExportFunIndex(int FunIndex);
+	
+	/** 获取重定位表信息 */
+	public int GetRelocCount();
+	public String GetRelocName(int RelocIndex);
+	public int GetRelocIndex(int RelocIndex);
+	public int GetRelocChunkCount(int RelocIndex);
+	public int GetRelocChunkIndex(int RelocIndex, int ChunkIndex);
+	public int GetRelocChunkRVA(int RelocIndex, int ChunkIndex);
+	public int GetRelocChunkFarAddr(int RelocIndex, int ChunkIndex);
+	public String GetRelocChunkType(int RelocIndex, int ChunkIndex);
+	
+	/** 获取资源目录信息 */
+	public int GetRSCCount();
+	public String GetRSCType(int RSCIndex);
+	public int GetRSCItemCount(int RSCIndex);
+	public String GetRSCItemName(int RSCIndex, int ItemIndex);
+	public int GetRSCItemRVA(int RSCIndex, int ItemIndex);
+	public int GetRSCItemSize(int RSCIndex, int ItemIndex);
 }
