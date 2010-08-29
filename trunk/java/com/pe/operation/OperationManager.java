@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import com.pe.UserException;
 import com.pe.util.bean.BeanCreator;
 import com.pe.util.JavaPackageExplorer;
+import com.pe.util.SystemConfigure;
 
 /**
  * 操作管理器 根据指定的帐号、操作名，查询数据库得到具体的操作Java类，并执行动作
@@ -55,7 +56,7 @@ public class OperationManager
 	
 	public static void initialize() throws Exception
 	{
-		String clazz = "com.pe.operation.OperationManager";
+		String clazz = SystemConfigure.get("OperationManager");
 		
 		instance = (OperationManager) Class.forName(clazz).newInstance();
 		instance.startup();

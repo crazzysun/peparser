@@ -8,8 +8,16 @@ public class ResourceItem implements Bean
 
 	private String name;			//名称
 	private String RAV;				
-	private String size;
+	private int size;
 	
+	public int getSize()
+	{
+		return size;
+	}
+	public void setSize(int size)
+	{
+		this.size = size;
+	}
 	public String getName()
 	{
 		return name;
@@ -26,12 +34,5 @@ public class ResourceItem implements Bean
 	{
 		RAV = rAV;
 	}
-	public String getSize()
-	{
-		return size;
-	}
-	public void setSize(String size)
-	{
-		this.size = size;
-	}
+
 }

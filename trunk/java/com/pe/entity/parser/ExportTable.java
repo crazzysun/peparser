@@ -15,7 +15,7 @@ public class ExportTable implements Bean
 
 	private String dllName;				//导出文件名
 	private int functionCount;			//导出函数个数
-	private int functionNameNum;		//导出有名函数名
+	private int functionNameCount;		//导出有名函数名
 	
 	private List<ExportFunction> exportFunction;
 	
@@ -35,13 +35,13 @@ public class ExportTable implements Bean
 	{
 		this.functionCount = functionCount;
 	}
-	public int getFunctionNameNum()
+	public int getFunctionNameCount()
 	{
-		return functionNameNum;
+		return functionNameCount;
 	}
-	public void setFunctionNameNum(int functionNameNum)
+	public void setFunctionNameCount(int functionNameCount)
 	{
-		this.functionNameNum = functionNameNum;
+		this.functionNameCount = functionNameCount;
 	}
 	public List<ExportFunction> getExportFunction()
 	{

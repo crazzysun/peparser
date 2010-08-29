@@ -14,7 +14,7 @@ public class Resource implements Bean
 	private static final long serialVersionUID = 1L;
 
 	private String recType;				//资源类型
-	private String recCount;			//资源数量
+	private int recCount;			//资源数量
 	private List<ResourceItem> item;
 	
 	public String getRecType()
@@ -25,11 +25,11 @@ public class Resource implements Bean
 	{
 		this.recType = recType;
 	}
-	public String getRecCount()
+	public int getRecCount()
 	{
 		return recCount;
 	}
-	public void setRecCount(String recCount)
+	public void setRecCount(int recCount)
 	{
 		this.recCount = recCount;
 	}

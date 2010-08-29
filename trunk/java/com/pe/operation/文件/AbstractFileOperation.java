@@ -3,15 +3,16 @@ package com.pe.operation.文件;
 import java.io.File;
 
 import com.pe.UserException;
+import com.pe.util.SystemConfigure;
 
 /**
  * 抽象文件相关操作
  */
 public abstract class AbstractFileOperation
 {
-	protected File getHomeDirectory()
+	protected File getHomeDirectory() throws Exception
 	{
-		File home = new File("d:/work/peparser/data");
+		File home = new File(SystemConfigure.get("PEHome"));
 		if (!home.exists()) home.mkdirs();
 
 		return home;

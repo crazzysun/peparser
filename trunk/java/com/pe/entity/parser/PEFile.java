@@ -15,10 +15,37 @@ public class PEFile implements Bean
 	
 	private FileInfo fileInfo;					//文件信息
 	private List<PEHeader> headers;				//4个文件头部信息
+	private List<DataDirectory> dataDirectory;	//数据目录
 	private List<SectionHeader> sections;		//节表头部
 	private List<ImportTable> importTable;		//导入表（n个）
 	private ExportTable exportTable;			//导出表
+	private List<Relocation> relocation;		//重定位表
+	private List<Resource> resource;			//资源目录
 	
+	public List<DataDirectory> getDataDirectory()
+	{
+		return dataDirectory;
+	}
+	public void setDataDirectory(List<DataDirectory> dataDirectory)
+	{
+		this.dataDirectory = dataDirectory;
+	}
+	public List<Relocation> getRelocation()
+	{
+		return relocation;
+	}
+	public void setRelocation(List<Relocation> relocation)
+	{
+		this.relocation = relocation;
+	}
+	public List<Resource> getResource()
+	{
+		return resource;
+	}
+	public void setResource(List<Resource> resource)
+	{
+		this.resource = resource;
+	}
 	public FileInfo getFileInfo()
 	{
 		return fileInfo;

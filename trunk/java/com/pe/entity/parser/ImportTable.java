@@ -14,7 +14,7 @@ public class ImportTable implements Bean
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
-	private List<String> funtionName;
+	private List<String> functionName;
 	
 	public String getName()
 	{
@@ -24,12 +24,13 @@ public class ImportTable implements Bean
 	{
 		this.name = name;
 	}
-	public List<String> getFuntionName()
+	public List<String> getFunctionName()
 	{
-		return funtionName;
+		return functionName;
 	}
-	public void setFuntionName(List<String> funtionName)
+	public void setFunctionName(List<String> functionName)
 	{
-		this.funtionName = funtionName;
+		this.functionName = functionName;
 	}
+
 }
