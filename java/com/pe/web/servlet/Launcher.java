@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.pe.operation.OperationManager;
+import com.pe.util.SystemConfigure;
 
 public class Launcher extends HttpServlet implements ServletContextListener
 {
@@ -28,14 +29,14 @@ public class Launcher extends HttpServlet implements ServletContextListener
 			context = (Context) context.lookup("java:comp/env");
 
 			// 载入系统配置
-//			try
-//			{
-//				SystemConfigure.load((String) context.lookup("configure")); 
-//			}
-//			catch (Exception e)
-//			{
-//				throw new Exception("请检查tomcat目录下的tcc.xml文件", e);
-//			}
+			try
+			{
+				SystemConfigure.load((String) context.lookup("configure")); 
+			}
+			catch (Exception e)
+			{
+				throw new Exception("请检查tomcat目录下的peparser.xml文件", e);
+			}
 			
 			// 初始化DAO管理器
 //			DaoManager.initialize((DataSource) context.lookup("jdbc/tcc"));
