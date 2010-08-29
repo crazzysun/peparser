@@ -22,6 +22,7 @@ public class 分析单个文件 extends AbstractFileOperation implements Operati
 		File file = new File(path, fileName);
 		LoadPEInfo loadPEInfo = new LoadPEInfo(file);
 		peFile = loadPEInfo.Analyze();
+		if (peFile == null) throw new UserException("文件" + fileName + "不是有效的PE文件！");
 	}
 
 	public PEFile getPeFile()

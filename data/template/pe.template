@@ -1,0 +1,935 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>{FileName}结构分析报告</title>
+<link rel="stylesheet" href="styles/pe_struct.css" type="text/css" />
+</head>
+<body>
+    <div class="t">
+        <span class="clr">文件名：</span>{FileName}<br />
+        <span class="clr">大 小：</span>{FileSize}
+        <br>
+        <span class="clr">创建时间：</span>{FileCreateTime}<br />
+        <span class="clr">修改时间：</span> {FileModifyTime}
+        <br />
+        <span class="clr">报告生成日期：</span> {FileCreateReportTime}
+        <br />
+        <div style="padding-top: 8px;">
+            <span class="Quickguide"><a href="#dos">Dos头</a></span> <span class="Quickguide"><a
+                href="#NT">PE头</a></span> <span class="Quickguide"><a href="#NT_FILE">PE文件头</a></span>
+            <span class="Quickguide"><a href="#NT_OPTION">可选PE头</a></span> <span class="Quickguide">
+                <a href="#NT_DATADIR">数据目录</a></span> <span class="Quickguide"><a href="#NT_SECTION">
+                    区段信息</a></span> <span class="Quickguide"><a href="#IMP">导入表</a></span> <span class="Quickguide">
+                        <a href="#EXP">导出表</a></span> <span class="Quickguide"><a href="#REL">重定位表</a></span>
+            <span class="Quickguide"><a href="#RES">资源表</a></span>
+        </div>
+    </div>
+    <p class="clr">
+        Dos头(IMAGE_DOS_HEADER)<a name="dos"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="126">
+                Offset</td>
+            <td width="126">
+                RVA</td>
+            <td>
+                Description</td>
+            <td width="355">
+                Value</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000000</td>
+            <td>
+                0x00000000</td>
+            <td>
+                <span class="special">e_magic</span><span class="info">(标识是否为一个有效的DOS程序)</span></td>
+            <td>
+                <span class="special">{e_magic}</span></td>
+        </tr>
+        <tr>
+            <td>
+                0x00000002</td>
+            <td>
+                0x00000002</td>
+            <td>
+                e_cblp<span class="info">(文件最后页的字节数)</span></td>
+            <td>
+                {e_cblp}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000004</td>
+            <td>
+                0x00000004</td>
+            <td>
+                e_cp<span class="info">(文件页数)</span></td>
+            <td>
+                {e_cp}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000006</td>
+            <td>
+                0x00000006</td>
+            <td>
+                e_crlc<span class="info">(重定义元素个数)</span></td>
+            <td>
+                {e_crlc}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000008</td>
+            <td>
+                0x00000008</td>
+            <td>
+                e_cparhdr<span class="info">(头部尺寸，以段落为单位)</span></td>
+            <td>
+                {e_cparhdr}</td>
+        </tr>
+        <tr>
+            <td>
+                0x0000000A</td>
+            <td>
+                0x0000000A</td>
+            <td>
+                e_minalloc<span class="info">(所需的最小附加段)</span></td>
+            <td>
+                {e_minalloc}</td>
+        </tr>
+        <tr>
+            <td>
+                0x0000000C</td>
+            <td>
+                0x0000000C</td>
+            <td>
+                e_maxalloc<span class="info">(所需的最大附加段)</span></td>
+            <td>
+                {e_maxalloc}</td>
+        </tr>
+        <tr>
+            <td>
+                0x0000000E</td>
+            <td>
+                0x0000000E</td>
+            <td>
+                e_ss<span class="info">(初始的SS值（相对偏移量）)</span></td>
+            <td>
+                {e_ss}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000010</td>
+            <td>
+                0x00000010</td>
+            <td>
+                e_sp<span class="info">(初始的SP值)</span></td>
+            <td>
+                {e_sp}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000012</td>
+            <td>
+                0x00000012</td>
+            <td>
+                e_csum<span class="info">(校验和)</span></td>
+            <td>
+                {e_csum}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000014</td>
+            <td>
+                0x00000014</td>
+            <td>
+                e_ip<span class="info">(初始的IP值)</span></td>
+            <td>
+                {e_ip}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000016</td>
+            <td>
+                0x00000016</td>
+            <td>
+                e_cs<span class="info">(初始的CS值（相对偏移量）)</span></td>
+            <td>
+                {e_cs}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000018</td>
+            <td>
+                0x00000018</td>
+            <td>
+                e_lfarlc<span class="info">(重分配表文件地址)</span></td>
+            <td>
+                {e_lfarlc}</td>
+        </tr>
+        <tr>
+            <td>
+                0x0000001A</td>
+            <td>
+                0x0000001A</td>
+            <td>
+                e_ovno<span class="info">(覆盖号)</span></td>
+            <td>
+                {e_ovno}</td>
+        </tr>
+        <tr>
+            <td>
+                0x0000001C</td>
+            <td>
+                0x0000001C</td>
+            <td>
+                e_res<span class="info">(保留字)</span></td>
+            <td>
+                {e_res}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000024</td>
+            <td>
+                0x00000024</td>
+            <td>
+                e_oemid<span class="info">(OEM标识符（相对e_oeminfo）)</span></td>
+            <td>
+                {e_oemid}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000026</td>
+            <td>
+                0x00000026</td>
+            <td>
+                e_oeminfo<span class="info">(OEM信息)</span></td>
+            <td>
+                {e_oeminfo}</td>
+        </tr>
+        <tr>
+            <td>
+                0x00000028</td>
+            <td>
+                0x00000028</td>
+            <td>
+                e_res2<span class="info">(10个字长度的保留字)</span></td>
+            <td>
+                {e_res2}</td>
+        </tr>
+        <tr>
+            <td>
+                0x0000003C</td>
+            <td>
+                0x0000003C</td>
+            <td>
+                <span class="special">e_lfanew<span class="info">(指向PE的IMAGE_NT_HEADES头，即指向&quot;PE&quot;字段)</span></span></td>
+            <td>
+                <span class="special">{e_lfanew}</span></td>
+        </tr>
+    </table>
+    <p class="clr">
+        PE文件标志<a name="NT"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="120">
+                Offset</td>
+            <td width="120">
+                RVA</td>
+            <td>
+                Description</td>
+            <td width="355">
+                Value</td>
+        </tr>
+        <tr>
+            <td>
+                {signature_add}</td>
+            <td>
+                {signature_add}</td>
+            <td>
+                <span class="special">Signature</span><span class="info">(PE文件的标志)</span></td>
+            <td>
+                <span class="special">{signature}</span></td>
+        </tr>
+    </table>
+    <p class="clr">
+        PE文件头(IMAGE_FILE_HEADER)<a name="NT_FILE" id="NT_FILE"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="120">
+                Offset</td>
+            <td width="120">
+                RVA</td>
+            <td>
+                Description</td>
+            <td width="355">
+                Value</td>
+        </tr>
+        <tr>
+            <td>
+                {machine_add}</td>
+            <td>
+                {machine_add}</td>
+            <td>
+                <span class="special">Machine</span><span class="info">(PE所运行的平台)</span></td>
+            <td>
+                <span class="special">{machine}</span></td>
+        </tr>
+        <tr>
+            <td>
+                {NOS_add}</td>
+            <td>
+                {NOS_add}</td>
+            <td>
+                <span class="special">NumberOfSections</span><span class="info">(PE所包含的节数)</span></td>
+            <td class="special">
+                {NumberOfSections}</td>
+        </tr>
+        <tr>
+            <td>
+                {TDS_add}</td>
+            <td>
+                {TDS_add}</td>
+            <td>
+                TimeDateStamp<span class="info">(生成日期)</span></td>
+            <td>
+                {TimeDateStamp}</td>
+        </tr>
+        <tr>
+            <td>
+                {PTST_add}</td>
+            <td>
+                {PTST_add}</td>
+            <td>
+                PointerToSymbolTable<span class="info">(符号表)</span></td>
+            <td>
+                {PointerToSymbolTable}</td>
+        </tr>
+        <tr>
+            <td>
+                {NOSym_add}</td>
+            <td>
+                {NOSym_add}</td>
+            <td>
+                NumberOfSymbols<span class="info">(符号数量)</span></td>
+            <td>
+                {NumberOfSymbols}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOOH_add}</td>
+            <td>
+                {SOOH_add}</td>
+            <td>
+                SizeOfOptionalHeader<span class="info">(可选文件头大小)</span></td>
+            <td>
+                {SizeOfOptionalHeader}</td>
+        </tr>
+        <tr>
+            <td>
+                {HAR_add}</td>
+            <td>
+                {HAR_add}</td>
+            <td>
+                Characteristics<span class="info">(文件属性)</span></td>
+            <td>
+                {Characteristics}</td>
+        </tr>
+    </table>
+    <p class="clr">
+        可选PE文件头(IMAGE_OPTIONAL_HEADER)<a name="NT_OPTION" id="NT_OPTION"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="120">
+                Offset</td>
+            <td width="120">
+                RVA</td>
+            <td>
+                Description</td>
+            <td width="355">
+                Value</td>
+        </tr>
+        <tr>
+            <td>
+                {magic_add}</td>
+            <td>
+                {magic_add}</td>
+            <td>
+                <span class="special">Magic</span><span class="info">(说明文件类型是ROM映像还是可执行映像)</span></td>
+            <td>
+                <span class="special">{magic}</span></td>
+        </tr>
+        <tr>
+            <td>
+                {MajLV_add}</td>
+            <td>
+                {MajLV_add}</td>
+            <td>
+                MajorLinkerVersion<span class="info">(链接器的主版本号)</span></td>
+            <td>
+                <%=optionalValue.get("Magic") %></td>
+        </tr>
+        <tr>
+            <td>
+                {MinLV_add}</td>
+            <td>
+                {MinLV_add}</td>
+            <td>
+                MinorLinkerVersion<span class="info">(链接器副版本号)</span></td>
+            <td>
+                {MinorLinkerVersion}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOC_add}</td>
+            <td>
+                {SOC_add}</td>
+            <td>
+                SizeOfCode<span class="info">(Code Section的大小，是对齐后的大小)</span></td>
+            <td>
+                {SizeOfCode}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOID_add}</td>
+            <td>
+                {SOID_add}</td>
+            <td>
+                SizeOfInitializedData<span class="info">(已初始化的数据大小)</span></td>
+            <td>
+                {SizeOfInitializedData}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOUD_add}</td>
+            <td>
+                {SOUD_add}</td>
+            <td>
+                SizeOfUninitializedData<span class="info">(未初始化的数据大小)</span></td>
+            <td>
+                {SizeOfUninitializedData}</td>
+        </tr>
+        <tr>
+            <td>
+                {AOP_add}</td>
+            <td>
+                {AOP_add}</td>
+            <td>
+                <span class="special">AddressOfEntryPoint</span><span class="info">(程序执行的相对入口地址)</span></td>
+            <td>
+                <span class="special">{AddressOfEntryPoint}</span></td>
+        </tr>
+        <tr>
+            <td>
+                {BOC_add}</td>
+            <td>
+                {BOC_add}</td>
+            <td>
+                BaseOfCode<span class="info">(代码段的起始的RVA)</span></td>
+            <td>
+                {BaseOfCode}</td>
+        </tr>
+        <tr>
+            <td>
+                {BOD_add}</td>
+            <td>
+                {BOD_add}</td>
+            <td>
+                BaseOfData<span class="info">(数据段的起始的RVA)</span></td>
+            <td>
+                {BaseOfData}</td>
+        </tr>
+        <tr>
+            <td>
+                {IB_add}</td>
+            <td>
+                {IB_add}</td>
+            <td>
+                <span class="special">ImageBase</span><span class="info">(程序载入内存的基地址)</span></td>
+            <td class="special">
+                {ImageBase}</td>
+        </tr>
+        <tr>
+            <td>
+                {SA_add}</td>
+            <td>
+                {SA_add}</td>
+            <td>
+                SectionAlignment<span class="info">(内存对齐页大小，通常0x1000K)</span></td>
+            <td>
+                {SectionAlignment}</td>
+        </tr>
+        <tr>
+            <td>
+                {FA_add}</td>
+            <td>
+                {FA_add}</td>
+            <td>
+                FileAlignment<span class="info">(磁盘对齐页大小，通常0x200K)</span></td>
+            <td>
+                {FileAlignment}</td>
+        </tr>
+        <tr>
+            <td>
+                {MajOSV_add}</td>
+            <td>
+                {MajOSV_add}</td>
+            <td>
+                MajorOperatingSystemVersion<span class="info">(所需最低要求操作系统的主版本号)</span></td>
+            <td>
+                {MajorOperatingSystemVersion}</td>
+        </tr>
+        <tr>
+            <td>
+                {MinOSV_add}</td>
+            <td>
+                {MinOSV_add}</td>
+            <td>
+                MinorOperatingSystemVersion<span class="info">(所需最低要求操作系统的副版本号)</span></td>
+            <td>
+                {MinorOperatingSystemVersion}</td>
+        </tr>
+        <tr>
+            <td>
+                {MaxIV_add}</td>
+            <td>
+                {MaxIV_add}</td>
+            <td>
+                MajorImageVersion<span class="info">(该程序的主版本号)</span></td>
+            <td>
+                {MajorImageVersion}</td>
+        </tr>
+        <tr>
+            <td>
+                {MinIV_add}</td>
+            <td>
+                {MinIV_add}</td>
+            <td>
+                MinorImageVersion<span class="info">(该程序的副版本号)</span></td>
+            <td>
+                {MinorImageVersion}</td>
+        </tr>
+        <tr>
+            <td>
+                {MajSV_add}</td>
+            <td>
+                {MajSV_add}</td>
+            <td>
+                MajorSubsystemVersion<span class="info">(所需最低子系统版本的主版本号)</span></td>
+            <td>
+                {MajorSubsystemVersion}</td>
+        </tr>
+        <tr>
+            <td>
+                {MinSV_add}</td>
+            <td>
+                {MinSV_add}</td>
+            <td>
+                MinorSubsystemVersion<span class="info">(所需最低子系统版本的副版本号)</span></td>
+            <td>
+                {MinorSubsystemVersion}</td>
+        </tr>
+        <tr>
+            <td>
+                {W32VV_add}</td>
+            <td>
+                {W32VV_add}</td>
+            <td>
+                Win32VersionValue<span class="info">(保留值)</span></td>
+            <td>
+                {Win32VersionValue}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOI_add}</td>
+            <td>
+                {SOI_add}</td>
+            <td>
+                SizeOfImage<span class="info">(装入内存后总大小)</span></td>
+            <td>
+                {SizeOfImage}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOH_add}</td>
+            <td>
+                {SOH_add}</td>
+            <td>
+                SizeOfHeaders<span class="info">(文件头的大小，包括DOS头、NT头和块表的大小)</span></td>
+            <td>
+                {SizeOfHeaders}</td>
+        </tr>
+        <tr>
+            <td>
+                {PECS_add}</td>
+            <td>
+                {PECS_add}</td>
+            <td>
+                CheckSum<span class="info">(CRC检验值)</span></td>
+            <td>
+                {PECheckSum}</td>
+        </tr>
+        <tr>
+            <td>
+                {SUBS_add}</td>
+            <td>
+                {SUBS_add}</td>
+            <td>
+                Subsystem<span class="info">(图形接口子系统GUI)</span></td>
+            <td>
+                {Subsystem}</td>
+        </tr>
+        <tr>
+            <td>
+                {DllChar_add}</td>
+            <td>
+                {DllChar_add}</td>
+            <td>
+                DllCharacteristics<span class="info">(DllMain何时被调用，默认为0)</span></td>
+            <td>
+                {DllCharacteristics}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOSR_add}</td>
+            <td>
+                {SOSR_add}</td>
+            <td>
+                SizeOfStackReserve<span class="info">(为线程保留的栈大小)</span></td>
+            <td>
+                {SizeOfStackReserve}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOSC_add}</td>
+            <td>
+                {SOSC_add}</td>
+            <td>
+                SizeOfStackCommit<span class="info">(线程初始化时提交的栈大小)</span></td>
+            <td>
+                {SizeOfStackCommit}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOHR_add}</td>
+            <td>
+                {SOHR_add}</td>
+            <td>
+                SizeOfHeapReserve<span class="info">(为进程默认堆保留的内存大小)</span></td>
+            <td>
+                {SizeOfHeapReserve}</td>
+        </tr>
+        <tr>
+            <td>
+                {SOHC_add}</td>
+            <td>
+                {SOHC_add}</td>
+            <td>
+                SizeOfHeapCommit<span class="info">(进程初始化时提交的堆大小)</span></td>
+            <td>
+                {SizeOfHeapCommit}</td>
+        </tr>
+        <tr>
+            <td>
+                {LF_add}</td>
+            <td>
+                {LF_add}</td>
+            <td>
+                LoaderFlags<span class="info">(与调试相关)</span></td>
+            <td>
+                {LoaderFlags}</td>
+        </tr>
+        <tr>
+            <td>
+                {NRS_add}</td>
+            <td>
+                {NRS_add}</td>
+            <td>
+                NumberOfRvaAndSizes<span class="info">(数据目录的总项数，通常为0x10)</span></td>
+            <td>
+                {NumberOfRvaAndSizes}</td>
+        </tr>
+    </table>
+    <p class="clr">
+        数据目录(IMAGE_DATA_DIRECTORY)<a name="NT_DATADIR" id="NT_DATADIR"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="120">
+                Offset</td>
+            <td width="120">
+                RVA</td>
+            <td style="width: 319px">
+                Name</td>
+            <td>
+                Description</td>
+            <td width="355">
+                Value</td>
+        </tr>
+        <!--DataDir_Item_Start-->
+        <tr>
+            <td rowspan="2">
+                {DDN_add}</td>
+            <td rowspan="2">
+                {DDN_add}</td>
+            <td rowspan="2" style="width: 319px">
+                {Data_Dir_Name}</td>
+            <td>
+                VirtualAddress</td>
+            <td>
+                {VirtualAddress}</td>
+        </tr>
+        <tr>
+            <td>
+                isize</td>
+            <td>
+                {isize}</td>
+        </tr>
+        <!--DataDir_Item_End-->
+    </table>
+    <p class="clr">
+        PE区段信息(IMAGE_SECTION_HEADER)<a name="NT_SECTION" id="NT_SECTION"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="120">
+                Offset</td>
+            <td width="120">
+                RVA</td>
+            <td>
+                Description</td>
+            <td width="355">
+                Value</td>
+        </tr>
+        <!--SECTION_HEADER_START-->
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {Name1_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {Name1_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}" class="special">
+                Name<span class="info">(区段名称)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                <span class="special">{Name1}</span></td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {MisV_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {MisV_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                Misc.VirtualSize<span class="info">(占内存大小)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {Misc.VirtualSize}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {VA_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {VA_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                VirtualAddress<span class="info">(虚拟地址)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {VirtualAddress}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {SORD_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {SORD_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                SizeOfRawData<span class="info">(占磁盘大小)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {SizeOfRawData}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PTRD_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PTRD_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                PointerToRawData<span class="info">(文件偏移)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PointerToRawData}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PTR_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PTR_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                PointerToRelocations<span class="info">(重定位信息)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PointerToRelocations}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PTL_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PTL_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                PointerToLinenumbers<span class="info">(行号信息偏移)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {PointerToLinenumbers}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {NOR_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {NOR_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                NumberOfRelocations<span class="info">(重定位数量)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {NumberOfRelocations}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {NOL_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {NOL_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                NumberOfLinenumbers<span class="info">(行号数目)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {NumberOfLinenumbers}</td>
+        </tr>
+        <tr>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {Char_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {Char_add}</td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                Characteristics<span class="info">(区段属性)</span></td>
+            <td bgcolor="{SHS_BGCOLOR}">
+                {Section_Characteristics}</td>
+        </tr>
+        <!--SECTION_HEADER_END-->
+</table>
+    <br />
+    <!--SECTION_HEADER_END-->
+    <p class="clr">
+        导入表(IMAGE_IMPORT_DESCRIPTOR)<a name="IMP" id="IMP"></a></p>
+    <!--IMPORT_TABLE_START-->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td colspan="3" align="left">
+                <span class="clr">导入文件名称：</span>{IMP_DLL_NAME}</td>
+        </tr>
+        <tr class="head">
+            <td width="30%">
+                导入函数名</td>
+            <td width="30%">
+                导入函数名</td>
+            <td>
+                导入函数名</td>
+        </tr>
+        <!--IMP_TABLE_ITME_START-->
+        <tr>
+            <td>
+                {IMP_FUNNAME1}</td>
+            <td>
+                {IMP_FUNNAME2}</td>
+            <td>
+                {IMP_FUNNAME3}</td>
+        </tr>
+        <!--IMP_TABLE_ITME_END-->
+    </table>
+    <br />
+    <!--IMPORT_TABLE_END-->
+    <!--EXPORT_TABLE_START-->
+    <p class="clr">
+        导出表(IMAGE_EXPORT_DIRECTORY)<a name="EXP" id="EXP"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td colspan="3" align="left">
+                <span class="clr">导出文件名称：</span>{EXP_DLL_NAME} &nbsp; <strong><span style="color: #ffcc00">
+                    导出数量：</span></strong>{EXP_COUNT} &nbsp;&nbsp; <strong><span style="color: #ffcc00">导出有名函数：</span></strong>{EXP_NAME_COUNT}</td>
+        </tr>
+        <tr class="head">
+            <td width="120px">
+                Index</td>
+            <td width="120px">
+                RVA</td>
+            <td>
+                Function Name</td>
+        </tr>
+        <!--EXP_TABLE_ITME_START-->
+        <tr>
+            <td>
+                {EXP_Index}</td>
+            <td>
+                {EXP_RVA}</td>
+            <td>
+                {EXP_FUN}</td>
+        </tr>
+        <!--EXP_TABLE_ITME_END-->
+    </table>
+    <br />
+    <!--EXPORT_TABLE_END-->
+    <!--RELOC_TABLE_START-->
+    <p class="clr">
+        重定位表(IMAGE_BASE_RELOCATION)<a name="REL" id="REL"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td colspan="4" align="left">
+                <span class="clr">编号：</span>{REL_INDEX}<br>
+                <span class="clr">所属块名：</span>{REL_SECTION_NAME}<br>
+                <span class="clr">块数量：</span>{REL_NUM}</td>
+        </tr>
+        <tr class="head">
+            <td width="150px">
+                Index</td>
+            <td width="150px">
+                RVA</td>
+            <td width="150px">
+                FarAddress</td>
+            <td>
+                Type</td>
+        </tr>
+        <!--RELOC_TABLE_ITME_START-->
+        <tr>
+            <td>
+                {REL_Index}</td>
+            <td>
+                {REL_RVA}</td>
+            <td>
+                {REL_FarAdd}</td>
+            <td>
+                {REL_Type}</td>
+        </tr>
+        <!--RELOC_TABLE_ITME_END-->
+    </table>
+    <br />
+    <!--RELOC_TABLE_END-->
+    <p class="clr">
+        资源表(IMAGE_RESOURCE_DIRECTORY)<a name="RES" id="RES"></a></p>
+    <!--RES_TABLE_START-->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td colspan="3" align="left">
+                <span class="clr">资源类型：</span>{REC_TYPE}</td>
+        </tr>
+        <tr class="head">
+         <td colspan="3" align="left">
+                <span class="clr">资源数量：</span>{REC_NUM}</td>
+        </tr>
+        <tr class="head">
+            <td width="150px">
+                RVA</td>
+            <td width="150px">
+                Size</td>
+            <td>
+                Name</td>
+        </tr>
+        <!--RES_TABLE_ITME_START-->
+        <tr>
+            <td>
+                {REC_RVA}</td>
+            <td>
+                {REC_Size}</td>
+            <td>
+                {REC_Name}</td>
+        </tr>
+        <!--RES_TABLE_ITME_END-->
+    </table>
+    <br />
+    <!--RES_TABLE_END-->
+</body>
+</html>
