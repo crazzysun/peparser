@@ -11,6 +11,9 @@ public interface PEAnalyzerDll extends Library
 	/** 加载PE文件 */
 	public int LoadPEHeader(String FileName);
 	
+	/** 检查文件是否是有效的PE文件 */
+	public boolean isPE();
+	
 	/** 获取PE头 */
 	//获取header数目
 	public int GetHeaderCount();

@@ -39,6 +39,11 @@ public class LoadPEInfo
 	{
 		/** 通过dll加载PE文件 */
 		PE.LoadPEHeader(file.getPath());
+		
+		/** 检查文件是否是有效的PE文件 */
+		if(!PE.isPE())
+			return null;
+		
 		PEFile peFile = new PEFile();
 		peFile.setFileInfo(loadFileInfo());
 		peFile.setHeaders(loadHeaders());
