@@ -80,7 +80,7 @@ public class OperationManager
 //		{
 //			dm.begin();
 
-			operationPackageName = "com.pe.operation";
+			operationPackageName = SystemConfigure.get("OperationPackageName");
 			
 			loadOperationClasses();
 			
