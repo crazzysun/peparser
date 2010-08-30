@@ -113,9 +113,8 @@ public class CreateHTML
 		templateContent = replace(templateContent, "{e_lfanew}", dosValue.get("e_lfanew"));
 		
 		//PE文件标志
-		PEHeader peSignature = peFile.getHeaders().get(1);
 		templateContent = replace(templateContent, "{signature_add}", dosValue.get("e_lfanew"));
-		templateContent = replace(templateContent, "{signature}", peSignature.getValue().get("Signature"));
+		templateContent = replace(templateContent, "{signature}", "PE00");
 		
 		//PE文件头
 		PEHeader fileHeader = peFile.getHeaders().get(2);

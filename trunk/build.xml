@@ -1,6 +1,6 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 
-<project default="build" basedir="." name="tcc">
+<project default="build" basedir="." name="peparser">
 
 	<property file="build.properties"/>
 
@@ -22,7 +22,7 @@
 	<target name="java" depends="init">
 		<javac destdir="web/WEB-INF/classes" encoding="UTF-8" debug="on">
 			<src path="java"/>
-			<src path="load_data"/>
+			<src path="data"/>
 			<classpath refid="lib.path"/>
 		</javac>
 		<copy todir="web/WEB-INF/classes">
