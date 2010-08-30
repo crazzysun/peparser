@@ -14,6 +14,8 @@ $import("tab.js");
 var path = "";
 var status = null;
 var completed = false;
+var tabCount = 0;
+var fileNameArray = {};
 
 function onSubmit()
 {
@@ -59,6 +61,7 @@ function check()
 			{
 				completed = true;
 				alert("上载完成");
+				$("progress").style.display = "none";
 				status = null;
 				peAnalyzer();
 				return;
@@ -76,11 +79,39 @@ function peAnalyzer()
 {
 	var callback = function (o)
 	{
-		
+		appendTab(o.peFile);
 	}
 	var operation = new Operation("PE分析.分析单个文件");
 	operation.fileName = $("fileName").value;
 	operation.execute();
+}
+
+function appendTab(data)
+{
+	$("container").style.display = "block";
+	tabCount++;
+
+	var fileName = data.fileInfo.fileName;
+	fileNameArray.push(fileName);
+	if (tabCount != fileNameArray.length)
+	{
+		alert("页面中tab数目有误，请重新打开该页面");
+		return;
+	}
+
+	var tabContainer = $("tab_ul");
+	util.clear(tabContainer);
+	for (var i = 0; i < tabCount; i++)
+	{
+		var li = document.createElement("li");
+		li.innerHTML = fileNameArray[i];
+		li.id = "tab_bar_li_" + i;
+		var src = "../peResult/" + fileNameArray[i] + ".html";
+		li.onclick = form_tab_show(tabCount, i, src);
+		tabContainer.appendChild(li);
+	}
+
+	form_tab_show(tabCount, tabCount - 1, "../peResult/" + fileName + ".html");
 }
 
 </script>
@@ -103,17 +134,16 @@ function peAnalyzer()
 	</div>
 	
 	<div id="tab_bar">
-        <ul>
-            <li id="" class="on" onclick="tab_show(3,0)">角色维护</li>
-            <li id="" onclick="tab_show(3,1)">角色权限设置</li>
-            <li id="" onclick="tab_show(3,2)">账号管理</li>
+        <ul id="tab_ul">
+            <!-- <li class="on" id="tab_bar_li_0" onclick="tab_show(3,0)">角色维护</li> -->
         </ul>
 	</div>
     
-	<div id="tab_content_0">
-		<iframe src="../pe_struct.html" height='700px' width='100%' frameborder='0'></iframe>
+	<div id="container" style="display:none">
+		<iframe id="tab_form" src="#"></iframe>
 	</div>
-
+		 
+ 
 </div>
 </div>
 </body>

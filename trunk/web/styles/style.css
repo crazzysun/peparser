@@ -80,7 +80,13 @@ ul li{list-style-type:none;margin:0px;padding:0px}
 	padding:10px
 }
 
+#tab_form {
+	height: 80%;
+	width: 100%;
+}
+
 #tab_content_0{display:block;}
+
 /*============Tab===============*/
 
 
