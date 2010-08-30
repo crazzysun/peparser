@@ -119,7 +119,6 @@ public class LoadPEInfo
 		try
 		{
 			List<DataDirectory> dataDirectorys = new ArrayList<DataDirectory>();
-			DataDirectory dataDirectory = new DataDirectory();
 			String virtualAddress;
 			String size;
 			String name;
@@ -131,6 +130,7 @@ public class LoadPEInfo
 				size = "0x" + Integer.toHexString(PE.GetDataDirectoryItemSize(i));
 				name = PE.GetDataDirectoryItemName(i);
 
+				DataDirectory dataDirectory = new DataDirectory();
 				dataDirectory.setName(name);
 				dataDirectory.setSize(size);
 				dataDirectory.setVirtualAddress(virtualAddress);
@@ -185,11 +185,12 @@ public class LoadPEInfo
 		try
 		{
 			List<ImportTable> importTables = new ArrayList<ImportTable>();
-			ImportTable importTable = new ImportTable();
+			
 			List<String> functionName;
 			int importCount = PE.GetImportDllCount();
 			for (int i = 0; i < importCount; i++)
 			{
+				ImportTable importTable = new ImportTable();
 				importTable.setName(PE.GetImportDllName(i));
 				functionName = new ArrayList<String>();
 				for (int j = 0; j < PE.GetImportDllFunCount(i); j++)
@@ -218,9 +219,10 @@ public class LoadPEInfo
 			exportTable.setFunctionCount(PE.GetExportFunCount());
 			exportTable.setFunctionNameCount(PE.GetExportFunNameCount());
 			List<ExportFunction> exportFunctionList = new ArrayList<ExportFunction>();
-			ExportFunction exportFun = new ExportFunction();
+			
 			for (int i = 0; i < PE.GetExportFunCount(); i++)
 			{
+				ExportFunction exportFun = new ExportFunction();
 				exportFun.setFunctionName(PE.GetExportFunName(i));
 				exportFun.setRVA(PE.GetExportFunRVA(i));
 				exportFun.setIndex(PE.GetExportFunIndex(i));
@@ -242,16 +244,18 @@ public class LoadPEInfo
 		try
 		{
 			List<Relocation> relocationList = new ArrayList<Relocation>();
-			Relocation relocation = new Relocation();
+			
 			for (int i = 0; i < PE.GetRelocCount(); i++)
 			{
+				Relocation relocation = new Relocation();
 				relocation.setItemIndex(PE.GetRelocIndex(i));
 				relocation.setSectionName(PE.GetRelocName(i));
 				relocation.setRecCount(PE.GetRelocChunkCount(i));
 				List<RelocationChunk> relocChunkList = new ArrayList<RelocationChunk>();
-				RelocationChunk relocChunk = new RelocationChunk();
+				
 				for (int j = 0; j < PE.GetRelocChunkCount(i); j++)
 				{
+					RelocationChunk relocChunk = new RelocationChunk();
 					relocChunk.setIndex(PE.GetRelocChunkIndex(i, j));
 					relocChunk.setFarAddress("0x" + Integer.toHexString(PE.GetRelocChunkFarAddr(i, j)));
 					relocChunk.setRVA("0x" + Integer.toHexString(PE.GetRelocChunkRVA(i, j)));
@@ -276,18 +280,21 @@ public class LoadPEInfo
 		try
 		{
 			List<Resource> resourceList = new ArrayList<Resource>();
-			Resource resource = new Resource();
+			
 			for (int i = 0; i < PE.GetRSCCount(); i++)
 			{
+				Resource resource = new Resource();
 				resource.setRecType(PE.GetRSCType(i));
 				resource.setRecCount(PE.GetRSCItemCount(i));
 				List<ResourceItem> resourceItemList = new ArrayList<ResourceItem>();
-				ResourceItem resourceItem = new ResourceItem();
+				
 				for (int j = 0; j < PE.GetRSCItemCount(i); j++)
 				{
+					ResourceItem resourceItem = new ResourceItem();
 					resourceItem.setName(PE.GetRSCItemName(i, j));
 					resourceItem.setRAV("0x" + Integer.toHexString(PE.GetRSCItemRVA(i, j)));
 					resourceItem.setSize(PE.GetRSCItemSize(i, j));
+					resourceItemList.add(resourceItem);
 				}
 				resource.setItem(resourceItemList);
 				resourceList.add(resource);
