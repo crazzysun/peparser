@@ -1,7 +1,7 @@
 package com.pe.parser;
 
 /**
- * å®šä¹‰C++å¤´æ–‡ä»¶WINNT.Hä¸­çš„ä¸€äº›å¸¸é‡
+ * ¶¨ÒåC++Í·ÎÄ¼şWINNT.HÖĞµÄÒ»Ğ©³£Á¿
  *
  * @author FangZhiyang
  */

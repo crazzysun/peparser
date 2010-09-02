@@ -11,10 +11,10 @@ import java.util.Stack;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-/** 鍖呮祻瑙堝櫒, 鍒楀嚭鎸囧畾鍖呭嵆瀛愬寘涓墍鏈夌被 */
+/** 包浏览器, 列出指定包即子包中所有类 */
 public class JavaPackageExplorer
 {
-	private String name; // 鍖呭悕
+	private String name; // 包名
 
 	public JavaPackageExplorer(String name)
 	{

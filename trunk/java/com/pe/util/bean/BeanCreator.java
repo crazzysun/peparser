@@ -14,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import com.pe.util.bean.convert.Converter;
 
 /**
- * Beanåˆ›å»ºå™¨ é€šè¿‡ä¸€ç³»åˆ—å‚æ•°åˆ›å»ºæŒ‡å®šç±»å‹çš„Bean
+ * Bean´´½¨Æ÷ Í¨¹ıÒ»ÏµÁĞ²ÎÊı´´½¨Ö¸¶¨ÀàĞÍµÄBean
  * 
  * @param <T>
  */
@@ -63,13 +63,13 @@ public class BeanCreator<T>
 				Method setter = fi.getSetter();
 				Object o = converter.convert(value);
 
-				if (log.isTraceEnabled()) log.trace(String.format("è®¾ç½®å±æ€§å€¼: %s%s: %s", type.getName(), key, o.getClass().getName()));
+				if (log.isTraceEnabled()) log.trace(String.format("ÉèÖÃÊôĞÔÖµ: %s%s: %s", type.getName(), key, o.getClass().getName()));
 
 				setter.invoke(bean, o);
 			}
 			catch (Exception e)
 			{
-				log.warn(String.format("ä¸èƒ½è®¾ç½®å±æ€§ %s%s: %s", type.getName(), key, value.getClass().getName()), e);
+				log.warn(String.format("²»ÄÜÉèÖÃÊôĞÔ %s%s: %s", type.getName(), key, value.getClass().getName()), e);
 			}
 		}
 
@@ -149,7 +149,7 @@ public class BeanCreator<T>
 			break;
 		}
 
-		if (i >= pds.length) throw new Exception("æ²¡æœ‰å±æ€§: '" + key + "'");
+		if (i >= pds.length) throw new Exception("Ã»ÓĞÊôĞÔ: '" + key + "'");
 		PropertyDescriptor pd = pds[i];
 
 		Class<?> c = pd.getPropertyType();

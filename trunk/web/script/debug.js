@@ -2,20 +2,20 @@ $import("dwr/util.js");
 
 if (!debug) var debug = {};
 
-/** å¯¹è±¡çš„è¯¦ç»†ä¿¡æ¯ */
+/** ¶ÔÏóµÄÏêÏ¸ĞÅÏ¢ */
 debug.detail = function (object, depth)
 {
 	return dwr.util.toDescriptiveString(object, depth);
 }
 
-/** ç”¨å¯¹è¯æ¡†æ˜¾ç¤ºå¯¹è±¡çš„è¯¦ç»†ä¿¡æ¯, ç”¨äºè°ƒè¯• */
+/** ÓÃ¶Ô»°¿òÏÔÊ¾¶ÔÏóµÄÏêÏ¸ĞÅÏ¢, ÓÃÓÚµ÷ÊÔ */
 debug.inspect = function (object, depth)
 {
 	var s = dwr.util.toDescriptiveString(object, depth);
 	alert(s);
 }
 
-/** åœ¨DEBUGçª—å£è¾“å‡ºè·Ÿè¸ªä¿¡æ¯ */
+/** ÔÚDEBUG´°¿ÚÊä³ö¸ú×ÙĞÅÏ¢ */
 debug.trace = function (s)
 {
 	if (debug.stop) return;

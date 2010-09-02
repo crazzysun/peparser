@@ -3,32 +3,32 @@ common.scriptBase = "";
 common.scripts = {};
 
 //******************************************************
-// åŒ…å«æ–‡ä»¶ 
-// ç”¨æ³•: $import("dwr/interface/RPC.js");
-// æ³¨æ„: è¢«åŒ…å«jsæ–‡ä»¶çš„è·¯å¾„éœ€è¦ç”¨ç›¸å¯¹äºcommon.jsçš„ç›¸å¯¹è·¯å¾„æŒ‡ç¤º
+// °üº¬ÎÄ¼ş 
+// ÓÃ·¨: $import("dwr/interface/RPC.js");
+// ×¢Òâ: ±»°üº¬jsÎÄ¼şµÄÂ·¾¶ĞèÒªÓÃÏà¶ÔÓÚcommon.jsµÄÏà¶ÔÂ·¾¶Ö¸Ê¾
 //******************************************************
 function $import(path)
 {
-	// ç¡®ä¿æ¯ä¸ªæ–‡ä»¶åªè¢«å¼•å…¥ä¸€æ¬¡
+	// È·±£Ã¿¸öÎÄ¼şÖ»±»ÒıÈëÒ»´Î
 	var s = common.scripts[path];
 	if (s == "yes") return;
 
 	common.scripts[path] = "yes";
 	
-	// åŒ…å«è„šæœ¬è¿›æ¥
-	// è¿™ç§åšæ³•ç”±äºæ—¶åºé—®é¢˜ï¼Œå¯èƒ½ä¸èƒ½æ­£å¸¸å·¥ä½œ
+	// °üº¬½Å±¾½øÀ´
+	// ÕâÖÖ×ö·¨ÓÉÓÚÊ±ĞòÎÊÌâ£¬¿ÉÄÜ²»ÄÜÕı³£¹¤×÷
 //	var script = document.createElement("script");
 //	script.type = "text/javascript";
 //	script.language = "JavaScript";
 //	script.src = common.scriptBase + path;
 //	document.getElementsByTagName("head")[0].appendChild(script);		
 
-	// è¿™ç§åšæ³•è¿˜æ²¡æœ‰å‘ç°é—®é¢˜
+	// ÕâÖÖ×ö·¨»¹Ã»ÓĞ·¢ÏÖÎÊÌâ
 	document.write("<script src='" + common.scriptBase + path + "'></sc" + "ript>");
 }
 
 //===================================
-// è®¾ç½®è„šæœ¬åŸºç¡€è·¯å¾„
+// ÉèÖÃ½Å±¾»ù´¡Â·¾¶
 common.setupScriptBase = function ()
 {
 	var src = "common.js";
@@ -50,42 +50,6 @@ function testCommon()
 {
 	alert("testCommon");
 }
-
-//=======================tccç•Œé¢å‡½æ•°=============================
-/**
- * é€‰é¡¹å¡æ•ˆæœï¼Œéiframeæ–¹å¼
- * @param totle é€‰é¡¹å¡æ€»æ•°
- * @param now	é€‰ä¸­åºå·
- * @return
- */
-function tab_show(totle,now){
-	for(i=0;i<=totle;i++){
-		$('#tab_bar_li_'+i).removeClass();
-		$('#tab_content_'+i).css('display','none');
-	}
-	$('#tab_bar_li_'+now).addClass('on');
-	$('#tab_content_'+now).css('display','block');
-	
-
-}
-
-/**
- * iframæ–¹å¼é€‰é¡¹å¡
- * @param totle	é€‰é¡¹å¡æ€»æ•°
- * @param now	é€‰ä¸­åºå·
- * @param src	iframeç›®æ ‡åœ°å€
- * @return
- */
-
-function form_tab_show(totle,now,src){
-
-	for(i=0;i<=totle;i++){
-		$('#tab_bar_li_'+i).removeClass();
-		$('#tab_form').src = src;
-	}
-	$('#tab_bar_li_'+now).addClass('on');
-}
-
 
 function fucCheckLength(strTemp) {
 	var i,sum;

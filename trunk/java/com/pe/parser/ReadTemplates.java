@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import com.pe.UserException;
 
 /**
- * 璇诲彇妯℃澘鏂囦欢
+ * 读取模板文件
  *
  * @author FangZhiyang
  */

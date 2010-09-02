@@ -7,33 +7,42 @@
 <link rel="stylesheet" href="styles/table.css" type="text/css" />
 <script type="text/javascript" src="script/common.js"></script>
 
-<script>
-$import("rpc.js");
+<script language="javascript" type="text/javascript">   
+function searchFiles(){  
+    var fso = new ActiveXObject("Scripting.FileSystemObject");  
+    var f = fso.GetFolder(document.all.fixfolder.value);  
+    var fc = new Enumerator(f.files);  
+    var s = "";  
+    for (; !fc.atEnd(); fc.moveNext())  
+    {  
+        s += fc.item();  
+        s += "<br/>";  
+    }  
+    fk = new Enumerator(f.SubFolders);  
+    for (; !fk.atEnd(); fk.moveNext())  
+    {  
+        s += fk.item();  
+        s += "<br/>";  
+    }  
 
-/** 初始化部门信息表格 */
-function LoadHavedRole()
-{
-	var callback = function(o)
-	{
-		alert("前台返回！" + o.name);
-	}
-	var operation = new Operation("PE分析.分析多个文件");
-	operation.execute(callback);
-}
+        textarea.innerHTML = s
+}   
 </script>
 </head>
 
 <body>
-<div id="ur_here"><img src="../public/images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 系统管理 » 组织机构管理 </div>
+<div id="ur_here"><img src="../public/images/icon_here.gif"
+	style="align: absmiddle" align="absmiddle" /> 当前位置：首页 » 系统管理 » 组织机构管理</div>
 <div id="wrap">
 <div id="containaer">
-	<table cellpadding=0 cellspacing=0 border=0 width="100%" id="" style=''>
-		<tr>
-		<td style="padding-left:15px">
-			<input type="button" value="我要测试" onclick="LoadHavedRole()"/>
-		</td>
-		</tr>
-	</table>
+指定一个待分析文件夹路径：（文件夹中不得含有非PE格式文件）<br/>
+<input type="text" name="fixfolder"/>
+<input type="button" value ="查找" onclick="searchFiles()" />
+<table>
+	<tr>
+		<td id = "textarea"></td>
+	</tr>
+</table> 
 </div>
 </div>
 </body>

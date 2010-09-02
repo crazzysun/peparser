@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="docs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/bootstrap.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/com.ibm.icu_3.6.1.v20070906.jar"/>

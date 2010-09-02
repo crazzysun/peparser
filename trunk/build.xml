@@ -22,7 +22,7 @@
 	<target name="java" depends="init">
 		<javac destdir="web/WEB-INF/classes" encoding="UTF-8" debug="on">
 			<src path="java"/>
-			<src path="data"/>
+			<src path="docs"/>
 			<classpath refid="lib.path"/>
 		</javac>
 		<copy todir="web/WEB-INF/classes">
