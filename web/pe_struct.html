@@ -2,7 +2,85 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
     <title>{FileName}结构分析报告</title>
-<link rel="stylesheet" href="styles/pe_struct.css" type="text/css" />
+<style type="text/css">
+<!--
+body {
+	margin:5px;
+	padding:0;
+	font-size:14px;
+	color:#FFF;
+	line-height:200%;
+	background-color: #000;
+	font-family:"微软雅黑",verdana,"宋体";
+}
+.t
+{
+	background-color: #484D66;
+	padding: 15px 10px 5px 10px;
+}
+.clr
+{
+	font-size: 16px;
+	font-weight: bolder;
+	color:#FFCC00;
+}
+p {
+line-height:1.5em;
+margin:1.2em 0;
+}
+.info
+{
+padding: 0px 3px;
+font-size:12px;
+color:#999999;
+}
+.Quickguide a {
+-moz-border-radius-topleft:3px;
+-moz-border-radius-topright:3px;
+color:white;
+font-size:14px;
+margin:0;
+padding:5px 10px;
+background-color:#333333;
+text-decoration:none;
+}
+.Quickguide a:hover {
+background:#B4B4B4 none repeat scroll 0 0;
+color:#333333;
+text-decoration:none;
+}
+.tb
+{
+background-color:#222942;
+}
+.tb .head
+{
+color:#EED3A6;
+background-color:#3D686B;
+}
+td
+{
+padding:3px;
+}
+.special
+{
+color:#E19A24;
+}
+#copyright
+{
+	padding:20px 0px 5px 5px;
+}
+#copyright a
+{
+	color:#0000FF;
+	text-decoration:none;
+}
+#copyright a:hover {
+color:#333333;
+text-decoration:none;
+}
+-->
+</style>
 </head>
 <body>
     <div class="t">
@@ -29,8 +107,6 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="126">
-                Offset</td>
-            <td width="126">
                 RVA</td>
             <td>
                 Description</td>
@@ -38,8 +114,6 @@
                 Value</td>
         </tr>
         <tr>
-            <td>
-                0x00000000</td>
             <td>
                 0x00000000</td>
             <td>
@@ -51,15 +125,11 @@
             <td>
                 0x00000002</td>
             <td>
-                0x00000002</td>
-            <td>
                 e_cblp<span class="info">(文件最后页的字节数)</span></td>
             <td>
                 {e_cblp}</td>
         </tr>
         <tr>
-            <td>
-                0x00000004</td>
             <td>
                 0x00000004</td>
             <td>
@@ -71,15 +141,11 @@
             <td>
                 0x00000006</td>
             <td>
-                0x00000006</td>
-            <td>
                 e_crlc<span class="info">(重定义元素个数)</span></td>
             <td>
                 {e_crlc}</td>
         </tr>
         <tr>
-            <td>
-                0x00000008</td>
             <td>
                 0x00000008</td>
             <td>
@@ -91,15 +157,11 @@
             <td>
                 0x0000000A</td>
             <td>
-                0x0000000A</td>
-            <td>
                 e_minalloc<span class="info">(所需的最小附加段)</span></td>
             <td>
                 {e_minalloc}</td>
         </tr>
         <tr>
-            <td>
-                0x0000000C</td>
             <td>
                 0x0000000C</td>
             <td>
@@ -111,15 +173,11 @@
             <td>
                 0x0000000E</td>
             <td>
-                0x0000000E</td>
-            <td>
                 e_ss<span class="info">(初始的SS值（相对偏移量）)</span></td>
             <td>
                 {e_ss}</td>
         </tr>
         <tr>
-            <td>
-                0x00000010</td>
             <td>
                 0x00000010</td>
             <td>
@@ -131,15 +189,11 @@
             <td>
                 0x00000012</td>
             <td>
-                0x00000012</td>
-            <td>
                 e_csum<span class="info">(校验和)</span></td>
             <td>
                 {e_csum}</td>
         </tr>
         <tr>
-            <td>
-                0x00000014</td>
             <td>
                 0x00000014</td>
             <td>
@@ -151,15 +205,11 @@
             <td>
                 0x00000016</td>
             <td>
-                0x00000016</td>
-            <td>
                 e_cs<span class="info">(初始的CS值（相对偏移量）)</span></td>
             <td>
                 {e_cs}</td>
         </tr>
         <tr>
-            <td>
-                0x00000018</td>
             <td>
                 0x00000018</td>
             <td>
@@ -171,15 +221,11 @@
             <td>
                 0x0000001A</td>
             <td>
-                0x0000001A</td>
-            <td>
                 e_ovno<span class="info">(覆盖号)</span></td>
             <td>
                 {e_ovno}</td>
         </tr>
         <tr>
-            <td>
-                0x0000001C</td>
             <td>
                 0x0000001C</td>
             <td>
@@ -191,15 +237,11 @@
             <td>
                 0x00000024</td>
             <td>
-                0x00000024</td>
-            <td>
                 e_oemid<span class="info">(OEM标识符（相对e_oeminfo）)</span></td>
             <td>
                 {e_oemid}</td>
         </tr>
         <tr>
-            <td>
-                0x00000026</td>
             <td>
                 0x00000026</td>
             <td>
@@ -211,15 +253,11 @@
             <td>
                 0x00000028</td>
             <td>
-                0x00000028</td>
-            <td>
                 e_res2<span class="info">(10个字长度的保留字)</span></td>
             <td>
                 {e_res2}</td>
         </tr>
         <tr>
-            <td>
-                0x0000003C</td>
             <td>
                 0x0000003C</td>
             <td>
@@ -233,8 +271,6 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
-                Offset</td>
-            <td width="120">
                 RVA</td>
             <td>
                 Description</td>
@@ -242,8 +278,6 @@
                 Value</td>
         </tr>
         <tr>
-            <td>
-                {signature_add}</td>
             <td>
                 {signature_add}</td>
             <td>
@@ -257,8 +291,6 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
-                Offset</td>
-            <td width="120">
                 RVA</td>
             <td>
                 Description</td>
@@ -266,8 +298,6 @@
                 Value</td>
         </tr>
         <tr>
-            <td>
-                {machine_add}</td>
             <td>
                 {machine_add}</td>
             <td>
@@ -279,15 +309,11 @@
             <td>
                 {NOS_add}</td>
             <td>
-                {NOS_add}</td>
-            <td>
                 <span class="special">NumberOfSections</span><span class="info">(PE所包含的节数)</span></td>
             <td class="special">
                 {NumberOfSections}</td>
         </tr>
         <tr>
-            <td>
-                {TDS_add}</td>
             <td>
                 {TDS_add}</td>
             <td>
@@ -299,15 +325,11 @@
             <td>
                 {PTST_add}</td>
             <td>
-                {PTST_add}</td>
-            <td>
                 PointerToSymbolTable<span class="info">(符号表)</span></td>
             <td>
                 {PointerToSymbolTable}</td>
         </tr>
         <tr>
-            <td>
-                {NOSym_add}</td>
             <td>
                 {NOSym_add}</td>
             <td>
@@ -319,15 +341,11 @@
             <td>
                 {SOOH_add}</td>
             <td>
-                {SOOH_add}</td>
-            <td>
                 SizeOfOptionalHeader<span class="info">(可选文件头大小)</span></td>
             <td>
                 {SizeOfOptionalHeader}</td>
         </tr>
         <tr>
-            <td>
-                {HAR_add}</td>
             <td>
                 {HAR_add}</td>
             <td>
@@ -341,8 +359,6 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
-                Offset</td>
-            <td width="120">
                 RVA</td>
             <td>
                 Description</td>
@@ -350,8 +366,6 @@
                 Value</td>
         </tr>
         <tr>
-            <td>
-                {magic_add}</td>
             <td>
                 {magic_add}</td>
             <td>
@@ -363,15 +377,11 @@
             <td>
                 {MajLV_add}</td>
             <td>
-                {MajLV_add}</td>
-            <td>
                 MajorLinkerVersion<span class="info">(链接器的主版本号)</span></td>
             <td>
                 <%=optionalValue.get("Magic") %></td>
         </tr>
         <tr>
-            <td>
-                {MinLV_add}</td>
             <td>
                 {MinLV_add}</td>
             <td>
@@ -383,15 +393,11 @@
             <td>
                 {SOC_add}</td>
             <td>
-                {SOC_add}</td>
-            <td>
                 SizeOfCode<span class="info">(Code Section的大小，是对齐后的大小)</span></td>
             <td>
                 {SizeOfCode}</td>
         </tr>
         <tr>
-            <td>
-                {SOID_add}</td>
             <td>
                 {SOID_add}</td>
             <td>
@@ -403,15 +409,11 @@
             <td>
                 {SOUD_add}</td>
             <td>
-                {SOUD_add}</td>
-            <td>
                 SizeOfUninitializedData<span class="info">(未初始化的数据大小)</span></td>
             <td>
                 {SizeOfUninitializedData}</td>
         </tr>
         <tr>
-            <td>
-                {AOP_add}</td>
             <td>
                 {AOP_add}</td>
             <td>
@@ -423,15 +425,11 @@
             <td>
                 {BOC_add}</td>
             <td>
-                {BOC_add}</td>
-            <td>
                 BaseOfCode<span class="info">(代码段的起始的RVA)</span></td>
             <td>
                 {BaseOfCode}</td>
         </tr>
         <tr>
-            <td>
-                {BOD_add}</td>
             <td>
                 {BOD_add}</td>
             <td>
@@ -443,15 +441,11 @@
             <td>
                 {IB_add}</td>
             <td>
-                {IB_add}</td>
-            <td>
                 <span class="special">ImageBase</span><span class="info">(程序载入内存的基地址)</span></td>
             <td class="special">
                 {ImageBase}</td>
         </tr>
         <tr>
-            <td>
-                {SA_add}</td>
             <td>
                 {SA_add}</td>
             <td>
@@ -463,15 +457,11 @@
             <td>
                 {FA_add}</td>
             <td>
-                {FA_add}</td>
-            <td>
                 FileAlignment<span class="info">(磁盘对齐页大小，通常0x200K)</span></td>
             <td>
                 {FileAlignment}</td>
         </tr>
         <tr>
-            <td>
-                {MajOSV_add}</td>
             <td>
                 {MajOSV_add}</td>
             <td>
@@ -483,15 +473,11 @@
             <td>
                 {MinOSV_add}</td>
             <td>
-                {MinOSV_add}</td>
-            <td>
                 MinorOperatingSystemVersion<span class="info">(所需最低要求操作系统的副版本号)</span></td>
             <td>
                 {MinorOperatingSystemVersion}</td>
         </tr>
         <tr>
-            <td>
-                {MaxIV_add}</td>
             <td>
                 {MaxIV_add}</td>
             <td>
@@ -503,15 +489,11 @@
             <td>
                 {MinIV_add}</td>
             <td>
-                {MinIV_add}</td>
-            <td>
                 MinorImageVersion<span class="info">(该程序的副版本号)</span></td>
             <td>
                 {MinorImageVersion}</td>
         </tr>
         <tr>
-            <td>
-                {MajSV_add}</td>
             <td>
                 {MajSV_add}</td>
             <td>
@@ -523,15 +505,11 @@
             <td>
                 {MinSV_add}</td>
             <td>
-                {MinSV_add}</td>
-            <td>
                 MinorSubsystemVersion<span class="info">(所需最低子系统版本的副版本号)</span></td>
             <td>
                 {MinorSubsystemVersion}</td>
         </tr>
         <tr>
-            <td>
-                {W32VV_add}</td>
             <td>
                 {W32VV_add}</td>
             <td>
@@ -543,15 +521,11 @@
             <td>
                 {SOI_add}</td>
             <td>
-                {SOI_add}</td>
-            <td>
                 SizeOfImage<span class="info">(装入内存后总大小)</span></td>
             <td>
                 {SizeOfImage}</td>
         </tr>
         <tr>
-            <td>
-                {SOH_add}</td>
             <td>
                 {SOH_add}</td>
             <td>
@@ -563,15 +537,11 @@
             <td>
                 {PECS_add}</td>
             <td>
-                {PECS_add}</td>
-            <td>
                 CheckSum<span class="info">(CRC检验值)</span></td>
             <td>
                 {PECheckSum}</td>
         </tr>
         <tr>
-            <td>
-                {SUBS_add}</td>
             <td>
                 {SUBS_add}</td>
             <td>
@@ -583,15 +553,11 @@
             <td>
                 {DllChar_add}</td>
             <td>
-                {DllChar_add}</td>
-            <td>
                 DllCharacteristics<span class="info">(DllMain何时被调用，默认为0)</span></td>
             <td>
                 {DllCharacteristics}</td>
         </tr>
         <tr>
-            <td>
-                {SOSR_add}</td>
             <td>
                 {SOSR_add}</td>
             <td>
@@ -603,15 +569,11 @@
             <td>
                 {SOSC_add}</td>
             <td>
-                {SOSC_add}</td>
-            <td>
                 SizeOfStackCommit<span class="info">(线程初始化时提交的栈大小)</span></td>
             <td>
                 {SizeOfStackCommit}</td>
         </tr>
         <tr>
-            <td>
-                {SOHR_add}</td>
             <td>
                 {SOHR_add}</td>
             <td>
@@ -623,8 +585,6 @@
             <td>
                 {SOHC_add}</td>
             <td>
-                {SOHC_add}</td>
-            <td>
                 SizeOfHeapCommit<span class="info">(进程初始化时提交的堆大小)</span></td>
             <td>
                 {SizeOfHeapCommit}</td>
@@ -633,15 +593,11 @@
             <td>
                 {LF_add}</td>
             <td>
-                {LF_add}</td>
-            <td>
                 LoaderFlags<span class="info">(与调试相关)</span></td>
             <td>
                 {LoaderFlags}</td>
         </tr>
         <tr>
-            <td>
-                {NRS_add}</td>
             <td>
                 {NRS_add}</td>
             <td>
@@ -655,8 +611,6 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
-                Offset</td>
-            <td width="120">
                 RVA</td>
             <td style="width: 319px">
                 Name</td>
@@ -667,8 +621,6 @@
         </tr>
         <!--DataDir_Item_Start-->
         <tr>
-            <td rowspan="2">
-                {DDN_add}</td>
             <td rowspan="2">
                 {DDN_add}</td>
             <td rowspan="2" style="width: 319px">
@@ -691,8 +643,6 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
-                Offset</td>
-            <td width="120">
                 RVA</td>
             <td>
                 Description</td>
@@ -701,8 +651,6 @@
         </tr>
         <!--SECTION_HEADER_START-->
         <tr>
-            <td bgcolor="{SHS_BGCOLOR}">
-                {Name1_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {Name1_add}</td>
             <td bgcolor="{SHS_BGCOLOR}" class="special">
@@ -714,15 +662,11 @@
             <td bgcolor="{SHS_BGCOLOR}">
                 {MisV_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                {MisV_add}</td>
-            <td bgcolor="{SHS_BGCOLOR}">
                 Misc.VirtualSize<span class="info">(占内存大小)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {Misc.VirtualSize}</td>
         </tr>
         <tr>
-            <td bgcolor="{SHS_BGCOLOR}">
-                {VA_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {VA_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
@@ -734,15 +678,11 @@
             <td bgcolor="{SHS_BGCOLOR}">
                 {SORD_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                {SORD_add}</td>
-            <td bgcolor="{SHS_BGCOLOR}">
                 SizeOfRawData<span class="info">(占磁盘大小)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {SizeOfRawData}</td>
         </tr>
         <tr>
-            <td bgcolor="{SHS_BGCOLOR}">
-                {PTRD_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {PTRD_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
@@ -754,15 +694,11 @@
             <td bgcolor="{SHS_BGCOLOR}">
                 {PTR_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                {PTR_add}</td>
-            <td bgcolor="{SHS_BGCOLOR}">
                 PointerToRelocations<span class="info">(重定位信息)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {PointerToRelocations}</td>
         </tr>
         <tr>
-            <td bgcolor="{SHS_BGCOLOR}">
-                {PTL_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {PTL_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
@@ -774,8 +710,6 @@
             <td bgcolor="{SHS_BGCOLOR}">
                 {NOR_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                {NOR_add}</td>
-            <td bgcolor="{SHS_BGCOLOR}">
                 NumberOfRelocations<span class="info">(重定位数量)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {NumberOfRelocations}</td>
@@ -784,15 +718,11 @@
             <td bgcolor="{SHS_BGCOLOR}">
                 {NOL_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                {NOL_add}</td>
-            <td bgcolor="{SHS_BGCOLOR}">
                 NumberOfLinenumbers<span class="info">(行号数目)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {NumberOfLinenumbers}</td>
         </tr>
         <tr>
-            <td bgcolor="{SHS_BGCOLOR}">
-                {Char_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {Char_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
