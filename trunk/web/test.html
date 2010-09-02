@@ -15,9 +15,9 @@ function LoadHavedRole()
 {
 	var callback = function(o)
 	{
-		alert("前台返回！")
+		alert("前台返回！" + o.name);
 	}
-	var operation = new Operation("PE分析.分析单个文件");
+	var operation = new Operation("PE分析.分析多个文件");
 	operation.execute(callback);
 }
 </script>
