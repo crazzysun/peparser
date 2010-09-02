@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>PE文件分析</title>
@@ -15,7 +15,7 @@ var path = "";
 var status = null;
 var completed = false;
 var tabCount = 0;
-var fileNameArray = {};
+var fileNameArray = new Array();
 
 function onSubmit()
 {
@@ -60,7 +60,7 @@ function check()
 			if (status.completed)
 			{
 				completed = true;
-				alert("上载完成");
+				//alert("上载完成");
 				$("progress").style.display = "none";
 				status = null;
 				peAnalyzer();
@@ -79,26 +79,29 @@ function peAnalyzer()
 {
 	var callback = function (o)
 	{
-		appendTab(o.peFile);
+		var fileName = o.peFile.fileInfo.fileName;
+		appendTab(fileName);
 	}
 	var operation = new Operation("PE分析.分析单个文件");
 	operation.fileName = $("fileName").value;
-	operation.execute();
+	operation.execute(callback);
 }
 
-function appendTab(data)
+function appendTab(fileName)
 {
 	$("container").style.display = "block";
 	tabCount++;
-
-	var fileName = data.fileInfo.fileName;
 	fileNameArray.push(fileName);
 	if (tabCount != fileNameArray.length)
 	{
 		alert("页面中tab数目有误，请重新打开该页面");
+		/** 一旦发生错误，整个页面重新初始化 */
+		tabCount = 0;
+		util.clear(tabContainer);
+		fileNameArray = new Array();
 		return;
 	}
-
+	
 	var tabContainer = $("tab_ul");
 	util.clear(tabContainer);
 	for (var i = 0; i < tabCount; i++)
@@ -107,11 +110,32 @@ function appendTab(data)
 		li.innerHTML = fileNameArray[i];
 		li.id = "tab_bar_li_" + i;
 		var src = "../peResult/" + fileNameArray[i] + ".html";
-		li.onclick = form_tab_show(tabCount, i, src);
+		li.src = src;
+		li.onclick = function()
+		{
+			form_tab_show(tabCount, this.id, this.src);
+		};
 		tabContainer.appendChild(li);
 	}
 
-	form_tab_show(tabCount, tabCount - 1, "../peResult/" + fileName + ".html");
+	form_tab_show(tabCount, "tab_bar_li_" + (tabCount - 1), "../peResult/" + fileName + ".html");
+}
+
+/**
+ * ifram方式选项卡
+ * @param totle	选项卡总数
+ * @param now	选中序号
+ * @param src	iframe目标地址
+ * @return
+ */
+function form_tab_show(totle, now, src)
+{
+	for(i = 0; i < totle; i++)
+	{
+		$('tab_bar_li_'+i).className = "";
+	}
+	$(now).className = "on";
+	$('tab_form').src = decodeURI(decodeURI(src));
 }
 
 </script>
@@ -135,15 +159,13 @@ function appendTab(data)
 	
 	<div id="tab_bar">
         <ul id="tab_ul">
-            <!-- <li class="on" id="tab_bar_li_0" onclick="tab_show(3,0)">角色维护</li> -->
+           	<!-- <li class="on" id="tab_bar_li_0">角色维护</li> -->
         </ul>
 	</div>
     
 	<div id="container" style="display:none">
-		<iframe id="tab_form" src="#"></iframe>
+		<iframe id="tab_form"></iframe>
 	</div>
-		 
- 
 </div>
 </div>
 </body>

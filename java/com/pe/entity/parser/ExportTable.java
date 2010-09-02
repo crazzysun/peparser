@@ -5,7 +5,7 @@ import java.util.List;
 import com.pe.entity.Bean;
 
 /**
- * 导出表
+ * ������
  * @author FangZhiyang
  *
  */
@@ -13,9 +13,9 @@ public class ExportTable implements Bean
 {
 	private static final long serialVersionUID = 1L;
 
-	private String dllName;				//导出文件名
+	private String dllName;				//导出文件各1�7
 	private int functionCount;			//导出函数个数
-	private int functionNameCount;		//导出有名函数名
+	private int functionNameCount;		//导出有名函数各1�7
 	
 	private List<ExportFunction> exportFunction;
 	

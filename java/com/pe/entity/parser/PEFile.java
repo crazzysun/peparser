@@ -5,7 +5,7 @@ import java.util.List;
 import com.pe.entity.Bean;
 
 /**
- * peæ–‡ä»¶çš„å®Œæ•´ç»“æ„
+ * peÎÄ¼şµÄÍêÕû½á¹¹
  *
  * @author FangZhiyang
  */
@@ -13,14 +13,14 @@ public class PEFile implements Bean
 {
 	private static final long serialVersionUID = 1L;
 	
-	private FileInfo fileInfo;					//æ–‡ä»¶ä¿¡æ¯
-	private List<PEHeader> headers;				//4ä¸ªæ–‡ä»¶å¤´éƒ¨ä¿¡æ¯
-	private List<DataDirectory> dataDirectory;	//æ•°æ®ç›®å½•
-	private List<SectionHeader> sections;		//èŠ‚è¡¨å¤´éƒ¨
-	private List<ImportTable> importTable;		//å¯¼å…¥è¡¨ï¼ˆnä¸ªï¼‰
-	private ExportTable exportTable;			//å¯¼å‡ºè¡¨
-	private List<Relocation> relocation;		//é‡å®šä½è¡¨
-	private List<Resource> resource;			//èµ„æºç›®å½•
+	private FileInfo fileInfo;					//ÎÄ¼şĞÅÏ¢
+	private List<PEHeader> headers;				//4¸öÎÄ¼şÍ·²¿ĞÅÏ¢
+	private List<DataDirectory> dataDirectory;	//Êı¾İÄ¿Â¼
+	private List<SectionHeader> sections;		//½Ú±íÍ·²¿
+	private List<ImportTable> importTable;		//µ¼Èë±í£¨n¸ö£©
+	private ExportTable exportTable;			//µ¼³ö±í
+	private List<Relocation> relocation;		//ÖØ¶¨Î»±í
+	private List<Resource> resource;			//×ÊÔ´Ä¿Â¼
 	
 	public List<DataDirectory> getDataDirectory()
 	{

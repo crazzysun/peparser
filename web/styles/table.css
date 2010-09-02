@@ -6,7 +6,7 @@ body {
 	margin-right:auto;
 	margin-top:10px;
 	position:relative;
-	font-family: "å®‹ä½“", "Times New Roman";
+	font-family: "ËÎÌå", "Times New Roman";
 }
 
 a:link {font-family: Arial, Helvetica, sans-serif; font-size: 12px;	color: #000000;	text-decoration: none;}
@@ -19,7 +19,7 @@ form{
 	padding:0;
 }
 
-/*------------------------- å¸¦äº¤é”™Fè¡Œçš„è¡¨æ ¼ ------------------------*/
+/*------------------------- ´ø½»´íFĞĞµÄ±í¸ñ ------------------------*/
 .table_list{border:1px solid #B2CCDD; border-collapse:collapse; width:100%; align:center; font-size: 12px;}
 .table_list td{
 	height:25px; line-height:25px; border:1px solid #B2CCDD; text-decoration:none; text-align:center; white-space:nowrap;
@@ -45,21 +45,21 @@ form{
 #form_div{ margin-left:auto; margin-right:auto;  width:95%; padding-top:5px;text-align:center;	position: relative;}
 .title1{ margin-left:auto; margin-right:auto;  width:95%; text-align:center;	position: relative;}
 .table_title{border-bottom:1px solid #1a7cba; border-top:0px; border-left:0px; border-right:0px;
-	 width:100%; background-color:transparent;  }  /*ç½‘é¡µä¸Šéƒ¨çš„åç§°è¡¨æ ¼*/
+	 width:100%; background-color:transparent;  }  /*ÍøÒ³ÉÏ²¿µÄÃû³Æ±í¸ñ*/
 .table_title td{border:0px; height:3px;}
 .table_title td.left{background:0; width:250px;}
 .table_title td.name{ background-color:transparent; height:15px; font-size: 13px; font-weight:bold; color:#0861A5; text-align:left;
 	vertical-align:baseline; padding-left:10px;}
 
 .table_down{ border-top:1px solid #1a7cba; border-bottom:0px; border-left:0px; border-right:0px; width:100%;
-	background-color:transparent; }ã€€ã€€ã€€/*ç½‘é¡µä¸‹éƒ¨çš„å…¬å¸è½æ¬¾è¡¨æ ¼*/
+	background-color:transparent; }¡¡¡¡¡¡/*ÍøÒ³ÏÂ²¿µÄ¹«Ë¾Âä¿î±í¸ñ*/
 .table_down td{border:0px; height:5px;}
 .table_down td.right{background:url(../images/tableline-01.jpg); width:300px; height:5px;}
 .table_down td.Co{width:300px; height:25px; font-family:Arial, Helvetica, sans-serif; font-size:12px; text-align:right; color:#999999;}
 
-.table_add{border-collapse:collapse; width:100%;}   /* è‡ªåŠ¨å¢åŠ çš„è¡¨æ ¼ */
+.table_add{border-collapse:collapse; width:100%;}   /* ×Ô¶¯Ôö¼ÓµÄ±í¸ñ */
 .table_add td{height:30px; border-left:1px solid #1a7cba; border-right:1px solid #1a7cba; border-bottom:1px solid #1a7cba;
-	text-decoration: none; text-align: center; vertical-align: middle; font-family: "å®‹ä½“"; font-size: 12px; background-color:#e1edf5; }
+	text-decoration: none; text-align: center; vertical-align: middle; font-family: "ËÎÌå"; font-size: 12px; background-color:#e1edf5; }
 
 .middle_content{ margin-left:auto; margin-right:auto; width:95%; padding-top:5px; height:28px; position: relative;}
 .middle_content a{font-size: 14px;color:#000000;text-decoration: none;display:block;width:97px;height:28px;line-height:28px;
@@ -71,7 +71,7 @@ form{
 .middle_content1 a:hover{font-size: 14px; color:#FF0000;text-decoration: none; display:block; width:137px; height:28px;line-height:28px;
                     	background:url(../images/button-03a.jpg) no-repeat 0 0;	text-align: center;}
 
-.table_buttom{ border:0px; border-collapse:collapse;   background:transparent; width:100%; }   /*å¯ç”¨ä½œæ— è¾¹æ¡†è¡¨æ ¼*/
+.table_buttom{ border:0px; border-collapse:collapse;   background:transparent; width:100%; }   /*¿ÉÓÃ×÷ÎŞ±ß¿ò±í¸ñ*/
 .table_buttom td{border:0px;}
 .table_buttom td.buttom{ border:0px; width:105px; text-align:right;}
 
@@ -95,7 +95,7 @@ form{
 .button_div_solely{padding-top:3px; text-align:right; width:95%; }
 
 
-/*--------------------- form è¡¨å• ---------------------*/
+/*--------------------- form ±íµ¥ ---------------------*/
 
 .formtable{ border:1px solid #1a7cba; width:100%; font-size:12px; text-align:center; background-color:#e1edf5;}
 .formtable td{	text-decoration: none;	vertical-align:middle;	background-color:#e1edf5;} 
@@ -114,7 +114,7 @@ form{
 .unoddtr{background-color:#e1edf5;}
 .formtable3 td{  font-size:12px; height:25px; line-height:25px; border-bottom:1px solid #3A93CD; border-right:1px solid #3A93CD;}
 
-/*---------æŒ‰é’®----------*/
+/*---------°´Å¥----------*/
 .button1, .button2, .button3, .button input{ background:url(../images/button-background2a.jpg) no-repeat right top; font-size:12px; height:20px; line-height:20px; border:0px; cursor:pointer; padding-top:0px !important; padding-top:1px; text-align:center; display:inline-block;}
 .button_link{ background:url(../images/button-background2.jpg) no-repeat left top; height:20px; line-height:20px; border:0px; cursor:pointer; display:inline-block;}
 .button a{ background:url(../images/button-background2a.jpg) no-repeat right top; font-size:12px; height:20px; line-height:20px; border:0px; cursor:pointer; text-align:center; padding-right:10px; display:inline-block; margin-left:10px; margin-top:}
@@ -123,7 +123,7 @@ form{
 
 .button_infile{border:1px solid #1a7cba; background:url(../images/file_buttonback1.jpg) repeat-x; height:18px; line-height:18px; color:#000000; text-align:center; cursor:pointer; font-size:12px;}
 
-.space{	padding-top:3px; padding-bottom:3px; position: relative;}ã€€ã€€/* åˆ¶é€ è¡Œé—´è· */
+.space{	padding-top:3px; padding-bottom:3px; position: relative;}¡¡¡¡/* ÖÆÔìĞĞ¼ä¾à */
 .space1{padding-top:3px; padding-bottom:3px; position: relative;}
 
 .menu_title{ background:url(../images/title_back.jpg); height:24px; width:180px;}
@@ -152,7 +152,7 @@ form{
 #select_item_invalidation ol{ }
 #select_item_invalidation ol li{ padding-top:3px; }
 
-/*---------------ç±»ä¼¼ç½‘æ˜“çš„å¸¦æ ‡ç­¾çš„å±‚åŠè¡¨æ ¼,manage_my_train_plans.jsp---------------*/
+/*---------------ÀàËÆÍøÒ×µÄ´ø±êÇ©µÄ²ã¼°±í¸ñ,manage_my_train_plans.jsp---------------*/
 
 #main_div{  padding-top:5px; width:95%; position: relative; text-align:center;}
 #main_div1{ padding-top:5px; width:95%; position: relative; text-align:left;}
@@ -185,7 +185,7 @@ ul.ul_1 a:hover{ font-size:12px;}
 .action a:hover{color:#FF0000;}
 
 
-/*---------------paper.jsï¼Œexam.jsp---------------*/
+/*---------------paper.js£¬exam.jsp---------------*/
 
 #paper_div{ margin-left:auto; margin-right:auto; padding-top:10px; width:92%; position: relative;
 	margin-top:5px;	border:1px dotted #1a7cba;
@@ -209,7 +209,7 @@ ul.ul_1 a:hover{ font-size:12px;}
 .problemset .score{margin-left:4px;height:12px; width:13px;line-height:12px; border:1px solid #1a7cba; text-align:right; font-size: 12px;}
 
 
-/*------------------------- è€ƒè¯•ç®¡ç† ------------------------*/	
+/*------------------------- ¿¼ÊÔ¹ÜÀí ------------------------*/	
 .table_exam { border:1px solid #1a7cba; border-collapse:collapse; width:100%; align:center; }
 .table_exam td{ border:1px solid #1a7cba; }
 .exam_cell { align:center; font-size:12px; color:#000000; font-weight:bold; }
@@ -223,7 +223,7 @@ ul.ul_1 a:hover{ font-size:12px;}
 .menu_content {
 }
 
-/*----------------é¡µé¢æœ€å¼€å§‹çš„æ ‡é¢˜---------------*/
+/*----------------Ò³Ãæ×î¿ªÊ¼µÄ±êÌâ---------------*/
 .headtitle{
 	margin-left:auto; margin-right:auto; padding-top:15px;
 	width:95%; height:25px; vertical-align:bottom;
@@ -244,7 +244,7 @@ ul.ul_1 a:hover{ font-size:12px;}
 
 .linespace{ margin-top:5px;}
 
-/*é¡µé¢é¡¶éƒ¨çš„æœç´¢æ */
+/*Ò³Ãæ¶¥²¿µÄËÑË÷À¸*/
 .topsearch{text-align:right; height:18px; line-height:18px; display:table-cell; font-size:12px; vertical-align:middle;}
 .button_search{background:url(../images/button-background3.jpg) left top; height:18px; line-height:18px; display:inline-block;}
 .button_search input{background:url(../images/search.jpg) no-repeat right top; font-size:12px; height:18px; width:18px; line-height:18px; border:0px; cursor:pointer; padding-top:0px !important; padding-top:1px; text-align:center; display:inline-block;}

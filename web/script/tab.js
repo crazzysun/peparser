@@ -1,4 +1,36 @@
-﻿function $_tab()
+﻿
+
+/**
+ * 选项卡效果，非iframe方式
+ * @param totle 选项卡总数
+ * @param now	选中序号
+ * @return
+ */
+function tab_show(totle,now){
+	for(i=0;i<=totle;i++)
+	{
+		$('tab_bar_li_'+i).removeClass();
+		$('tab_content_'+i).css('display','none');
+	}
+	$('tab_bar_li_'+now).addClass('on');
+	$('tab_content_'+now).css('display','block');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function $_tab()
 {
   var elements = new Array();
 
