@@ -23,6 +23,11 @@ import com.pe.entity.parser.ResourceItem;
 import com.pe.entity.parser.SectionHeader;
 import com.pe.util.SystemConfigure;
 
+/**
+ * 创建结果页面
+ * @author FangZhiyang
+ *
+ */
 public class CreateHTML
 {
 	private static Log log = LogFactory.getLog(CreateHTML.class);
@@ -33,12 +38,18 @@ public class CreateHTML
 	
 	private PEFile peFile;
 	private String e_lfanew;				//pe文件表示的偏移量
-	
-	
+	private String multiAnalyPath;			//用于存放"分析多个PE文件"时结果的文件夹路径
 	
 	public CreateHTML(PEFile file)
 	{
 		this.peFile = file;
+		this.multiAnalyPath = "";
+	}
+	
+	public CreateHTML(PEFile file, String multiPath)
+	{
+		this.peFile = file;
+		this.multiAnalyPath = multiPath;
 	}
 
 	public void create() throws Exception
@@ -60,7 +71,7 @@ public class CreateHTML
 		String result = replaceValue(templateContent);
 
 		/** 生成分析结果 */
-		String pathName = SystemConfigure.get("PEResultHome");
+		String pathName = SystemConfigure.get("PEResultHome") + "/" + multiAnalyPath;
 		String fileName = peFile.getFileInfo().getFileName() + ".html";
 		
 		try
