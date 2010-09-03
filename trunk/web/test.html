@@ -8,25 +8,41 @@
 <script type="text/javascript" src="script/common.js"></script>
 
 <script language="javascript" type="text/javascript">   
-function searchFiles(){  
-    var fso = new ActiveXObject("Scripting.FileSystemObject");  
-    var f = fso.GetFolder(document.all.fixfolder.value);  
-    var fc = new Enumerator(f.files);  
-    var s = "";  
-    for (; !fc.atEnd(); fc.moveNext())  
-    {  
-        s += fc.item();  
-        s += "<br/>";  
-    }  
-    fk = new Enumerator(f.SubFolders);  
-    for (; !fk.atEnd(); fk.moveNext())  
-    {  
-        s += fk.item();  
-        s += "<br/>";  
-    }  
+$import("rpc.js");
+function test()
+{
+	var callback = function(o)
+	{
+		alert("分析准备就绪！");
+		analysis();
+		check();
+	};
+	var operation = new Operation("PE分析.准备分析");
+	operation.execute(callback);
+}
 
-        textarea.innerHTML = s
-}   
+function analysis()
+{
+	alert("开始分析");
+	var callback = function(o)
+	{
+		alert("分析完毕！");
+	};
+	var operation = new Operation("PE分析.开始分析");
+	operation.execute(callback);
+}
+function check()
+{
+	var callback = function(o)
+	{
+		if (o.analyzerCount == 80) return;
+		util.debug(o, 3);
+		$("count").innerHTML = o.analyzerCount;
+		setTimeout(check, 1000);
+	};
+	var operation = new Operation("PE分析.获取状态");
+	operation.execute(callback);
+}
 </script>
 </head>
 
@@ -37,10 +53,10 @@ function searchFiles(){
 <div id="containaer">
 指定一个待分析文件夹路径：（文件夹中不得含有非PE格式文件）<br/>
 <input type="text" name="fixfolder"/>
-<input type="button" value ="查找" onclick="searchFiles()" />
+<input type="button" value ="查找" onclick="test()" />
 <table>
 	<tr>
-		<td id = "textarea"></td>
+		<td id = "textarea">(<span id="count">1</span>/10)</td>
 	</tr>
 </table> 
 </div>

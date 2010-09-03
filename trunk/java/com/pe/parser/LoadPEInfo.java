@@ -21,16 +21,29 @@ import com.pe.entity.parser.Resource;
 import com.pe.entity.parser.ResourceItem;
 import com.pe.entity.parser.SectionHeader;
 
+/**
+ * 加载pe文件信息
+ * @author FangZhiyang
+ *
+ */
 public class LoadPEInfo
 {
 	public static final int IMAGE_NUMBEROF_DIRECTORY_ENTRIES = 16;			//数据目录的个数
 	
 	private PEAnalyzerDll PE = PEAnalyzerDll.INSTANCE;
 	private File file; 
+	private boolean isSingle;			//是否是分析单个文件。（分析单个文件是上传到临时文件夹的，所以分析完成后需要file.delete()）
 	
 	public LoadPEInfo(File file)
 	{
 		this.file = file; 
+		this.isSingle = true;
+	}
+	
+	public LoadPEInfo(File file, boolean isSingle)
+	{
+		this.file = file; 
+		this.isSingle = isSingle;
 	}
 	
 	/** 开始分析文件 
@@ -60,7 +73,10 @@ public class LoadPEInfo
 		{
 			throw new UserException("分析文件出错，可能文件不符合有效的PE格式");
 		}
-		file.delete();
+		
+		/** 分析单个文件是上传到临时文件夹的，所以分析完成后需要删除 */
+		if (isSingle) file.delete();
+		
 		return peFile;
 	}
 	

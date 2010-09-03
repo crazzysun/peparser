@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>PE文件分析</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+$import("rpc.js");
+$import("table_list_without_page_control_bar.js");
+
+var parentFolder = "";
+function onSubmit()
+{
+	$("progress").style.display = "";
+	if ($("folderPath").value == "")
+	{
+		alert("请输入要分析的文件夹路径");
+		return;
+	}
+
+	var operations1 = 
+	[
+		{icon: "../images/icon_view.gif", text: "查看结果", onclick: onOpen}
+	];
+	var operations2 = 
+	[
+		{icon: "../images/icon_not_allow.gif", text: "查看结果", onclick: onError}
+	];
+	var titles = 
+	[
+		{text:"文件名称", width:"30%"},
+		{text:"大小", width:"20%"},
+		{text:"状态", width:"30%"},
+		{text:"操作", width:"10%"}
+	];
+	var columns =  
+	[
+		function(data) { return data.name;},
+		function(data) { return data.size; },
+		function(data) { return data.status; },
+		function(data) { 
+			util.debug(data, 3);
+			$("progress").style.display = "none";
+			return (data.status == "分析完成" ? TableList.links(operations1, data) : TableList.links(operations2, data)); }
+	];   
+
+	var operation = new Operation("PE分析.分析多个文件");
+	operation.folderPath = $("folderPath").value;
+	var tableList = new TableList(operation, titles, columns);
+	tableList.create($("container"));
+	tableList.refresh();
+}
+
+function onOpen(data)
+{
+	window.open("../peResult/" + data.parentFolder + "/" + data.name + ".html", "_blank");
+}
+
+function onError(data)
+{
+	alert(data.name + "不是有效的PE文件！");
+}
+
+/** 设置路径输入框的提示信息 */
+function addListener(element,e,fn)
+{   
+	if(element.addEventListener)
+    {   
+    	element.addEventListener(e,fn,false);   
+    } 
+    else 
+    {   
+        element.attachEvent("on" + e,fn);   
+    }   
+}
+
+function onLoad()
+{
+	var myinput = $("folderPath");
+	addListener(myinput,"click",function(){myinput.value = "";});
+	addListener(myinput,"blur",function(){myinput.value = "   路径名类似:C:/peFiles/test";});
+}
+</script>
+
+</head>
+<body onload="onLoad()">
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » PE多个文件分析 </div>
+<div id="wrap">
+<div id="containaer" >
+	<div class="title">
+			&nbsp;<img src="../images/folderOpen.gif" align="absmiddle">
+			指定一个待分析文件夹路径：（文件夹中不得含有非PE格式文件）
+			<input name="folderPath" type="text" value="   路径名类似:C:/peFiles/test" id="folderPath" size="40" style="margin-right: 50px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''"/>
+			<input class="pe_result" type="button" onclick="onSubmit()"/>
+			&nbsp;&nbsp;
+			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
+	</div>
+	
+	<div id="container"></div>
+</div>
+</div>
+</body>
+</html>
