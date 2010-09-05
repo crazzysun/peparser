@@ -39,17 +39,13 @@ Operation.prototype.execute = function (callback)
 	var callback2 = function (result)
 	{
 		var message = result.message;
-		var lock = result.lock;
 		if (message)
 		{
-			if (lock)
-			{
-				alert(message);
-				var currentHref = window.top.location.href;
-				var reg=new RegExp("/tcc/.*$","g");
-				currentHref = currentHref.replace(reg, "/tcc/index.html");
-				window.top.location.href  = currentHref;
-			}
+			alert(message);
+//			var currentHref = window.top.location.href;
+//			var reg=new RegExp("/tcc/.*$","g");
+//			currentHref = currentHref.replace(reg, "/tcc/index.html");
+//			window.top.location.href  = currentHref;
 			return;
 		}
 	
