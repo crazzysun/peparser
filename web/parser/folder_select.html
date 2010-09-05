@@ -40,7 +40,6 @@ function onSubmit()
 		function(data) { return data.size; },
 		function(data) { return data.status; },
 		function(data) { 
-			util.debug(data, 3);
 			$("progress").style.display = "none";
 			return (data.status == "分析完成" ? TableList.links(operations1, data) : TableList.links(operations2, data)); }
 	];   
@@ -79,7 +78,10 @@ function onLoad()
 {
 	var myinput = $("folderPath");
 	addListener(myinput,"click",function(){myinput.value = "";});
-	addListener(myinput,"blur",function(){myinput.value = "   路径名类似:C:/peFiles/test";});
+	addListener(myinput,"blur",function(){
+		if (myinput.value == "")
+			myinput.value = "   路径名类似:C:/peFiles/test";
+		});
 }
 </script>
 
