@@ -77,7 +77,10 @@ function addListener(element,e,fn)
 function onLoad()
 {
 	var myinput = $("folderPath");
-	addListener(myinput,"click",function(){myinput.value = "";});
+	addListener(myinput,"click",function(){
+		if (myinput.value == "   路径名类似:C:/peFiles/test")
+			myinput.value = "";
+		});
 	addListener(myinput,"blur",function(){
 		if (myinput.value == "")
 			myinput.value = "   路径名类似:C:/peFiles/test";
