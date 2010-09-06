@@ -1,8 +1,8 @@
 * {margin:0; padding:0;font-size:12px}
 
 a{text-decoration : none;color:#333 /**width:130px;*/ }
-a{blr:e­xpression(this.onFocus=this.close());} /* 只支持IE，过多使用效率低 */
-a{blr:e­xpression(this.onFocus=this.blur());} /* 只支持IE，过多使用效率低 */
+a{blr: expression(this.onFocus=this.close());} /* 只支持IE，过多使用效率低 */
+a{blr: expression(this.onFocus=this.blur());} /* 只支持IE，过多使用效率低 */
 a {star : expression(onfocus=this.blur);}
 a:focus { -moz-outline-style: none; } /* IE不支持 */
 img{border:0px}
@@ -51,7 +51,7 @@ ul li{list-style-type:none;margin:0px;padding:0px}
 	color:#0C2742}
 .tree{background:#DAE7F8;padding:12px}
 
-/*============Tab===============*/
+/** tab标签 */
 #tab_bar ul{clear:both; margin-top: 12px;}
 #tab_bar ul li {
 	float:left;
@@ -87,16 +87,14 @@ ul li{list-style-type:none;margin:0px;padding:0px}
 
 #tab_content_0{display:block;}
 
-/*============Tab===============*/
 
-
-
+/** 表格 */
 .form_table{border:1px solid #A7B9CF;}
 .tablecell td {
 	color: #333;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #B1B6D2;
-	background: #EDF3F9 url(../images/admin/bg_cell.jpg) repeat-x left top;
+	background: #EDF3F9;
 	line-height:20px;height:20px;
 	padding: 2px 3px 2px 6px;
 }
@@ -237,35 +235,12 @@ ul.page{margin:5px 30px 0px 0;}
 ul.page li{float:right;margin-right:10px;}
 ul.page li a{color:#333399}
 
-
-
-
-/***tab***/
-
-.tabLeftFirstOn{ height:23px; width:22px; background:url(../images/tab/tabLeftFirstOn.gif) no-repeat;}
-.tabLeftFirstOff{ height:23px; width:22px; background:url(../images/tab/tabLeftFirstOff.gif) no-repeat;}
-
-.tabStripeOn{font-size:12px;color:#fff;background:url(../images/tab/tabStripeOn.gif) repeat-x;  padding-left:5px;font-weight:bold; vertical-align:top; padding-top:6px; cursor:pointer;}
-.tabStripeOff{font-size:12px;background:url(../images/tab/tabStripeOff.gif) repeat-x;padding-left:5px;vertical-align:top; padding-top:6px; cursor:pointer;}
-
-.tabMiddleOffOff{ width:30px; background:url(../images/tab/tabMiddleOffOff.gif) no-repeat;}
-.tabMiddleOffOn{width:30px; background:url(../images/tab/tabMiddleOffOn.gif) no-repeat;}
-.tabMiddleOnOff{width:30px; background:url(../images/tab/tabMiddleOnOff.gif) no-repeat;}
-
-.tabRightLastOff{width:30px; background:url(../images/tab/tabRightLastOff.gif) no-repeat;}
-.tabRightLastOn{width:30px; background:url(../images/tab/tabRightLastOn.gif) no-repeat;}
-
-.tabOtherRight{ background:url(../images/tab/tabOtherRight.gif) repeat-x;}
-.tabRightRight{ background:url(../images/tab/tabRightRight.gif) no-repeat; width:22px;}
-
-.tabMiddleLeft{ width:22px; background:url(../images/tab/tabMiddleLeft.gif) repeat-y;}
-.tabMiddleRight{width:22px;background:url(../images/tab/tabMiddleRight.gif) repeat-y; text-align:right;}
-.tabMiddleContent{ background:#FFFFFF;}
-.tabFootLeft{ width:22px; height:34px; background:url(../images/tab/tagFootLeft.gif) no-repeat;}
-.tabFootBg{background:url(../images/tab/tagFootBg.gif) repeat-x;}
-.tabFootRight{width:22px; height:34px; background:url(../images/tab/tagFootRight.gif) no-repeat;}
-
-
-.chart_bg{width:80%;background:url(../images/chart_bg.gif);height:23px;border-right:1px solid #D9DEE4}
-.chart_bg .chart_on{background:url(../images/chart_on.gif);height:23px;float:left}
-.chart_bg span{margin-left:5px;}
+/** 分析多个PE文件的CSS */
+.bigTitle{
+	background:#ccdcf3 url(../images/title_bg.gif) repeat-x left top;
+	padding-left:12px;
+	border:1px solid #A7B9CF;
+	width:auto;
+	font-weight:800;
+	color:#0C2742;
+}

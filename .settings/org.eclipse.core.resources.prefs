@@ -1,5 +1,8 @@
-#Fri Sep 03 16:15:03 CST 2010
+#Mon Sep 06 15:49:29 CST 2010
 eclipse.preferences.version=1
 encoding//java/com/pe/operation/PE\u5206\u6790/\u5206\u6790\u591A\u4E2A\u6587\u4EF6.java=GB18030
+encoding//java/com/pe/operation/\u6587\u4EF6/AbstractFileOperation.java=gbk
 encoding//web/parser/folder_select.html=GB18030
 encoding//web/parser/parser_result.jsp=UTF-8
+encoding//web/styles/style.css=gbk
+encoding/<project>=GBK
