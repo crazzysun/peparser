@@ -93,13 +93,27 @@ function onLoad()
 <div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » PE多个文件分析 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div class="title">
-			&nbsp;<img src="../images/folderOpen.gif" align="absmiddle">
-			指定一个待分析文件夹路径：（文件夹中不得含有非PE格式文件）
-			<input name="folderPath" type="text" value="   路径名类似:C:/peFiles/test" id="folderPath" size="40" style="margin-right: 50px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''"/>
-			<input class="pe_result" type="button" onclick="onSubmit()"/>
-			&nbsp;&nbsp;
+	<div>
+		<div class="title">
+			<div class="titleText">
+				请指定一个待分析的文件夹:
+			</div>
+			<input name="folderPath" class="form_input_l" type="text" value="   路径名类似:C:/peFiles/test" id="folderPath" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''"/>
+			<input value="装载所选目录" type="button" onclick="onSubmit()"/>
 			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
+		</div>
+		<table cellpadding=0 cellspacing=0 border=0 width="100%" class="form_table" >
+			<tr class='tablecell'>
+				<td class='tit' width="90">选择要分析的文件类型</td>
+				<td class='inp'  width="120">
+					<input id="name" name="textfield" type="text" value="" class="form_input_s" />
+				</td>
+				<td class='tit' width="90">是否分析指定目录中的子目录</td>
+				<td class='inp'  width="120">
+					<input name="textfield" type="text" value="" class="form_input_s" onclick = "WdatePicker()" id='beginDate'/>
+				</td>
+			</tr>
+		</table>		
 	</div>
 	
 	<div id="container"></div>

@@ -330,38 +330,49 @@ public class CreateHTML
 	
 			strSectionData = replace(strSectionData,"{Char_add}", getNewOffset(offset));
 			String strChar = "", strCharAll;
-			long Characteristics = hexStringToint(sectionValue.get("Characteristics").substring(2));	//去掉String前面的"0x"
-			if (Characteristics == WINNT_H.IMAGE_SCN_CNT_CODE)
+			String Characteristics = sectionValue.get("Characteristics");	//取出Characteristics，判断每一位
+			if (Characteristics.charAt(8) == '2')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_CNT_CODE)
 				strChar += (strChar == "" ? " Code" : ", Code");
 
-			if (Characteristics == WINNT_H.IMAGE_SCN_CNT_INITIALIZED_DATA)
+			if (Characteristics.charAt(8) == '4')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_CNT_INITIALIZED_DATA)
 				strChar += (strChar == "" ? " Initialized Data" : ", Initialized Data");
 
-			if (Characteristics == WINNT_H.IMAGE_SCN_CNT_UNINITIALIZED_DATA)
+			if (Characteristics.charAt(8) == '8')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_CNT_UNINITIALIZED_DATA)
 				strChar += (strChar == "" ? " Uninitialized Data" : ", Uninitialized Data");
 
-			if (Characteristics == WINNT_H.IMAGE_SCN_LNK_INFO)
+			if (Characteristics.charAt(7) == '2')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_LNK_INFO)
 				strChar += (strChar == "" ? " Link Information" : ", Link Information");
 
-			if (Characteristics == WINNT_H.IMAGE_SCN_LNK_REMOVE)
+			if (Characteristics.charAt(7) == '8')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_LNK_REMOVE)
 				strChar += (strChar == "" ? " Remove" : ", Remove");
 
-			if (Characteristics == WINNT_H.IMAGE_SCN_LNK_COMDAT)
+			if (Characteristics.charAt(6) == '1')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_LNK_COMDAT)
 				strChar += (strChar == "" ? " COMDAT" : ", COMDAT");
 
-			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_DISCARDABLE)
+			if (Characteristics.charAt(3) == '2')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_DISCARDABLE)
 				strChar += (strChar == "" ? " Discardable" : ", Discardable");
 			
-			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_SHARED)
+			if (Characteristics.charAt(2) == '1')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_SHARED)
 				strChar += (strChar == "" ? " Shared" : ", Shared");
 			
-			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_EXECUTE)
+			if (Characteristics.charAt(2) == '2')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_EXECUTE)
 				strChar += (strChar == "" ? " Execute" : ", Execute");
 			
-			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_READ)
+			if (Characteristics.charAt(2) == '4')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_READ)
 				strChar += (strChar == "" ? " Read" : ", Read");
 			
-			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_WRITE)
+			if (Characteristics.charAt(2) == '8')
+//			if (Characteristics == WINNT_H.IMAGE_SCN_MEM_WRITE)
 				strChar += (strChar == "" ? " Write" : ", Write");
 			
 			strCharAll = sectionValue.get("Characteristics");
