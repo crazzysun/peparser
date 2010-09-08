@@ -4,7 +4,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
-import javax.swing.JApplet;
+//import javax.swing.JApplet;
 import javax.swing.JFrame;
 
 import com.pe.entity.gdlfile.Edge;
@@ -19,15 +19,15 @@ public class ViewGraph implements Operation
 	
 	public void execute() throws Exception
 	{
-		JApplet applet = new DrawGraph(nodeList, edgeList, title);
-    	JFrame frame = new JFrame(title);
-    	setupClosing(frame);
-    	frame.getContentPane().add(applet);
-
-    	applet.init();
-    	applet.start();
-		frame.pack();
-		frame.setVisible(true);
+//		JApplet applet = new DrawGraph(nodeList, edgeList, title);
+//    	JFrame frame = new JFrame(title);
+//    	setupClosing(frame);
+//    	frame.getContentPane().add(applet);
+//
+//    	applet.init();
+//    	applet.start();
+//		frame.pack();
+//		frame.setVisible(true);
 	}
 
 	public void setupClosing(JFrame frame)
