@@ -4,11 +4,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
-//import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-import com.pe.entity.gdlfile.Edge;
-import com.pe.entity.gdlfile.Node;
+import com.pe.entity.parser.Edge;
+import com.pe.entity.parser.Node;
 import com.pe.operation.Operation;
 
 public class ViewGraph implements Operation
