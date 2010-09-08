@@ -5,4 +5,11 @@
 	<Manager className="org.apache.catalina.session.PersistentManager">
 		<Store className="org.apache.catalina.session.FileStore"/>
 	</Manager>
+	
+	<Environment 
+			name="configure" 
+			type="java.lang.String"
+			value="d:/work/peparser/conf/peparser.conf"
+			override="false"
+	/>
 </Context>
