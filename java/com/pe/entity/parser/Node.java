@@ -1,4 +1,4 @@
-package com.pe.entity.gdlfile;
+package com.pe.entity.parser;
 
 import com.pe.entity.Bean;
 
