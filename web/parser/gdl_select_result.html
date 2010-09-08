@@ -1,0 +1,156 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>PE文件分析</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+
+$import("table_list.js");
+$import("rpc.js");
+$import("debug.js");
+$import("tab.js");
+
+var path = "";
+var status = null;
+var completed = false;
+var nodeList = [];
+var edgeList = [];
+
+function onSubmit()
+{
+	completed = false;
+	status = null;
+
+	if ($("fileName").value == "")
+	{
+		alert("请选择要分析的文件");
+		return;
+	}
+	var fileName = $("fileName").value
+	var index =fileName.indexOf("\.");
+	var postfix  = fileName.substring(index);
+	if (postfix != ".gdl")
+	{
+		alert("文件格式不正确，请输入文件格式为.gdl的文件！")
+		return;
+	}
+	
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
+	}
+	$("progress").style.display = "inline";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = path;
+	operation.execute(callback);
+}
+
+/** 检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				status = null;
+				peAnalyzer();
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
+	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
+}
+
+
+//查看图形
+function onView(data)
+{
+	var callback = function (o)
+	{
+	}
+	var operation = new Operation("gdlfile.ViewGraph");
+	operation.nodeList = nodeList;
+	operation.edgeList = edgeList;
+	operation.title = $("name").innerHTML;
+	operation.execute(callback);
+}
+
+/** 分析上传后的gdl文件 */
+function peAnalyzer()
+{
+	var callback = function (o)
+	{
+		$("fileInfo").style.display = "";
+				
+		$("name").innerHTML = o.title;
+		$("nodeCount").innerHTML = o.nodeCount;
+		$("edgeCount").innerHTML = o.edgeCount
+
+		nodeList = o.nodeList;
+		edgeList = o.edgeList;
+	}
+	var operation = new Operation("gdlfile.文件关系分析");
+	operation.fileName = $("fileName").value;
+	operation.execute(callback);
+}
+
+</script>
+
+</head>
+<body>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 文件关系节点分析 </div>
+<div id="wrap">
+<div id="containaer" >
+
+	<div class="title">
+		<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+			选取分析文件:
+			<input name="fileName" type="file" id="fileName" size="40" style="margin-right: 50px;"/>
+			<input class="pe_result" type="button" onClick="onSubmit()"/>
+			&nbsp;&nbsp;
+			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
+		</form> 
+		<iframe name="upload_result" id="upload_result" width="0" height="0" style="display:none"></iframe>
+	</div>
+	
+	<table id="fileInfo" style="display: none" width="100%" align="center" cellpadding="0" cellspacing="0" class="table_list">
+		<tr class="oddtr">
+			<td colspan="7" align="center" style="font-size:14px; font-weight:bold;"><b>GDL文件信息</b></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">名    称</td>
+			<td align ="center" width="25%">节点数目</td>
+			<td align ="center" width="25%">边数目</td>
+			<td align ="center" width="25%">操作</td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%"><span id="name"></span></td>
+			<td align ="center" width="25%"><span id="nodeCount"></span></td>
+			<td align ="center" width="25%"><span id="edgeCount"></span></td>
+			<td align ="center" width="25%"><input class="but_in" id="trainButton" type="button" value="查看图形结构" onclick="onView();" /></td>
+		</tr>
+	</table>
+</div>
+</div>
+</body>
+</html>
