@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.pe.UserException;
 
+
 /**
  * java 读取目录及子目录下指定文件名的路径 并放到一个List数组里面
  *
@@ -13,8 +14,12 @@ import com.pe.UserException;
  */
 public class ListDirFiles
 {
-	public static List<String> fileList = new ArrayList<String>();		//存储遍历后的所有文件名
+	public static List<String> fileList;		//存储遍历后的所有文件名
 
+	public static void initalize()
+	{
+		fileList = new ArrayList<String>();
+	}
 	/**
 	 * 
 	 * @param path
@@ -26,28 +31,25 @@ public class ListDirFiles
 	 * @return
 	 * @throws UserException 
 	 */
-	public static List<String> getListFiles(String path, String suffix, boolean isDepth) throws UserException
-	{
-		File file = new File(path);
-		return listFile(file, suffix, isDepth);
-	}
-
-	public static List<String> listFile(File f, String suffix, boolean isdepth) throws UserException
+	public static List<String> listFile(File f, List<String> suffix, boolean isDepth) throws Exception
 	{
 		// 是目录，同时需要遍历子目录
-		if (f.isDirectory() && isdepth == true)
+		if (f.isDirectory())
 		{
-			File[] t = f.listFiles();
-			for (int i = 0; i < t.length; i++)
+			if (isDepth)
 			{
-				listFile(t[i], suffix, isdepth);
+				File[] t = f.listFiles();
+				for (int i = 0; i < t.length; i++)
+				{
+					listFile(t[i], suffix, isDepth);
+				}
 			}
 		}
 		else
 		{
 			String filePath = f.getAbsolutePath();
 
-			if (suffix != null)
+			if (suffix.size() != 0)
 			{
 				int begIndex = filePath.lastIndexOf(".");	// 最后一个.(即后缀名前面的.)的索引
 				String tempsuffix = "";
@@ -57,17 +59,12 @@ public class ListDirFiles
 					tempsuffix = filePath.substring(begIndex + 1, filePath.length());
 				}
 
-				if (tempsuffix.equals(suffix))
+				if (suffix.contains(tempsuffix))
 				{
 					fileList.add(filePath);
 				}
 			}
-			else
-			{
-				throw new UserException("请指定要分析的文件类型！");
-//				// 后缀名为null则为所有文件
-//				fileList.add(filePath);
-			}
+			else throw new UserException("请指定要分析的文件类型！");
 		}
 		return fileList;
 	}
