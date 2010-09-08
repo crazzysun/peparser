@@ -12,10 +12,19 @@ public class MultiAnlysRslt implements Bean
 	private static final long serialVersionUID = 1L;
 
 	private String name;		//名称
+	private String path;		//路径
 	private String size;		//大小
 	private String status;		//状态
 	private String parentFolder;	//存放结果路径
 	
+	public String getName()
+	{
+		return name;
+	}
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 	public String getParentFolder()
 	{
 		return parentFolder;
@@ -24,13 +33,13 @@ public class MultiAnlysRslt implements Bean
 	{
 		this.parentFolder = parentFolder;
 	}
-	public String getName()
+	public String getPath()
 	{
-		return name;
+		return path;
 	}
-	public void setName(String name)
+	public void setPath(String path)
 	{
-		this.name = name;
+		this.path = path;
 	}
 	public String getSize()
 	{

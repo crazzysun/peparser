@@ -7,18 +7,52 @@
 <script src="../script/common.js"></script>
 <script type="text/javascript">
 $import("rpc.js");
-$import("table_list_without_page_control_bar.js");
+$import("table_list_dynamic_appended.js");
 
-var parentFolder = "";
+var suffixList;
+var fileList;
+var fileTotal;
+
+/** 变量初始化 */
+function init()
+{
+	suffixList = new Array();
+	fileList = new Array();
+	fileTotal = 0;
+}
+
 function onSubmit()
 {
-	$("progress").style.display = "";
-	if ($("folderPath").value == "")
+	init();
+	if ($("folderPath").value == "" || $("folderPath").value == "路径名类似:C:/peFiles/test")
 	{
 		alert("请输入要分析的文件夹路径");
 		return;
 	}
+	$("progress").style.display = "";
+	
+	var callback = function(o)
+	{
+		fileList = o.fileList;
+		fileTotal = fileList.length;
+		peAnalyzer();
+	};
+	
+	var operation = new Operation("PE分析.装载多文件分析目录");
+	operation.folderPath = $("folderPath").value;
+	/** 文件类型 */
+	if ($("exe").checked)
+		suffixList.push("exe");
+	if ($("dll").checked)
+		suffixList.push("dll");
+	operation.suffix = suffixList;
+	/** 是否分析子目录 */
+	operation.isDepth = $("yesDir").checked;
+	operation.execute(callback);
+}
 
+function peAnalyzer()
+{
 	var operations1 = 
 	[
 		{icon: "../images/icon_view.gif", text: "查看结果", onclick: onOpen}
@@ -29,26 +63,34 @@ function onSubmit()
 	];
 	var titles = 
 	[
-		{text:"文件名称", width:"30%"},
+		{text:"文件路径", width:"30%"},
 		{text:"大小", width:"20%"},
 		{text:"状态", width:"30%"},
 		{text:"操作", width:"10%"}
 	];
 	var columns =  
 	[
-		function(data) { return data.name;},
+		function(data) { return data.path;},
 		function(data) { return data.size; },
 		function(data) { return data.status; },
-		function(data) { 
-			$("progress").style.display = "none";
-			return (data.status == "分析完成" ? TableList.links(operations1, data) : TableList.links(operations2, data)); }
-	];   
+		function(data) { 		
+			return (data.status == "分析完成" ? AppendTableList.links(operations1, data) : AppendTableList.links(operations2, data)); 
+			}
+	]; 
 
 	var operation = new Operation("PE分析.分析多个文件");
-	operation.folderPath = $("folderPath").value;
-	var tableList = new TableList(operation, titles, columns);
-	tableList.create($("container"));
-	tableList.refresh();
+	var appendTableList = new AppendTableList(operation, titles, columns, fileTotal);
+	appendTableList.create($("container"));
+	
+	$("status").style.display = "";				//分析状态条
+	for (var i = 0; i < fileTotal; i++)
+	{
+		$("statusBar").innerHTML = fileList[i];
+		operation.filePath = fileList[i];
+		appendTableList.append(i + 1);
+	}
+	$("progress").style.display = "none";
+	$("status").style.display = "none";
 }
 
 function onOpen(data)
@@ -58,7 +100,7 @@ function onOpen(data)
 
 function onError(data)
 {
-	alert(data.name + "不是有效的PE文件！");
+	alert(data.path + "不是有效的PE文件！");
 }
 
 /** 设置路径输入框的提示信息 */
@@ -78,31 +120,28 @@ function onLoad()
 {
 	var myinput = $("folderPath");
 	addListener(myinput,"click",function(){
-		if (myinput.value == "   路径名类似:C:/peFiles/test")
+		if (myinput.value == "路径名类似:C:/peFiles/test")
 			myinput.value = "";
 		});
 	addListener(myinput,"blur",function(){
 		if (myinput.value == "")
-			myinput.value = "   路径名类似:C:/peFiles/test";
+			myinput.value = "路径名类似:C:/peFiles/test";
 		});
 }
 </script>
 
 </head>
 <body onLoad="onLoad()">
-<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 ?? PE多个文件分析 </div>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » PE多个文件分析 </div>
 <div id="wrap">
 <div id="containaer" >
-		<!-- 	<input value="装载所选目录" type="button" onclick="onSubmit()"/>
-			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif"></span>	
-	 -->
 	<div class="filter">
 		<div class="filterTitle">
 				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
 					<tr class='tablecell'>
 						<td class='tit' width="20%">指定一个待分析的文件夹</td>
 						<td class='inp'>
-							<input id="folderPath" name="folderPath" type="text" class="form_input_l" value="   路径名类似:C:/peFiles/test"/>
+							<input id="folderPath" name="folderPath" type="text" class="form_input_l" value="路径名类似:C:/peFiles/test"/>
 						</td>
 					</tr>
 					<tr class='tablecell'>
@@ -123,12 +162,12 @@ function onLoad()
 		</div>
 		<div class="filterInput">
 				<input type="button" class="pe_result" onClick="onSubmit()"/>
+				<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif"></span>
 		</div>
 		<div class="clear"></div>
 	</div>
-	<div class="title" id="status">
-			正在分析文件:
-			<span id="progress" style="display:inline">c:/QQ.exe...</span>	
+	<div class="title" id="status" style="display:none">
+			正在分析文件:<span id="statusBar"></span>...
 	</div>
 	
 	<div id="container"></div>
