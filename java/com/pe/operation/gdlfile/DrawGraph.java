@@ -6,8 +6,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -15,7 +18,6 @@ import java.util.TimerTask;
 
 import javax.swing.JApplet;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JRootPane;
 
 import org.apache.commons.collections15.functors.ConstantTransformer;
@@ -42,9 +44,9 @@ import edu.uci.ics.jung.visualization.renderers.Renderer;
 public class DrawGraph extends JApplet
 {
 	private static final long serialVersionUID = 1L;
-	private List<Node> nodeList = new ArrayList<Node>();
-	private List<Edge> edgeList = new ArrayList<Edge>();
-	private String title = "";
+	public List<Node> nodeList = new ArrayList<Node>();
+	public List<Edge> edgeList = new ArrayList<Edge>();
+	public static String title = "";
 	private int index = 0;
 
 	private Graph<Number, Number> g = null;
@@ -56,57 +58,58 @@ public class DrawGraph extends JApplet
 
 	public static final int EDGE_LENGTH = 100;
 
-	public DrawGraph(List<Node> nodeList, List<Edge> edgeList, String title)
+	public DrawGraph()
 	{
-		this.nodeList = nodeList;
-		this.edgeList = edgeList;
-		this.title = title;
-//		File file = new File("d:/workJung/jung2/peparser/data/nodes.txt");
-//		try
-//		{
-//			FileInputStream fileinputstream = new FileInputStream(file);
-//			InputStreamReader reader = new InputStreamReader(fileinputstream, "GB2312");
-//			BufferedReader br = new BufferedReader(reader);
-//
-//			String str = "";
-//			while ((str = br.readLine()) != null)
-//			{
-//				if (str.startsWith("title"))
-//				{
-//					title = str.substring(6, str.length());
-//				}
-//				if (str.startsWith("node"))
-//				{
-//					Node node = new Node();
-//					/** 节点Id */
-//					String nodeIndex = str.substring(5, str.length());
-//
-//					node.setNodeId(nodeIndex);
-//					nodeList.add(node);
-//				}
-//				if (str.startsWith("edge"))
-//				{
-//					Edge edge = new Edge();
-//					
-//					String ch = "-";
-//					/** sourceNode节点Id */
-//					String sourceNode = str.substring(5, str.indexOf(ch));
-//
-//					/** tagetNode节点Id */
-//					String targetNode = str.substring(str.indexOf(ch) + 1, str.length());
-//					
-//					edge.setSource(sourceNode);
-//					edge.setTarget(targetNode);
-//					edgeList.add(edge);
-//				}
-//			}
-//			
-//			br.close();
-//		}
-//		catch(IOException ioe)
-//		{
-//			System.out.println(ioe.getMessage());
-//		}
+//		this.nodeList = nodeList;
+//		this.edgeList = edgeList;
+//		this.title = title;
+		
+		File file = new File("d:/workJung/jung2/peparser/data/nodes.txt");
+		try
+		{
+			FileInputStream fileinputstream = new FileInputStream(file);
+			InputStreamReader reader = new InputStreamReader(fileinputstream, "GB2312");
+			BufferedReader br = new BufferedReader(reader);
+
+			String str = "";
+			while ((str = br.readLine()) != null)
+			{
+				if (str.startsWith("title"))
+				{
+					title = str.substring(6, str.length());
+				}
+				if (str.startsWith("node"))
+				{
+					Node node = new Node();
+					/** 节点Id */
+					String nodeIndex = str.substring(5, str.length());
+
+					node.setNodeId(nodeIndex);
+					nodeList.add(node);
+				}
+				if (str.startsWith("edge"))
+				{
+					Edge edge = new Edge();
+					
+					String ch = "-";
+					/** sourceNode节点Id */
+					String sourceNode = str.substring(5, str.indexOf(ch));
+
+					/** tagetNode节点Id */
+					String targetNode = str.substring(str.indexOf(ch) + 1, str.length());
+					
+					edge.setSource(sourceNode);
+					edge.setTarget(targetNode);
+					edgeList.add(edge);
+				}
+			}
+			
+			br.close();
+		}
+		catch(IOException ioe)
+		{
+			System.out.println(ioe.getMessage());
+		}
 		
 	}
 
@@ -233,16 +236,5 @@ public class DrawGraph extends JApplet
 			if (done) cancel();
 
 		}
-	}
-	
-	public void setupClosing(JFrame frame)
-	{
-		frame.addWindowListener(new WindowAdapter()
-		{
-			public void windowClosing(WindowEvent e)
-			{
-//				System.exit(0);
-			}
-		});
 	}
 }
