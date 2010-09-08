@@ -34,7 +34,6 @@ public class 文件关系分析 extends AbstractFileOperation implements Operation
 		{
 			File path = getWorkFile("");
 			File file = new File(path, fileName);
-//			File file = new File(fileName);
 			
 			/** 将节点信息写入文件*/
 			String destFileName = "nodes.txt";
