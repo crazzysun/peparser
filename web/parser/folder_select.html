@@ -30,6 +30,7 @@ function onSubmit()
 		return;
 	}
 	$("progress").style.display = "";
+	$("finish").style.display = "none";
 	
 	var callback = function(o)
 	{
@@ -53,6 +54,7 @@ function onSubmit()
 
 function peAnalyzer()
 {
+	$("status").style.display = "";				//分析状态条
 	var operations1 = 
 	[
 		{icon: "../images/icon_view.gif", text: "查看结果", onclick: onOpen}
@@ -81,16 +83,7 @@ function peAnalyzer()
 	var operation = new Operation("PE分析.分析多个文件");
 	var appendTableList = new AppendTableList(operation, titles, columns, fileTotal);
 	appendTableList.create($("container"));
-	
-	$("status").style.display = "";				//分析状态条
-	for (var i = 0; i < fileTotal; i++)
-	{
-		$("statusBar").innerHTML = fileList[i];
-		operation.filePath = fileList[i];
-		appendTableList.append(i + 1);
-	}
-	$("progress").style.display = "none";
-	$("status").style.display = "none";
+	appendTableList.append(fileList);
 }
 
 function onOpen(data)
@@ -167,7 +160,10 @@ function onLoad()
 		<div class="clear"></div>
 	</div>
 	<div class="title" id="status" style="display:none">
-			正在分析文件:<span id="statusBar"></span>...
+			正在分析文件:<span id="statusBar"></span>&nbsp;<img src="../images/loading.gif">请等待...
+	</div>
+	<div class="title" id="finish" style="display:none">
+			恭喜你！目录中文件全部分析完成！
 	</div>
 	
 	<div id="container"></div>

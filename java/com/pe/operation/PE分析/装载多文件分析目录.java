@@ -26,7 +26,7 @@ public class 装载多文件分析目录 implements Operation
 		File folder = new File(folderPath);
 		if (folder == null || !folder.isDirectory())
 		{
-			throw new UserException("输入的文件夹路径有误，请检测后重新输入");
+			throw new UserException("输入的文件夹路径\"" + folderPath + "\"有误，请检查后重新输入");
 		}
 		
 		ListDirFiles.initalize();		

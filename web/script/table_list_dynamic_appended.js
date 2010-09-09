@@ -11,15 +11,33 @@ function AppendTableList(operation, titles, columns, total)
 	this.current = 0;						//当前分析到的条数
 }
 
-AppendTableList.prototype.append = function (current)
+/**
+ * 循环嵌套调用此函数，每次从队列中取出一个filePath执行rpc
+ * 只有上一条结果返回后才调用下一条rpc
+ * @param {Object} fileList
+ */
+AppendTableList.prototype.append = function (fileList)
 {
+	this.current++;								//循环取队列头
+	if (this.current > this.total) return;	
+	if (!(this.file = fileList.shift())) alert("TableList Gets File Error!");
+	
 	var self = this;
-	this.current = current;
+	this.operation.filePath = this.file;		//给operation传参
+	$("statusBar").innerHTML = this.file;		//页面中的状态进度条
 	var callback = function(result)
 	{
 		dwr.util.addRows(self.tbody, result.data, self.columns, {rowCreator: self.rowCreator});
 		
 		self.recordsSpan.innerHTML = "共" + self.total + "条记录，已分析" + self.current + "条";
+		
+		if (self.current == self.total)			//全部分析完成后
+		{
+			$("progress").style.display = "none";
+			$("status").style.display = "none";
+			$("finish").style.display = "";
+		}
+		self.append(fileList);
 	}
 	
 	this.operation.execute(callback);
