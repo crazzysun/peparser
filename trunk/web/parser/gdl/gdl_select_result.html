@@ -93,6 +93,7 @@ function peAnalyzer()
 {
 	var callback = function (o)
 	{
+		$("progress").style.display = "none";
 		$("fileInfo").style.display = "";
 				
 		$("name").innerHTML = o.title;
