@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,13 +59,10 @@ public class DrawGraph extends JApplet
 
 	public DrawGraph()
 	{
-//		this.nodeList = nodeList;
-//		this.edgeList = edgeList;
-//		this.title = title;
-		
-		File file = new File("d:/workJung/jung2/peparser/data/nodes.txt");
 		try
 		{
+			File file = new File("D:/work/peparser/data/pe/nodes.txt");
+			
 			FileInputStream fileinputstream = new FileInputStream(file);
 			InputStreamReader reader = new InputStreamReader(fileinputstream, "GB2312");
 			BufferedReader br = new BufferedReader(reader);
@@ -106,7 +102,7 @@ public class DrawGraph extends JApplet
 			
 			br.close();
 		}
-		catch(IOException ioe)
+		catch(Exception ioe)
 		{
 			System.out.println(ioe.getMessage());
 		}
