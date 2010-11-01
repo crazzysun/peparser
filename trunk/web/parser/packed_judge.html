@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>PE文件分析</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+$import("rpc.js");
+
+function createTrainSet()
+{
+	if ($("dataset").value == "")
+	{
+		alert("请选择训练样本文件！");
+		return;
+	}
+	
+	var callback = function(result)
+	{
+		showTrainResult(result.result);
+	};
+	
+	var operation = new Operation("PE分析.创建加壳分析训练集");
+	operation.classifier = $("classifier").value;
+	operation.dataset = $("dataset").value;
+	operation.execute(callback);
+}
+
+function showTrainResult(result)
+{
+	$("createTrainSet_div").style.display = "none";
+	
+	$("testFile_div").style.display = "";
+	$("title").innerHTML = "判断PE文件是否加壳";
+	$("container").innerHTML = result;
+}
+
+function onSubmit()
+{
+	
+}
+
+function onLoad()
+{
+	$("createTrainSet_div").style.display = "";
+	$("testFile_div").style.display = "none";
+}
+</script>
+
+</head>
+<body onLoad="onLoad()">
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » PE多个文件分析 </div>
+<div id="wrap">
+<div id="containaer" >
+	<div id="title" class="title">生成训练集</div>
+	<div class="filter" id="createTrainSet_div">
+		<div class="filterTitle">
+				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+					<tr class='tablecell'>
+						<td class='tit' width="20%">选择所需的分类器</td>
+						<td class='inp'>
+							<select id="classifier" name="classifier" class="form_input_l">
+								<option value="0">weka.classifiers.trees.J48</option>
+								<option value="1">weka.classifiers.functions.MultilayerPerceptron</option>
+								<option value="2">weka.classifiers.bayes.NaiveBayes</option>
+								<option value="3">weka.classifiers.lazy.IBk</option>
+							</select>
+						</td>
+					</tr>
+					<tr class='tablecell'>
+						<td class='tit'>指定训练样本文件路径</td>
+						<td class='inp'>
+							<input id="dataset" name="dataset" type="text" size="55" value="D:/work/peparser/data/trainSet/PEC_trainingset.arff"/>
+						</td>
+					</tr>
+				</table>
+		</div>
+		<div class="filterInput" style="padding:16px 0px 0px 25px;">
+			<input type="button" class="pe_result" onClick="createTrainSet()"/>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="filter" id="testFile_div">
+		<div class="filterTitle">
+				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+					<tr class='tablecell'>
+						<td class='tit' width="20%">选择分析文件</td>
+						<td class='inp'>
+							<input id="testfile" name="testfile" type="text" size="40" value="C:/test/bin/psql.exe"/>
+						</td>
+					</tr>
+				</table>
+		</div>
+		<div class="filterInput" style="padding:2px 0px 0px 25px;">
+			<input type="button" class="pe_result" onClick="onSubmit()"/>
+		</div>
+		<div class="clear"></div>
+		<div class="title">
+			恭喜你，训练集创建完成，结果如下！现在你可以在上面选择文件进行加壳判断：
+		</div>
+		
+	</div>
+	<div id="container" class="tips"></div>
+	
+</div>
+</div>
+</body>
+</html>

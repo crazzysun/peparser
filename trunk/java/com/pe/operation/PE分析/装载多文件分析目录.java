@@ -8,7 +8,7 @@ import com.pe.operation.Operation;
 import com.pe.parser.ListDirFiles;
 
 /**
- * 分析多个文件时，首先加载这个目录下所有的文件名，传个前台
+ * 分析多个文件时，首先加载这个目录下所有的文件名，传给前台
  * 以实现多文件分析中，分析一条，rpc返回一条
  * @author FangZhiyang
  *
