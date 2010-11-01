@@ -4,26 +4,13 @@ if [ ! -z "$(set | /bin/grep msys)" ]; then
 	PATH=/usr/bin:/bin:$PATH
 fi
 
-#export PGCLIENTENCODING=GBK
-#export LANG=zh_CN.GBK
-
 abc="$1"
-
-if [ -z "$abc" ]; then 
-	abc=test;
-else
-	aaa=$(cat sql/companies.txt | grep -e "^$abc=")
-	if [ -z "$aaa" ]; then
-		echo argument error: $1
-		exit 1
-	fi 
-fi
 
 echo
 echo Create database schema
 (
 	cd sql
-	psql -c "\i create.sql" tcc
+	psql -c "\i create.sql" $abc
 )
 echo OK!
 
@@ -31,7 +18,7 @@ echo
 echo Import basic data
 (
 	cd sql
-	psql -c "\i basic_data.sql" tcc
+	psql -c "\i basic_data.sql" $abc
 )
 echo OK!
 
@@ -39,7 +26,7 @@ echo
 echo Import $abc data
 (
 	cd sql/$abc
-	psql -c "\i data.sql" tcc
+	psql -c "\i data.sql" $abc
 )
 echo OK!
 
@@ -59,18 +46,4 @@ cp=$cp${x}web/WEB-INF/lib/log4j-1.2.15.jar
 echo "cp: $cp"
 
 echo
-echo Update sequences
-java -cp $cp data.UpdateSequences $abc
 echo OK!
-
-#echo
-#echo Load privileges
-#java -cp $cp data.LoadPrivileges $abc
-#echo OK!
-
-echo
-echo Load menus
-java -cp $cp data.LoadMenus $abc
-echo OK!
-
-echo

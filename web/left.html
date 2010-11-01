@@ -42,7 +42,7 @@ ul li{list-style-type:none;margin:0px;padding:0px}
 
 function loadMenu()
 {
-	var Temp=new Sliderl(null,0,{"title_normal":"title_normal","title_select":"title_select","body_normal":"body_normal","body_select":"body_select"});
+	new Sliderl(null,0,{"title_normal":"title_normal","title_select":"title_select","body_normal":"body_normal","body_select":"body_select"});
 }
 </script>
 
@@ -52,10 +52,11 @@ function loadMenu()
 	<div id="left_bar" style="display: block">
 		<div id="left_bar_top"></div>
 		<div id="left_bar_body">
-			<h3>文件分析</h3>
+			<h3>静态完整性分析</h3>
 			<ul>
-				<li><a href="parser/file_select.html" target='main'>单个文件分析</a></li>
-				<li><a href="parser/folder_select.html" target="main">多个文件分析</a></li>
+				<li><a href="parser/file_select.html" target='main'>单个PE文件分析</a></li>
+				<li><a href="parser/folder_select.html" target="main">多个PE文件分析</a></li>
+				<li><a href="parser/packed_judge.html" target="main">文件加壳判断</a></li>
 			</ul>
 			<h3>病毒分析</h3>
 			<ul>
