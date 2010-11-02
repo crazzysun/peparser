@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>PEÎÄ¼ş·ÖÎö</title>
+<title>PEæ–‡ä»¶åˆ†æ</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
 <script src="../script/common.js"></script>
@@ -13,7 +13,7 @@ var suffixList;
 var fileList;
 var fileTotal;
 
-/** ±äÁ¿³õÊ¼»¯ */
+/** å˜é‡åˆå§‹åŒ– */
 function init()
 {
 	suffixList = new Array();
@@ -24,9 +24,9 @@ function init()
 function onSubmit()
 {
 	init();
-	if ($("folderPath").value == "" || $("folderPath").value == "Â·¾¶ÃûÀàËÆ:C:/peFiles/test")
+	if ($("folderPath").value == "" || $("folderPath").value == "è·¯å¾„åç±»ä¼¼:C:/peFiles/test")
 	{
-		alert("ÇëÊäÈëÒª·ÖÎöµÄÎÄ¼ş¼ĞÂ·¾¶");
+		alert("è¯·è¾“å…¥è¦åˆ†æçš„æ–‡ä»¶å¤¹è·¯å¾„");
 		return;
 	}
 	$("progress").style.display = "";
@@ -39,36 +39,36 @@ function onSubmit()
 		peAnalyzer();
 	};
 	
-	var operation = new Operation("PE·ÖÎö.×°ÔØ¶àÎÄ¼ş·ÖÎöÄ¿Â¼");
+	var operation = new Operation("PEåˆ†æ.è£…è½½å¤šæ–‡ä»¶åˆ†æç›®å½•");
 	operation.folderPath = $("folderPath").value;
-	/** ÎÄ¼şÀàĞÍ */
+	/** æ–‡ä»¶ç±»å‹ */
 	if ($("exe").checked)
 		suffixList.push("exe");
 	if ($("dll").checked)
 		suffixList.push("dll");
 	operation.suffix = suffixList;
-	/** ÊÇ·ñ·ÖÎö×ÓÄ¿Â¼ */
+	/** æ˜¯å¦åˆ†æå­ç›®å½• */
 	operation.isDepth = $("yesDir").checked;
 	operation.execute(callback);
 }
 
 function peAnalyzer()
 {
-	$("status").style.display = "";				//·ÖÎö×´Ì¬Ìõ
+	$("status").style.display = "";				//åˆ†æçŠ¶æ€æ¡
 	var operations1 = 
 	[
-		{icon: "../images/icon_view.gif", text: "²é¿´½á¹û", onclick: onOpen}
+		{icon: "../images/icon_view.gif", text: "æŸ¥çœ‹ç»“æœ", onclick: onOpen}
 	];
 	var operations2 = 
 	[
-		{icon: "../images/icon_not_allow.gif", text: "²é¿´½á¹û", onclick: onError}
+		{icon: "../images/icon_not_allow.gif", text: "æŸ¥çœ‹ç»“æœ", onclick: onError}
 	];
 	var titles = 
 	[
-		{text:"ÎÄ¼şÂ·¾¶", width:"30%"},
-		{text:"´óĞ¡", width:"20%"},
-		{text:"×´Ì¬", width:"30%"},
-		{text:"²Ù×÷", width:"10%"}
+		{text:"æ–‡ä»¶è·¯å¾„", width:"30%"},
+		{text:"å¤§å°", width:"20%"},
+		{text:"çŠ¶æ€", width:"30%"},
+		{text:"æ“ä½œ", width:"10%"}
 	];
 	var columns =  
 	[
@@ -76,11 +76,11 @@ function peAnalyzer()
 		function(data) { return data.size; },
 		function(data) { return data.status; },
 		function(data) { 		
-			return (data.status == "·ÖÎöÍê³É" ? AppendTableList.links(operations1, data) : AppendTableList.links(operations2, data)); 
+			return (data.status == "åˆ†æå®Œæˆ" ? AppendTableList.links(operations1, data) : AppendTableList.links(operations2, data)); 
 			}
 	]; 
 
-	var operation = new Operation("PE·ÖÎö.·ÖÎö¶à¸öÎÄ¼ş");
+	var operation = new Operation("PEåˆ†æ.åˆ†æå¤šä¸ªæ–‡ä»¶");
 	var appendTableList = new AppendTableList(operation, titles, columns, fileTotal);
 	appendTableList.create($("container"));
 	appendTableList.append(fileList);
@@ -93,10 +93,10 @@ function onOpen(data)
 
 function onError(data)
 {
-	alert(data.path + "²»ÊÇÓĞĞ§µÄPEÎÄ¼ş£¡");
+	alert(data.path + "ä¸æ˜¯æœ‰æ•ˆçš„PEæ–‡ä»¶ï¼");
 }
 
-/** ÉèÖÃÂ·¾¶ÊäÈë¿òµÄÌáÊ¾ĞÅÏ¢ */
+/** è®¾ç½®è·¯å¾„è¾“å…¥æ¡†çš„æç¤ºä¿¡æ¯ */
 function addListener(element,e,fn)
 {   
 	if(element.addEventListener)
@@ -113,57 +113,57 @@ function onLoad()
 {
 	var myinput = $("folderPath");
 	addListener(myinput,"click",function(){
-		if (myinput.value == "Â·¾¶ÃûÀàËÆ:C:/peFiles/test")
+		if (myinput.value == "è·¯å¾„åç±»ä¼¼:C:/peFiles/test")
 			myinput.value = "";
 		});
 	addListener(myinput,"blur",function(){
 		if (myinput.value == "")
-			myinput.value = "Â·¾¶ÃûÀàËÆ:C:/peFiles/test";
+			myinput.value = "è·¯å¾„åç±»ä¼¼:C:/peFiles/test";
 		});
 }
 </script>
 
 </head>
 <body onLoad="onLoad()">
-<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> µ±Ç°Î»ÖÃ£ºÊ×Ò³ 0†3 PE¶à¸öÎÄ¼ş·ÖÎö </div>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> å½“å‰ä½ç½®ï¼šé¦–é¡µ Â» PEå¤šä¸ªæ–‡ä»¶åˆ†æ </div>
 <div id="wrap">
 <div id="containaer" >
 	<div class="filter">
 		<div class="filterTitle">
 				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
 					<tr class='tablecell'>
-						<td class='tit' width="20%">Ö¸¶¨Ò»¸ö´ı·ÖÎöµÄÎÄ¼ş¼Ğ</td>
+						<td class='tit' width="20%">æŒ‡å®šä¸€ä¸ªå¾…åˆ†æçš„æ–‡ä»¶å¤¹</td>
 						<td class='inp'>
-							<input id="folderPath" name="folderPath" type="text" class="form_input_l" value="Â·¾¶ÃûÀàËÆ:C:/peFiles/test"/>
+							<input id="folderPath" name="folderPath" type="text" class="form_input_l" value="è·¯å¾„åç±»ä¼¼:C:/peFiles/test"/>
 						</td>
 					</tr>
 					<tr class='tablecell'>
-						<td class='tit'>Ñ¡Ôñ´ı·ÖÎöµÄÎÄ¼şÀàĞÍ</td>
+						<td class='tit'>é€‰æ‹©å¾…åˆ†æçš„æ–‡ä»¶ç±»å‹</td>
 						<td class='inp'>
-							<input id="exe" name="exe" type="checkbox" checked class="form_input" />¿ÉÖ´ĞĞÎÄ¼ş£¨*.exe£©
-							<input id="dll" name="dll" type="checkbox" checked class="form_input" />¶¯Ì¬Á´½Ó¿âÎÄ¼ş£¨*.dll£©
+							<input id="exe" name="exe" type="checkbox" checked class="form_input" />å¯æ‰§è¡Œæ–‡ä»¶ï¼ˆ*.exeï¼‰
+							<input id="dll" name="dll" type="checkbox" checked class="form_input" />åŠ¨æ€é“¾æ¥åº“æ–‡ä»¶ï¼ˆ*.dllï¼‰
 						</td>
 					</tr>
 					<tr class='tablecell'>
-						<td class='tit'>ÊÇ·ñ·ÖÎö×ÓÄ¿Â¼</td>
+						<td class='tit'>æ˜¯å¦åˆ†æå­ç›®å½•</td>
 						<td class='inp'>
-							<input id="yesDir" name="dirSelect" type="radio" class="form_input" />ÊÇ
-							<input id="noDir" name="dirSelect" type="radio" checked class="form_input" />·ñ
+							<input id="yesDir" name="dirSelect" type="radio" class="form_input" />æ˜¯
+							<input id="noDir" name="dirSelect" type="radio" checked class="form_input" />å¦
 						</td>
 					</tr>
 				</table>
 		</div>
 		<div class="filterInput" style="padding:28px 0px 0px 25px;">
 				<input type="button" class="pe_result" onClick="onSubmit()"/>
-				<span id="progress" style="display:none">ÎÄ¼ş·ÖÎöÖĞ...&nbsp;<img src="../images/loading.gif"></span>
+				<span id="progress" style="display:none">æ–‡ä»¶åˆ†æä¸­...&nbsp;<img src="../images/loading.gif"></span>
 		</div>
 		<div class="clear"></div>
 	</div>
 	<div class="title" id="status" style="display:none">
-			ÕıÔÚ·ÖÎöÎÄ¼ş:<span id="statusBar"></span>&nbsp;<img src="../images/loading.gif">ÇëµÈ´ı...
+			æ­£åœ¨åˆ†ææ–‡ä»¶:<span id="statusBar"></span>&nbsp;<img src="../images/loading.gif">è¯·ç­‰å¾…...
 	</div>
 	<div class="title" id="finish" style="display:none">
-			¹§Ï²Äã£¡Ä¿Â¼ÖĞÎÄ¼şÈ«²¿·ÖÎöÍê³É£¡
+			æ­å–œä½ ï¼ç›®å½•ä¸­æ–‡ä»¶å…¨éƒ¨åˆ†æå®Œæˆï¼
 	</div>
 	
 	<div id="container"></div>
