@@ -9,7 +9,7 @@ import java.io.InputStream;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 
-public class zip
+public class Zip
 {
 	@SuppressWarnings("unchecked")
 	public synchronized static void unzip(String zipFileName, String extPlace) throws Exception
@@ -18,11 +18,12 @@ public class zip
 		{
 			(new File(extPlace)).mkdirs();
 			File f = new File(zipFileName);
-			ZipFile zipFile = new ZipFile(zipFileName);
 			if ((!f.exists()) && (f.length() <= 0)) 
 			{ 
-				throw new Exception("Òª½âÑ¹µÄÎÄ¼þ²»´æÔÚ!"); 
+				throw new Exception("è¦è§£åŽ‹çš„æ–‡ä»¶ä¸å­˜åœ¨!"); 
 			}
+			
+			ZipFile zipFile = new ZipFile(zipFileName);
 			String strPath, gbkPath, strtemp;
 			File tempFile = new File(extPlace);
 			strPath = tempFile.getAbsolutePath();
@@ -31,7 +32,6 @@ public class zip
 			{
 				org.apache.tools.zip.ZipEntry zipEnt = (ZipEntry) e.nextElement();
 				gbkPath = zipEnt.getName();
-				System.out.println(gbkPath);
 				if (zipEnt.isDirectory())
 				{
 					strtemp = strPath + File.separator + gbkPath;
@@ -41,13 +41,13 @@ public class zip
 				}
 				else
 				{
-					// ¶ÁÐ´ÎÄ¼þ
+					// è¯»å†™æ–‡ä»¶
 					InputStream is = zipFile.getInputStream(zipEnt);
 					BufferedInputStream bis = new BufferedInputStream(is);
 					gbkPath = zipEnt.getName();
 					strtemp = strPath + File.separator + gbkPath;
 
-					// ½¨Ä¿Â¼
+					// å»ºç›®å½•
 					String strsubdir = gbkPath;
 					for (int i = 0; i < strsubdir.length(); i++)
 					{

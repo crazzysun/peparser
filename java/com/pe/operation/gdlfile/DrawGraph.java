@@ -77,7 +77,7 @@ public class DrawGraph extends JApplet
 				if (str.startsWith("node"))
 				{
 					Node node = new Node();
-					/** 节点Id */
+					/** 鑺傜偣Id */
 					String nodeIndex = str.substring(5, str.length());
 
 					node.setNodeId(nodeIndex);
@@ -88,10 +88,10 @@ public class DrawGraph extends JApplet
 					Edge edge = new Edge();
 					
 					String ch = "-";
-					/** sourceNode节点Id */
+					/** sourceNode鑺傜偣Id */
 					String sourceNode = str.substring(5, str.indexOf(ch));
 
-					/** tagetNode节点Id */
+					/** tagetNode鑺傜偣Id */
 					String targetNode = str.substring(str.indexOf(ch) + 1, str.length());
 					
 					edge.setSource(sourceNode);

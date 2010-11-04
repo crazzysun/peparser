@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>创建加壳判断训练集</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
@@ -8,14 +8,69 @@
 <script type="text/javascript">
 $import("rpc.js");
 
-function createTrainSet()
+var status = null;
+var completed = false;
+
+/** 1.提交，检查输入 */
+function onSubmit()
 {
+	completed = false;
+	status = null;
+
 	if ($("dataset").value == "")
 	{
-		alert("请选择训练样本文件！");
+		if (!confirm("训练样本文件未选择，确认使用系统默认训练样本？"));
 		return;
 	}
+
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
+	}
+	$("progress").style.display = "";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = "";
+	operation.execute(callback);
+}
+
+/** 2.检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				$("progress").style.display = "none";
+				status = null;
+				createTrainSet();
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
 	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
+}
+
+/** 3.创建训练集 */
+function createTrainSet()
+{
 	var callback = function(result)
 	{
 		showTrainResult(result.result);
@@ -27,13 +82,18 @@ function createTrainSet()
 	operation.execute(callback);
 }
 
-function onSubmit()
+/** 4.显示训练集结果 */
+function showTrainResult(result)
 {
-	
+	$("result").style.display = "";
+	$("container").style.display = "";
+	$("container").innerHTML = result;
 }
 
 function onLoad()
 {
+	$("result").style.display = "none";
+	$("container").style.display = "none";
 }
 </script>
 
@@ -58,23 +118,31 @@ function onLoad()
 						</td>
 					</tr>
 					<tr class='tablecell'>
-						<td class='tit'>选择训练样本文件路径</td>
+						<td class='tit'>选择训练样本文件</td>
 						<td class='inp'>
-							<input id="dataset" name="dataset" type="text" size="55" value="D:/work/peparser/data/trainSet/PEC_trainingset.arff"/>
+							<!-- 表单提交，上传文件 -->
+							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+								<input id="dataset" name="dataset" type="file" size="40"/>
+								<span style="display:inline-block;color:red">*为空即为使用系统默认训练样本</span>
+							</form> 
+							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
+							
 						</td>
 					</tr>
 				</table>
 		</div>
 		<div class="filterInput" style="padding:16px 0px 0px 25px;">
-			<input type="button" class="pe_result" onClick="createTrainSet()"/>
+			<input type="button" class="pe_result" onClick="onSubmit()"/>
+			<span id="progress" style="display:none">创建中...<img src="../images/loading.gif" align="absmiddle"></span>
 		</div>
 		<div class="clear"></div>
-	
-		<div class="title">
-			恭喜你，训练集创建完成，结果如下！现在你可以""菜单选择文件进行是否加壳判断：
+		<div class="title" id="result">
+			恭喜你训练集创建完成，结果已保存!具体生成树结果如下:
+			(现在你可以在<a href="judge.html">"判断PE文件是否加壳"</a>菜单选择文件进行是否加壳判断或<a href="trainSet_list.html">"查看所有训练集"</a>)
 		</div>
-		
 	</div>
+	
+	<!-- 结果展示div，默认隐藏的 -->
 	<div id="container" class="tips"></div>
 	
 </div>

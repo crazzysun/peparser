@@ -1,18 +1,18 @@
 /**
- * Ò»Ğ©»ù±¾¹¤¾ß
+ * ä¸€äº›åŸºæœ¬å·¥å…·
  */
 $import("rpc.js");
 
 var util = {};
 
-/** Êä³ö¶ÔÏóµÄÏêÏ¸ĞÅÏ¢, ÓÃÓÚµ÷ÊÔ */
+/** è¾“å‡ºå¯¹è±¡çš„è¯¦ç»†ä¿¡æ¯, ç”¨äºè°ƒè¯• */
 util.debug = function (object, depth)
 {
 	var s = dwr.util.toDescriptiveString(object, depth);
 	alert(s);
 }
 
-/** Çå³ıÖ¸¶¨½ÚµãµÄÄÚÈİ */
+/** æ¸…é™¤æŒ‡å®šèŠ‚ç‚¹çš„å†…å®¹ */
 util.clear = function (element)
 {
 	for (var i = element.childNodes.length - 1; i >= 0; i--)
@@ -37,54 +37,54 @@ util.trim = function (s)
 }
 
 /**
-* ÓÃ·¨£º 
-* var args = util.getURLArgs(); // ´Ó URL ½âÎö³ö²ÎÊı 
-* var q = args.q || ""; // Èç¹û¶¨ÒåÁËÄ³²ÎÊı£¬ÔòÊ¹ÓÃÆäÖµ£¬·ñÔò¸øËüÒ»¸öÄ¬ÈÏÖµ 
+* ç”¨æ³•ï¼š 
+* var args = util.getURLArgs(); // ä» URL è§£æå‡ºå‚æ•° 
+* var q = args.q || ""; // å¦‚æœå®šä¹‰äº†æŸå‚æ•°ï¼Œåˆ™ä½¿ç”¨å…¶å€¼ï¼Œå¦åˆ™ç»™å®ƒä¸€ä¸ªé»˜è®¤å€¼ 
 * var n = args.n ? parseInt(args.n) : 10; 
 */
 util.getURLArgs = function ()
 {
-	var args = new Object(); //ÉùÃ÷Ò»¸ö¿Õ¶ÔÏó 
-	var query = window.location.search.substring(1); // È¡²éÑ¯×Ö·û´®£¬Èç´Ó http://www.snowpeak.org/testjs.htm?a1=v1&a2=&a3=v3#anchor ÖĞ½Ø³ö a1=v1&a2=&a3=v3¡£ 
-	var pairs = query.split("&"); // ÒÔ & ·û·Ö¿ª³ÉÊı×é 
+	var args = new Object(); //å£°æ˜ä¸€ä¸ªç©ºå¯¹è±¡ 
+	var query = window.location.search.substring(1); // å–æŸ¥è¯¢å­—ç¬¦ä¸²ï¼Œå¦‚ä» http://www.snowpeak.org/testjs.htm?a1=v1&a2=&a3=v3#anchor ä¸­æˆªå‡º a1=v1&a2=&a3=v3ã€‚ 
+	var pairs = query.split("&"); // ä»¥ & ç¬¦åˆ†å¼€æˆæ•°ç»„ 
 	for(var i = 0; i < pairs.length; i++) 
 	{ 
-		var pos = pairs[i].indexOf('='); // ²éÕÒ "name=value" ¶Ô 
-		if (pos == -1) continue; // Èô²»³É¶Ô£¬ÔòÌø³öÑ­»·¼ÌĞøÏÂÒ»¶Ô 
-		var argname = pairs[i].substring(0,pos); // È¡²ÎÊıÃû 
-		var value = pairs[i].substring(pos+1); // È¡²ÎÊıÖµ 
-		value = decodeURI(value); // ÈôĞèÒª£¬Ôò½âÂë£¬¶ÔÓ¦encodeURIµÄ±àÂë£¬ÖĞÎÄÍ¨¹ıURL´«µİÊ±Ó¦ÏÈÍ¨¹ıencodeURI("ÖĞÎÄ")±àÂë
-		args[argname] = value; // ´æ³É¶ÔÏóµÄÒ»¸öÊôĞÔ 
+		var pos = pairs[i].indexOf('='); // æŸ¥æ‰¾ "name=value" å¯¹ 
+		if (pos == -1) continue; // è‹¥ä¸æˆå¯¹ï¼Œåˆ™è·³å‡ºå¾ªç¯ç»§ç»­ä¸‹ä¸€å¯¹ 
+		var argname = pairs[i].substring(0,pos); // å–å‚æ•°å 
+		var value = pairs[i].substring(pos+1); // å–å‚æ•°å€¼ 
+		value = decodeURI(value); // è‹¥éœ€è¦ï¼Œåˆ™è§£ç ï¼Œå¯¹åº”encodeURIçš„ç¼–ç ï¼Œä¸­æ–‡é€šè¿‡URLä¼ é€’æ—¶åº”å…ˆé€šè¿‡encodeURI("ä¸­æ–‡")ç¼–ç 
+		args[argname] = value; // å­˜æˆå¯¹è±¡çš„ä¸€ä¸ªå±æ€§ 
 	}
-	return args; // ·µ»Ø´Ë¶ÔÏó 
+	return args; // è¿”å›æ­¤å¯¹è±¡ 
 }
 
 /**
- * ÏòÖ¸¶¨µÄÏÂÀ­¿ò¿Ø¼şÖĞ¼ÓÔØÖ¸¶¨ÀàĞÍµÄÊı¾İ×Öµä
- * @param select ÏÂÀ­¿ò¿Ø¼ş
- * @param typeName Êı¾İ×ÖµäÀàĞÍ
- * @param operation Êı¾İ×Öµä¼ÓÔØÍê³ÉºóµÄ²Ù×÷
+ * å‘æŒ‡å®šçš„ä¸‹æ‹‰æ¡†æ§ä»¶ä¸­åŠ è½½æŒ‡å®šç±»å‹çš„æ•°æ®å­—å…¸
+ * @param select ä¸‹æ‹‰æ¡†æ§ä»¶
+ * @param typeName æ•°æ®å­—å…¸ç±»å‹
+ * @param operation æ•°æ®å­—å…¸åŠ è½½å®Œæˆåçš„æ“ä½œ
  */
 util.loadDictionary = function(select, typeName, operation)
 {
 	var callback = function (o)
 	{
 		dwr.util.removeAllOptions(select);
-		dwr.util.addOptions(select, [{id:-1, name:"ÇëÑ¡Ôñ..."}], "id", "name");
+		dwr.util.addOptions(select, [{id:-1, name:"è¯·é€‰æ‹©..."}], "id", "name");
 		dwr.util.addOptions(select, o.items, "id", "name");
 		if(operation != null)
 			operation;
 	};	
-	var operation = new Operation("ÏµÍ³.Êı¾İ×Öµä.°´ÀàĞÍ²é×Öµä");
+	var operation = new Operation("ç³»ç»Ÿ.æ•°æ®å­—å…¸.æŒ‰ç±»å‹æŸ¥å­—å…¸");
 	operation.typeName = typeName;
 	operation.execute(callback);
 };
 
 /**
- * ¼ÓÔØÏÂÀ­¿ò
- * @param select ÏÂÀ­¿ò¿Ø¼ş
- * @param items Êı¾İ
- * @param firstOptionText ÏÂÀ­¿ò¿Ø¼şµÄµÚÒ»¸öoptionµÄtext
+ * åŠ è½½ä¸‹æ‹‰æ¡†
+ * @param select ä¸‹æ‹‰æ¡†æ§ä»¶
+ * @param items æ•°æ®
+ * @param firstOptionText ä¸‹æ‹‰æ¡†æ§ä»¶çš„ç¬¬ä¸€ä¸ªoptionçš„text
  */
 util.loadSelectOption = function(select, items, firstOptionText)
 {
@@ -95,11 +95,11 @@ util.loadSelectOption = function(select, items, firstOptionText)
 };
 
 /**
- * Í¨¹ıoperation¼ÓÔØÏÂÀ­¿ò
- * @param select ÏÂÀ­¿ò¿Ø¼ş
- * @param operation ²Ù×÷Ãû³Æ
- * @param firstOptionText ÏÂÀ­¿ò¿Ø¼şµÄµÚÒ»¸öoptionµÄtext
- * @param loadFinishFunction ¼ÓÔØÍê³ÉºóĞèÒªÖ´ĞĞµÄº¯Êı
+ * é€šè¿‡operationåŠ è½½ä¸‹æ‹‰æ¡†
+ * @param select ä¸‹æ‹‰æ¡†æ§ä»¶
+ * @param operation æ“ä½œåç§°
+ * @param firstOptionText ä¸‹æ‹‰æ¡†æ§ä»¶çš„ç¬¬ä¸€ä¸ªoptionçš„text
+ * @param loadFinishFunction åŠ è½½å®Œæˆåéœ€è¦æ‰§è¡Œçš„å‡½æ•°
  */
 util.loadSelect = function(select, operation, firstOptionText, loadFinishFunction)
 {
@@ -115,15 +115,15 @@ util.loadSelect = function(select, operation, firstOptionText, loadFinishFunctio
 }
 
 /**
- * ÏòÖ¸¶¨µÄÏÂÀ­¿ò¿Ø¼şÖĞ¼ÓÔØÖ¸¶¨ÀàĞÍÃû³ÆµÄÊı¾İ×Öµä
- * @param select ÏÂÀ­¿ò¿Ø¼ş
- * @param typeName Êı¾İ×ÖµäÀàĞÍ
- * @param firstOptionText ÏÂÀ­¿ò¿Ø¼şµÄµÚÒ»¸öoptionµÄtext
- * @param loadFinishFunction ¼ÓÔØÍê³ÉºóĞèÒªÖ´ĞĞµÄº¯Êı
+ * å‘æŒ‡å®šçš„ä¸‹æ‹‰æ¡†æ§ä»¶ä¸­åŠ è½½æŒ‡å®šç±»å‹åç§°çš„æ•°æ®å­—å…¸
+ * @param select ä¸‹æ‹‰æ¡†æ§ä»¶
+ * @param typeName æ•°æ®å­—å…¸ç±»å‹
+ * @param firstOptionText ä¸‹æ‹‰æ¡†æ§ä»¶çš„ç¬¬ä¸€ä¸ªoptionçš„text
+ * @param loadFinishFunction åŠ è½½å®Œæˆåéœ€è¦æ‰§è¡Œçš„å‡½æ•°
  */
 util.loadDictionaryByTypeName = function(select, typeName, firstOptionText, loadFinishFunction)
 {
-	var operation = new Operation("ÏµÍ³.Êı¾İ×Öµä.°´Àà±ğÃû³ÆÁĞÊı¾İ×Öµä");
+	var operation = new Operation("ç³»ç»Ÿ.æ•°æ®å­—å…¸.æŒ‰ç±»åˆ«åç§°åˆ—æ•°æ®å­—å…¸");
 	operation.typeName = typeName;
 	
 	util.loadSelect(select, operation, firstOptionText, loadFinishFunction);

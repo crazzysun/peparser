@@ -1,7 +1,7 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-    <title>{FileName}½á¹¹·ÖÎö±¨¸æ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{FileName}ç»“æ„åˆ†ææŠ¥å‘Š</title>
 <style type="text/css">
 <!--
 body {
@@ -11,7 +11,7 @@ body {
 	color:#FFF;
 	line-height:200%;
 	background-color: #000;
-	font-family:"Î¢ÈíÑÅºÚ",verdana,"ËÎÌå";
+	font-family:"å¾®è½¯é›…é»‘",verdana,"å®‹ä½“";
 }
 .t
 {
@@ -84,26 +84,26 @@ text-decoration:none;
 </head>
 <body>
     <div class="t">
-        <span class="clr">ÎÄ¼şÃû£º</span>{FileName}<br />
-        <span class="clr">´ó Ğ¡£º</span>{FileSize}
+        <span class="clr">æ–‡ä»¶åï¼š</span>{FileName}<br />
+        <span class="clr">å¤§ å°ï¼š</span>{FileSize}
         <br>
-        <span class="clr">´´½¨Ê±¼ä£º</span>{FileCreateTime}<br />
-        <span class="clr">ĞŞ¸ÄÊ±¼ä£º</span> {FileModifyTime}
+        <span class="clr">åˆ›å»ºæ—¶é—´ï¼š</span>{FileCreateTime}<br />
+        <span class="clr">ä¿®æ”¹æ—¶é—´ï¼š</span> {FileModifyTime}
         <br />
-        <span class="clr">±¨¸æÉú³ÉÈÕÆÚ£º</span> {FileCreateReportTime}
+        <span class="clr">æŠ¥å‘Šç”Ÿæˆæ—¥æœŸï¼š</span> {FileCreateReportTime}
         <br />
         <div style="padding-top: 8px;">
-            <span class="Quickguide"><a href="#dos">DosÍ·</a></span> <span class="Quickguide"><a
-                href="#NT">PEÍ·</a></span> <span class="Quickguide"><a href="#NT_FILE">PEÎÄ¼şÍ·</a></span>
-            <span class="Quickguide"><a href="#NT_OPTION">¿ÉÑ¡PEÍ·</a></span> <span class="Quickguide">
-                <a href="#NT_DATADIR">Êı¾İÄ¿Â¼</a></span> <span class="Quickguide"><a href="#NT_SECTION">
-                    Çø¶ÎĞÅÏ¢</a></span> <span class="Quickguide"><a href="#IMP">µ¼Èë±í</a></span> <span class="Quickguide">
-                        <a href="#EXP">µ¼³ö±í</a></span> <span class="Quickguide"><a href="#REL">ÖØ¶¨Î»±í</a></span>
-            <span class="Quickguide"><a href="#RES">×ÊÔ´±í</a></span>
+            <span class="Quickguide"><a href="#dos">Doså¤´</a></span> <span class="Quickguide"><a
+                href="#NT">PEå¤´</a></span> <span class="Quickguide"><a href="#NT_FILE">PEæ–‡ä»¶å¤´</a></span>
+            <span class="Quickguide"><a href="#NT_OPTION">å¯é€‰PEå¤´</a></span> <span class="Quickguide">
+                <a href="#NT_DATADIR">æ•°æ®ç›®å½•</a></span> <span class="Quickguide"><a href="#NT_SECTION">
+                    åŒºæ®µä¿¡æ¯</a></span> <span class="Quickguide"><a href="#IMP">å¯¼å…¥è¡¨</a></span> <span class="Quickguide">
+                        <a href="#EXP">å¯¼å‡ºè¡¨</a></span> <span class="Quickguide"><a href="#REL">é‡å®šä½è¡¨</a></span>
+            <span class="Quickguide"><a href="#RES">èµ„æºè¡¨</a></span>
         </div>
     </div>
     <p class="clr">
-        DosÍ·(IMAGE_DOS_HEADER)<a name="dos"></a></p>
+        Doså¤´(IMAGE_DOS_HEADER)<a name="dos"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="126">
@@ -117,7 +117,7 @@ text-decoration:none;
             <td>
                 0x00000000</td>
             <td>
-                <span class="special">e_magic</span><span class="info">(±êÊ¶ÊÇ·ñÎªÒ»¸öÓĞĞ§µÄDOS³ÌĞò)</span></td>
+                <span class="special">e_magic</span><span class="info">(æ ‡è¯†æ˜¯å¦ä¸ºä¸€ä¸ªæœ‰æ•ˆçš„DOSç¨‹åº)</span></td>
             <td>
                 <span class="special">{e_magic}</span></td>
         </tr>
@@ -125,7 +125,7 @@ text-decoration:none;
             <td>
                 0x00000002</td>
             <td>
-                e_cblp<span class="info">(ÎÄ¼ş×îºóÒ³µÄ×Ö½ÚÊı)</span></td>
+                e_cblp<span class="info">(æ–‡ä»¶æœ€åé¡µçš„å­—èŠ‚æ•°)</span></td>
             <td>
                 {e_cblp}</td>
         </tr>
@@ -133,7 +133,7 @@ text-decoration:none;
             <td>
                 0x00000004</td>
             <td>
-                e_cp<span class="info">(ÎÄ¼şÒ³Êı)</span></td>
+                e_cp<span class="info">(æ–‡ä»¶é¡µæ•°)</span></td>
             <td>
                 {e_cp}</td>
         </tr>
@@ -141,7 +141,7 @@ text-decoration:none;
             <td>
                 0x00000006</td>
             <td>
-                e_crlc<span class="info">(ÖØ¶¨ÒåÔªËØ¸öÊı)</span></td>
+                e_crlc<span class="info">(é‡å®šä¹‰å…ƒç´ ä¸ªæ•°)</span></td>
             <td>
                 {e_crlc}</td>
         </tr>
@@ -149,7 +149,7 @@ text-decoration:none;
             <td>
                 0x00000008</td>
             <td>
-                e_cparhdr<span class="info">(Í·²¿³ß´ç£¬ÒÔ¶ÎÂäÎªµ¥Î»)</span></td>
+                e_cparhdr<span class="info">(å¤´éƒ¨å°ºå¯¸ï¼Œä»¥æ®µè½ä¸ºå•ä½)</span></td>
             <td>
                 {e_cparhdr}</td>
         </tr>
@@ -157,7 +157,7 @@ text-decoration:none;
             <td>
                 0x0000000A</td>
             <td>
-                e_minalloc<span class="info">(ËùĞèµÄ×îĞ¡¸½¼Ó¶Î)</span></td>
+                e_minalloc<span class="info">(æ‰€éœ€çš„æœ€å°é™„åŠ æ®µ)</span></td>
             <td>
                 {e_minalloc}</td>
         </tr>
@@ -165,7 +165,7 @@ text-decoration:none;
             <td>
                 0x0000000C</td>
             <td>
-                e_maxalloc<span class="info">(ËùĞèµÄ×î´ó¸½¼Ó¶Î)</span></td>
+                e_maxalloc<span class="info">(æ‰€éœ€çš„æœ€å¤§é™„åŠ æ®µ)</span></td>
             <td>
                 {e_maxalloc}</td>
         </tr>
@@ -173,7 +173,7 @@ text-decoration:none;
             <td>
                 0x0000000E</td>
             <td>
-                e_ss<span class="info">(³õÊ¼µÄSSÖµ£¨Ïà¶ÔÆ«ÒÆÁ¿£©)</span></td>
+                e_ss<span class="info">(åˆå§‹çš„SSå€¼ï¼ˆç›¸å¯¹åç§»é‡ï¼‰)</span></td>
             <td>
                 {e_ss}</td>
         </tr>
@@ -181,7 +181,7 @@ text-decoration:none;
             <td>
                 0x00000010</td>
             <td>
-                e_sp<span class="info">(³õÊ¼µÄSPÖµ)</span></td>
+                e_sp<span class="info">(åˆå§‹çš„SPå€¼)</span></td>
             <td>
                 {e_sp}</td>
         </tr>
@@ -189,7 +189,7 @@ text-decoration:none;
             <td>
                 0x00000012</td>
             <td>
-                e_csum<span class="info">(Ğ£ÑéºÍ)</span></td>
+                e_csum<span class="info">(æ ¡éªŒå’Œ)</span></td>
             <td>
                 {e_csum}</td>
         </tr>
@@ -197,7 +197,7 @@ text-decoration:none;
             <td>
                 0x00000014</td>
             <td>
-                e_ip<span class="info">(³õÊ¼µÄIPÖµ)</span></td>
+                e_ip<span class="info">(åˆå§‹çš„IPå€¼)</span></td>
             <td>
                 {e_ip}</td>
         </tr>
@@ -205,7 +205,7 @@ text-decoration:none;
             <td>
                 0x00000016</td>
             <td>
-                e_cs<span class="info">(³õÊ¼µÄCSÖµ£¨Ïà¶ÔÆ«ÒÆÁ¿£©)</span></td>
+                e_cs<span class="info">(åˆå§‹çš„CSå€¼ï¼ˆç›¸å¯¹åç§»é‡ï¼‰)</span></td>
             <td>
                 {e_cs}</td>
         </tr>
@@ -213,7 +213,7 @@ text-decoration:none;
             <td>
                 0x00000018</td>
             <td>
-                e_lfarlc<span class="info">(ÖØ·ÖÅä±íÎÄ¼şµØÖ·)</span></td>
+                e_lfarlc<span class="info">(é‡åˆ†é…è¡¨æ–‡ä»¶åœ°å€)</span></td>
             <td>
                 {e_lfarlc}</td>
         </tr>
@@ -221,7 +221,7 @@ text-decoration:none;
             <td>
                 0x0000001A</td>
             <td>
-                e_ovno<span class="info">(¸²¸ÇºÅ)</span></td>
+                e_ovno<span class="info">(è¦†ç›–å·)</span></td>
             <td>
                 {e_ovno}</td>
         </tr>
@@ -229,7 +229,7 @@ text-decoration:none;
             <td>
                 0x0000001C</td>
             <td>
-                e_res<span class="info">(±£Áô×Ö)</span></td>
+                e_res<span class="info">(ä¿ç•™å­—)</span></td>
             <td>
                 {e_res}</td>
         </tr>
@@ -237,7 +237,7 @@ text-decoration:none;
             <td>
                 0x00000024</td>
             <td>
-                e_oemid<span class="info">(OEM±êÊ¶·û£¨Ïà¶Ôe_oeminfo£©)</span></td>
+                e_oemid<span class="info">(OEMæ ‡è¯†ç¬¦ï¼ˆç›¸å¯¹e_oeminfoï¼‰)</span></td>
             <td>
                 {e_oemid}</td>
         </tr>
@@ -245,7 +245,7 @@ text-decoration:none;
             <td>
                 0x00000026</td>
             <td>
-                e_oeminfo<span class="info">(OEMĞÅÏ¢)</span></td>
+                e_oeminfo<span class="info">(OEMä¿¡æ¯)</span></td>
             <td>
                 {e_oeminfo}</td>
         </tr>
@@ -253,7 +253,7 @@ text-decoration:none;
             <td>
                 0x00000028</td>
             <td>
-                e_res2<span class="info">(10¸ö×Ö³¤¶ÈµÄ±£Áô×Ö)</span></td>
+                e_res2<span class="info">(10ä¸ªå­—é•¿åº¦çš„ä¿ç•™å­—)</span></td>
             <td>
                 {e_res2}</td>
         </tr>
@@ -261,13 +261,13 @@ text-decoration:none;
             <td>
                 0x0000003C</td>
             <td>
-                <span class="special">e_lfanew<span class="info">(Ö¸ÏòPEµÄIMAGE_NT_HEADESÍ·£¬¼´Ö¸Ïò&quot;PE&quot;×Ö¶Î)</span></span></td>
+                <span class="special">e_lfanew<span class="info">(æŒ‡å‘PEçš„IMAGE_NT_HEADESå¤´ï¼Œå³æŒ‡å‘&quot;PE&quot;å­—æ®µ)</span></span></td>
             <td>
                 <span class="special">{e_lfanew}</span></td>
         </tr>
     </table>
     <p class="clr">
-        PEÎÄ¼ş±êÖ¾<a name="NT"></a></p>
+        PEæ–‡ä»¶æ ‡å¿—<a name="NT"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
@@ -281,13 +281,13 @@ text-decoration:none;
             <td>
                 {signature_add}</td>
             <td>
-                <span class="special">Signature</span><span class="info">(PEÎÄ¼şµÄ±êÖ¾)</span></td>
+                <span class="special">Signature</span><span class="info">(PEæ–‡ä»¶çš„æ ‡å¿—)</span></td>
             <td>
                 <span class="special">{signature}</span></td>
         </tr>
     </table>
     <p class="clr">
-        PEÎÄ¼şÍ·(IMAGE_FILE_HEADER)<a name="NT_FILE" id="NT_FILE"></a></p>
+        PEæ–‡ä»¶å¤´(IMAGE_FILE_HEADER)<a name="NT_FILE" id="NT_FILE"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
@@ -301,7 +301,7 @@ text-decoration:none;
             <td>
                 {machine_add}</td>
             <td>
-                <span class="special">Machine</span><span class="info">(PEËùÔËĞĞµÄÆ½Ì¨)</span></td>
+                <span class="special">Machine</span><span class="info">(PEæ‰€è¿è¡Œçš„å¹³å°)</span></td>
             <td>
                 <span class="special">{machine}</span></td>
         </tr>
@@ -309,7 +309,7 @@ text-decoration:none;
             <td>
                 {NOS_add}</td>
             <td>
-                <span class="special">NumberOfSections</span><span class="info">(PEËù°üº¬µÄ½ÚÊı)</span></td>
+                <span class="special">NumberOfSections</span><span class="info">(PEæ‰€åŒ…å«çš„èŠ‚æ•°)</span></td>
             <td class="special">
                 {NumberOfSections}</td>
         </tr>
@@ -317,7 +317,7 @@ text-decoration:none;
             <td>
                 {TDS_add}</td>
             <td>
-                TimeDateStamp<span class="info">(Éú³ÉÈÕÆÚ)</span></td>
+                TimeDateStamp<span class="info">(ç”Ÿæˆæ—¥æœŸ)</span></td>
             <td>
                 {TimeDateStamp}</td>
         </tr>
@@ -325,7 +325,7 @@ text-decoration:none;
             <td>
                 {PTST_add}</td>
             <td>
-                PointerToSymbolTable<span class="info">(·ûºÅ±í)</span></td>
+                PointerToSymbolTable<span class="info">(ç¬¦å·è¡¨)</span></td>
             <td>
                 {PointerToSymbolTable}</td>
         </tr>
@@ -333,7 +333,7 @@ text-decoration:none;
             <td>
                 {NOSym_add}</td>
             <td>
-                NumberOfSymbols<span class="info">(·ûºÅÊıÁ¿)</span></td>
+                NumberOfSymbols<span class="info">(ç¬¦å·æ•°é‡)</span></td>
             <td>
                 {NumberOfSymbols}</td>
         </tr>
@@ -341,7 +341,7 @@ text-decoration:none;
             <td>
                 {SOOH_add}</td>
             <td>
-                SizeOfOptionalHeader<span class="info">(¿ÉÑ¡ÎÄ¼şÍ·´óĞ¡)</span></td>
+                SizeOfOptionalHeader<span class="info">(å¯é€‰æ–‡ä»¶å¤´å¤§å°)</span></td>
             <td>
                 {SizeOfOptionalHeader}</td>
         </tr>
@@ -349,13 +349,13 @@ text-decoration:none;
             <td>
                 {HAR_add}</td>
             <td>
-                Characteristics<span class="info">(ÎÄ¼şÊôĞÔ)</span></td>
+                Characteristics<span class="info">(æ–‡ä»¶å±æ€§)</span></td>
             <td>
                 {Characteristics}</td>
         </tr>
     </table>
     <p class="clr">
-        ¿ÉÑ¡PEÎÄ¼şÍ·(IMAGE_OPTIONAL_HEADER)<a name="NT_OPTION" id="NT_OPTION"></a></p>
+        å¯é€‰PEæ–‡ä»¶å¤´(IMAGE_OPTIONAL_HEADER)<a name="NT_OPTION" id="NT_OPTION"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
@@ -369,7 +369,7 @@ text-decoration:none;
             <td>
                 {magic_add}</td>
             <td>
-                <span class="special">Magic</span><span class="info">(ËµÃ÷ÎÄ¼şÀàĞÍÊÇROMÓ³Ïñ»¹ÊÇ¿ÉÖ´ĞĞÓ³Ïñ)</span></td>
+                <span class="special">Magic</span><span class="info">(è¯´æ˜æ–‡ä»¶ç±»å‹æ˜¯ROMæ˜ åƒè¿˜æ˜¯å¯æ‰§è¡Œæ˜ åƒ)</span></td>
             <td>
                 <span class="special">{magic}</span></td>
         </tr>
@@ -377,7 +377,7 @@ text-decoration:none;
             <td>
                 {MajLV_add}</td>
             <td>
-                MajorLinkerVersion<span class="info">(Á´½ÓÆ÷µÄÖ÷°æ±¾ºÅ)</span></td>
+                MajorLinkerVersion<span class="info">(é“¾æ¥å™¨çš„ä¸»ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MajorLinkerVersion}</td>
         </tr>
@@ -385,7 +385,7 @@ text-decoration:none;
             <td>
                 {MinLV_add}</td>
             <td>
-                MinorLinkerVersion<span class="info">(Á´½ÓÆ÷¸±°æ±¾ºÅ)</span></td>
+                MinorLinkerVersion<span class="info">(é“¾æ¥å™¨å‰¯ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MinorLinkerVersion}</td>
         </tr>
@@ -393,7 +393,7 @@ text-decoration:none;
             <td>
                 {SOC_add}</td>
             <td>
-                SizeOfCode<span class="info">(Code SectionµÄ´óĞ¡£¬ÊÇ¶ÔÆëºóµÄ´óĞ¡)</span></td>
+                SizeOfCode<span class="info">(Code Sectionçš„å¤§å°ï¼Œæ˜¯å¯¹é½åçš„å¤§å°)</span></td>
             <td>
                 {SizeOfCode}</td>
         </tr>
@@ -401,7 +401,7 @@ text-decoration:none;
             <td>
                 {SOID_add}</td>
             <td>
-                SizeOfInitializedData<span class="info">(ÒÑ³õÊ¼»¯µÄÊı¾İ´óĞ¡)</span></td>
+                SizeOfInitializedData<span class="info">(å·²åˆå§‹åŒ–çš„æ•°æ®å¤§å°)</span></td>
             <td>
                 {SizeOfInitializedData}</td>
         </tr>
@@ -409,7 +409,7 @@ text-decoration:none;
             <td>
                 {SOUD_add}</td>
             <td>
-                SizeOfUninitializedData<span class="info">(Î´³õÊ¼»¯µÄÊı¾İ´óĞ¡)</span></td>
+                SizeOfUninitializedData<span class="info">(æœªåˆå§‹åŒ–çš„æ•°æ®å¤§å°)</span></td>
             <td>
                 {SizeOfUninitializedData}</td>
         </tr>
@@ -417,7 +417,7 @@ text-decoration:none;
             <td>
                 {AOP_add}</td>
             <td>
-                <span class="special">AddressOfEntryPoint</span><span class="info">(³ÌĞòÖ´ĞĞµÄÏà¶ÔÈë¿ÚµØÖ·)</span></td>
+                <span class="special">AddressOfEntryPoint</span><span class="info">(ç¨‹åºæ‰§è¡Œçš„ç›¸å¯¹å…¥å£åœ°å€)</span></td>
             <td>
                 <span class="special">{AddressOfEntryPoint}</span></td>
         </tr>
@@ -425,7 +425,7 @@ text-decoration:none;
             <td>
                 {BOC_add}</td>
             <td>
-                BaseOfCode<span class="info">(´úÂë¶ÎµÄÆğÊ¼µÄRVA)</span></td>
+                BaseOfCode<span class="info">(ä»£ç æ®µçš„èµ·å§‹çš„RVA)</span></td>
             <td>
                 {BaseOfCode}</td>
         </tr>
@@ -433,7 +433,7 @@ text-decoration:none;
             <td>
                 {BOD_add}</td>
             <td>
-                BaseOfData<span class="info">(Êı¾İ¶ÎµÄÆğÊ¼µÄRVA)</span></td>
+                BaseOfData<span class="info">(æ•°æ®æ®µçš„èµ·å§‹çš„RVA)</span></td>
             <td>
                 {BaseOfData}</td>
         </tr>
@@ -441,7 +441,7 @@ text-decoration:none;
             <td>
                 {IB_add}</td>
             <td>
-                <span class="special">ImageBase</span><span class="info">(³ÌĞòÔØÈëÄÚ´æµÄ»ùµØÖ·)</span></td>
+                <span class="special">ImageBase</span><span class="info">(ç¨‹åºè½½å…¥å†…å­˜çš„åŸºåœ°å€)</span></td>
             <td class="special">
                 {ImageBase}</td>
         </tr>
@@ -449,7 +449,7 @@ text-decoration:none;
             <td>
                 {SA_add}</td>
             <td>
-                SectionAlignment<span class="info">(ÄÚ´æ¶ÔÆëÒ³´óĞ¡£¬Í¨³£0x1000K)</span></td>
+                SectionAlignment<span class="info">(å†…å­˜å¯¹é½é¡µå¤§å°ï¼Œé€šå¸¸0x1000K)</span></td>
             <td>
                 {SectionAlignment}</td>
         </tr>
@@ -457,7 +457,7 @@ text-decoration:none;
             <td>
                 {FA_add}</td>
             <td>
-                FileAlignment<span class="info">(´ÅÅÌ¶ÔÆëÒ³´óĞ¡£¬Í¨³£0x200K)</span></td>
+                FileAlignment<span class="info">(ç£ç›˜å¯¹é½é¡µå¤§å°ï¼Œé€šå¸¸0x200K)</span></td>
             <td>
                 {FileAlignment}</td>
         </tr>
@@ -465,7 +465,7 @@ text-decoration:none;
             <td>
                 {MajOSV_add}</td>
             <td>
-                MajorOperatingSystemVersion<span class="info">(ËùĞè×îµÍÒªÇó²Ù×÷ÏµÍ³µÄÖ÷°æ±¾ºÅ)</span></td>
+                MajorOperatingSystemVersion<span class="info">(æ‰€éœ€æœ€ä½è¦æ±‚æ“ä½œç³»ç»Ÿçš„ä¸»ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MajorOperatingSystemVersion}</td>
         </tr>
@@ -473,7 +473,7 @@ text-decoration:none;
             <td>
                 {MinOSV_add}</td>
             <td>
-                MinorOperatingSystemVersion<span class="info">(ËùĞè×îµÍÒªÇó²Ù×÷ÏµÍ³µÄ¸±°æ±¾ºÅ)</span></td>
+                MinorOperatingSystemVersion<span class="info">(æ‰€éœ€æœ€ä½è¦æ±‚æ“ä½œç³»ç»Ÿçš„å‰¯ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MinorOperatingSystemVersion}</td>
         </tr>
@@ -481,7 +481,7 @@ text-decoration:none;
             <td>
                 {MaxIV_add}</td>
             <td>
-                MajorImageVersion<span class="info">(¸Ã³ÌĞòµÄÖ÷°æ±¾ºÅ)</span></td>
+                MajorImageVersion<span class="info">(è¯¥ç¨‹åºçš„ä¸»ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MajorImageVersion}</td>
         </tr>
@@ -489,7 +489,7 @@ text-decoration:none;
             <td>
                 {MinIV_add}</td>
             <td>
-                MinorImageVersion<span class="info">(¸Ã³ÌĞòµÄ¸±°æ±¾ºÅ)</span></td>
+                MinorImageVersion<span class="info">(è¯¥ç¨‹åºçš„å‰¯ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MinorImageVersion}</td>
         </tr>
@@ -497,7 +497,7 @@ text-decoration:none;
             <td>
                 {MajSV_add}</td>
             <td>
-                MajorSubsystemVersion<span class="info">(ËùĞè×îµÍ×ÓÏµÍ³°æ±¾µÄÖ÷°æ±¾ºÅ)</span></td>
+                MajorSubsystemVersion<span class="info">(æ‰€éœ€æœ€ä½å­ç³»ç»Ÿç‰ˆæœ¬çš„ä¸»ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MajorSubsystemVersion}</td>
         </tr>
@@ -505,7 +505,7 @@ text-decoration:none;
             <td>
                 {MinSV_add}</td>
             <td>
-                MinorSubsystemVersion<span class="info">(ËùĞè×îµÍ×ÓÏµÍ³°æ±¾µÄ¸±°æ±¾ºÅ)</span></td>
+                MinorSubsystemVersion<span class="info">(æ‰€éœ€æœ€ä½å­ç³»ç»Ÿç‰ˆæœ¬çš„å‰¯ç‰ˆæœ¬å·)</span></td>
             <td>
                 {MinorSubsystemVersion}</td>
         </tr>
@@ -513,7 +513,7 @@ text-decoration:none;
             <td>
                 {W32VV_add}</td>
             <td>
-                Win32VersionValue<span class="info">(±£ÁôÖµ)</span></td>
+                Win32VersionValue<span class="info">(ä¿ç•™å€¼)</span></td>
             <td>
                 {Win32VersionValue}</td>
         </tr>
@@ -521,7 +521,7 @@ text-decoration:none;
             <td>
                 {SOI_add}</td>
             <td>
-                SizeOfImage<span class="info">(×°ÈëÄÚ´æºó×Ü´óĞ¡)</span></td>
+                SizeOfImage<span class="info">(è£…å…¥å†…å­˜åæ€»å¤§å°)</span></td>
             <td>
                 {SizeOfImage}</td>
         </tr>
@@ -529,7 +529,7 @@ text-decoration:none;
             <td>
                 {SOH_add}</td>
             <td>
-                SizeOfHeaders<span class="info">(ÎÄ¼şÍ·µÄ´óĞ¡£¬°üÀ¨DOSÍ·¡¢NTÍ·ºÍ¿é±íµÄ´óĞ¡)</span></td>
+                SizeOfHeaders<span class="info">(æ–‡ä»¶å¤´çš„å¤§å°ï¼ŒåŒ…æ‹¬DOSå¤´ã€NTå¤´å’Œå—è¡¨çš„å¤§å°)</span></td>
             <td>
                 {SizeOfHeaders}</td>
         </tr>
@@ -537,7 +537,7 @@ text-decoration:none;
             <td>
                 {PECS_add}</td>
             <td>
-                CheckSum<span class="info">(CRC¼ìÑéÖµ)</span></td>
+                CheckSum<span class="info">(CRCæ£€éªŒå€¼)</span></td>
             <td>
                 {PECheckSum}</td>
         </tr>
@@ -545,7 +545,7 @@ text-decoration:none;
             <td>
                 {SUBS_add}</td>
             <td>
-                Subsystem<span class="info">(Í¼ĞÎ½Ó¿Ú×ÓÏµÍ³GUI)</span></td>
+                Subsystem<span class="info">(å›¾å½¢æ¥å£å­ç³»ç»ŸGUI)</span></td>
             <td>
                 {Subsystem}</td>
         </tr>
@@ -553,7 +553,7 @@ text-decoration:none;
             <td>
                 {DllChar_add}</td>
             <td>
-                DllCharacteristics<span class="info">(DllMainºÎÊ±±»µ÷ÓÃ£¬Ä¬ÈÏÎª0)</span></td>
+                DllCharacteristics<span class="info">(DllMainä½•æ—¶è¢«è°ƒç”¨ï¼Œé»˜è®¤ä¸º0)</span></td>
             <td>
                 {DllCharacteristics}</td>
         </tr>
@@ -561,7 +561,7 @@ text-decoration:none;
             <td>
                 {SOSR_add}</td>
             <td>
-                SizeOfStackReserve<span class="info">(ÎªÏß³Ì±£ÁôµÄÕ»´óĞ¡)</span></td>
+                SizeOfStackReserve<span class="info">(ä¸ºçº¿ç¨‹ä¿ç•™çš„æ ˆå¤§å°)</span></td>
             <td>
                 {SizeOfStackReserve}</td>
         </tr>
@@ -569,7 +569,7 @@ text-decoration:none;
             <td>
                 {SOSC_add}</td>
             <td>
-                SizeOfStackCommit<span class="info">(Ïß³Ì³õÊ¼»¯Ê±Ìá½»µÄÕ»´óĞ¡)</span></td>
+                SizeOfStackCommit<span class="info">(çº¿ç¨‹åˆå§‹åŒ–æ—¶æäº¤çš„æ ˆå¤§å°)</span></td>
             <td>
                 {SizeOfStackCommit}</td>
         </tr>
@@ -577,7 +577,7 @@ text-decoration:none;
             <td>
                 {SOHR_add}</td>
             <td>
-                SizeOfHeapReserve<span class="info">(Îª½ø³ÌÄ¬ÈÏ¶Ñ±£ÁôµÄÄÚ´æ´óĞ¡)</span></td>
+                SizeOfHeapReserve<span class="info">(ä¸ºè¿›ç¨‹é»˜è®¤å †ä¿ç•™çš„å†…å­˜å¤§å°)</span></td>
             <td>
                 {SizeOfHeapReserve}</td>
         </tr>
@@ -585,7 +585,7 @@ text-decoration:none;
             <td>
                 {SOHC_add}</td>
             <td>
-                SizeOfHeapCommit<span class="info">(½ø³Ì³õÊ¼»¯Ê±Ìá½»µÄ¶Ñ´óĞ¡)</span></td>
+                SizeOfHeapCommit<span class="info">(è¿›ç¨‹åˆå§‹åŒ–æ—¶æäº¤çš„å †å¤§å°)</span></td>
             <td>
                 {SizeOfHeapCommit}</td>
         </tr>
@@ -593,7 +593,7 @@ text-decoration:none;
             <td>
                 {LF_add}</td>
             <td>
-                LoaderFlags<span class="info">(Óëµ÷ÊÔÏà¹Ø)</span></td>
+                LoaderFlags<span class="info">(ä¸è°ƒè¯•ç›¸å…³)</span></td>
             <td>
                 {LoaderFlags}</td>
         </tr>
@@ -601,13 +601,13 @@ text-decoration:none;
             <td>
                 {NRS_add}</td>
             <td>
-                NumberOfRvaAndSizes<span class="info">(Êı¾İÄ¿Â¼µÄ×ÜÏîÊı£¬Í¨³£Îª0x10)</span></td>
+                NumberOfRvaAndSizes<span class="info">(æ•°æ®ç›®å½•çš„æ€»é¡¹æ•°ï¼Œé€šå¸¸ä¸º0x10)</span></td>
             <td>
                 {NumberOfRvaAndSizes}</td>
         </tr>
     </table>
     <p class="clr">
-        Êı¾İÄ¿Â¼(IMAGE_DATA_DIRECTORY)<a name="NT_DATADIR" id="NT_DATADIR"></a></p>
+        æ•°æ®ç›®å½•(IMAGE_DATA_DIRECTORY)<a name="NT_DATADIR" id="NT_DATADIR"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
@@ -639,7 +639,7 @@ text-decoration:none;
         <!--DataDir_Item_End-->
     </table>
     <p class="clr">
-        PEÇø¶ÎĞÅÏ¢(IMAGE_SECTION_HEADER)<a name="NT_SECTION" id="NT_SECTION"></a></p>
+        PEåŒºæ®µä¿¡æ¯(IMAGE_SECTION_HEADER)<a name="NT_SECTION" id="NT_SECTION"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td width="120">
@@ -654,7 +654,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {Name1_add}</td>
             <td bgcolor="{SHS_BGCOLOR}" class="special">
-                Name<span class="info">(Çø¶ÎÃû³Æ)</span></td>
+                Name<span class="info">(åŒºæ®µåç§°)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 <span class="special">{Name1}</span></td>
         </tr>
@@ -662,7 +662,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {MisV_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                Misc.VirtualSize<span class="info">(Õ¼ÄÚ´æ´óĞ¡)</span></td>
+                Misc.VirtualSize<span class="info">(å å†…å­˜å¤§å°)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {Misc.VirtualSize}</td>
         </tr>
@@ -670,7 +670,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {VA_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                VirtualAddress<span class="info">(ĞéÄâµØÖ·)</span></td>
+                VirtualAddress<span class="info">(è™šæ‹Ÿåœ°å€)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {VirtualAddress}</td>
         </tr>
@@ -678,7 +678,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {SORD_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                SizeOfRawData<span class="info">(Õ¼´ÅÅÌ´óĞ¡)</span></td>
+                SizeOfRawData<span class="info">(å ç£ç›˜å¤§å°)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {SizeOfRawData}</td>
         </tr>
@@ -686,7 +686,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {PTRD_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                PointerToRawData<span class="info">(ÎÄ¼şÆ«ÒÆ)</span></td>
+                PointerToRawData<span class="info">(æ–‡ä»¶åç§»)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {PointerToRawData}</td>
         </tr>
@@ -694,7 +694,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {PTR_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                PointerToRelocations<span class="info">(ÖØ¶¨Î»ĞÅÏ¢)</span></td>
+                PointerToRelocations<span class="info">(é‡å®šä½ä¿¡æ¯)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {PointerToRelocations}</td>
         </tr>
@@ -702,7 +702,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {PTL_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                PointerToLinenumbers<span class="info">(ĞĞºÅĞÅÏ¢Æ«ÒÆ)</span></td>
+                PointerToLinenumbers<span class="info">(è¡Œå·ä¿¡æ¯åç§»)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {PointerToLinenumbers}</td>
         </tr>
@@ -710,7 +710,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {NOR_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                NumberOfRelocations<span class="info">(ÖØ¶¨Î»ÊıÁ¿)</span></td>
+                NumberOfRelocations<span class="info">(é‡å®šä½æ•°é‡)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {NumberOfRelocations}</td>
         </tr>
@@ -718,7 +718,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {NOL_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                NumberOfLinenumbers<span class="info">(ĞĞºÅÊıÄ¿)</span></td>
+                NumberOfLinenumbers<span class="info">(è¡Œå·æ•°ç›®)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {NumberOfLinenumbers}</td>
         </tr>
@@ -726,7 +726,7 @@ text-decoration:none;
             <td bgcolor="{SHS_BGCOLOR}">
                 {Char_add}</td>
             <td bgcolor="{SHS_BGCOLOR}">
-                Characteristics<span class="info">(Çø¶ÎÊôĞÔ)</span></td>
+                Characteristics<span class="info">(åŒºæ®µå±æ€§)</span></td>
             <td bgcolor="{SHS_BGCOLOR}">
                 {Section_Characteristics}</td>
         </tr>
@@ -735,20 +735,20 @@ text-decoration:none;
     <br />
     <!--SECTION_HEADER_END-->
     <p class="clr">
-        µ¼Èë±í(IMAGE_IMPORT_DESCRIPTOR)<a name="IMP" id="IMP"></a></p>
+        å¯¼å…¥è¡¨(IMAGE_IMPORT_DESCRIPTOR)<a name="IMP" id="IMP"></a></p>
     <!--IMPORT_TABLE_START-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td colspan="3" align="left">
-                <span class="clr">µ¼ÈëÎÄ¼şÃû³Æ£º</span>{IMP_DLL_NAME}</td>
+                <span class="clr">å¯¼å…¥æ–‡ä»¶åç§°ï¼š</span>{IMP_DLL_NAME}</td>
         </tr>
         <tr class="head">
             <td width="30%">
-                µ¼Èëº¯ÊıÃû</td>
+                å¯¼å…¥å‡½æ•°å</td>
             <td width="30%">
-                µ¼Èëº¯ÊıÃû</td>
+                å¯¼å…¥å‡½æ•°å</td>
             <td>
-                µ¼Èëº¯ÊıÃû</td>
+                å¯¼å…¥å‡½æ•°å</td>
         </tr>
         <!--IMP_TABLE_ITME_START-->
         <tr>
@@ -765,12 +765,12 @@ text-decoration:none;
     <!--IMPORT_TABLE_END-->
     <!--EXPORT_TABLE_START-->
     <p class="clr">
-        µ¼³ö±í(IMAGE_EXPORT_DIRECTORY)<a name="EXP" id="EXP"></a></p>
+        å¯¼å‡ºè¡¨(IMAGE_EXPORT_DIRECTORY)<a name="EXP" id="EXP"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td colspan="3" align="left">
-                <span class="clr">µ¼³öÎÄ¼şÃû³Æ£º</span>{EXP_DLL_NAME} &nbsp; <strong><span style="color: #ffcc00">
-                    µ¼³öÊıÁ¿£º</span></strong>{EXP_COUNT} &nbsp;&nbsp; <strong><span style="color: #ffcc00">µ¼³öÓĞÃûº¯Êı£º</span></strong>{EXP_NAME_COUNT}</td>
+                <span class="clr">å¯¼å‡ºæ–‡ä»¶åç§°ï¼š</span>{EXP_DLL_NAME} &nbsp; <strong><span style="color: #ffcc00">
+                    å¯¼å‡ºæ•°é‡ï¼š</span></strong>{EXP_COUNT} &nbsp;&nbsp; <strong><span style="color: #ffcc00">å¯¼å‡ºæœ‰åå‡½æ•°ï¼š</span></strong>{EXP_NAME_COUNT}</td>
         </tr>
         <tr class="head">
             <td width="120px">
@@ -795,13 +795,13 @@ text-decoration:none;
     <!--EXPORT_TABLE_END-->
     <!--RELOC_TABLE_START-->
     <p class="clr">
-        ÖØ¶¨Î»±í(IMAGE_BASE_RELOCATION)<a name="REL" id="REL"></a></p>
+        é‡å®šä½è¡¨(IMAGE_BASE_RELOCATION)<a name="REL" id="REL"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td colspan="4" align="left">
-                <span class="clr">±àºÅ£º</span>{REL_INDEX}<br>
-                <span class="clr">ËùÊô¿éÃû£º</span>{REL_SECTION_NAME}<br>
-                <span class="clr">¿éÊıÁ¿£º</span>{REL_NUM}</td>
+                <span class="clr">ç¼–å·ï¼š</span>{REL_INDEX}<br>
+                <span class="clr">æ‰€å±å—åï¼š</span>{REL_SECTION_NAME}<br>
+                <span class="clr">å—æ•°é‡ï¼š</span>{REL_NUM}</td>
         </tr>
         <tr class="head">
             <td width="150px">
@@ -829,16 +829,16 @@ text-decoration:none;
     <br />
     <!--RELOC_TABLE_END-->
     <p class="clr">
-        ×ÊÔ´±í(IMAGE_RESOURCE_DIRECTORY)<a name="RES" id="RES"></a></p>
+        èµ„æºè¡¨(IMAGE_RESOURCE_DIRECTORY)<a name="RES" id="RES"></a></p>
     <!--RES_TABLE_START-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
             <td colspan="3" align="left">
-                <span class="clr">×ÊÔ´ÀàĞÍ£º</span>{REC_TYPE}</td>
+                <span class="clr">èµ„æºç±»å‹ï¼š</span>{REC_TYPE}</td>
         </tr>
         <tr class="head">
          <td colspan="3" align="left">
-                <span class="clr">×ÊÔ´ÊıÁ¿£º</span>{REC_NUM}</td>
+                <span class="clr">èµ„æºæ•°é‡ï¼š</span>{REC_NUM}</td>
         </tr>
         <tr class="head">
             <td width="150px">

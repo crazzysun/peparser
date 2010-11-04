@@ -22,7 +22,7 @@ class ArrayConverter extends Converter
 
 		if (o instanceof List<?>) return converList(o);
 
-		throw new RuntimeException("²»ÄÜ×ª»»Ô´ÀàĞÍ " + o.getClass().getName() + " ÎªÊı×é");
+		throw new RuntimeException("ä¸èƒ½è½¬æ¢æºç±»å‹ " + o.getClass().getName() + " ä¸ºæ•°ç»„");
 	}
 
 	@SuppressWarnings("unchecked")

@@ -1,14 +1,14 @@
 package com.pe.operation;
 
 /**
- * ²Ù×÷½Ó¿Ú
+ * æ“ä½œæ¥å£
  * 
- * ËùÓĞµÄ¾ßÌå²Ù×÷¶¼±ØĞëÊµÏÖ¸Ã½Ó¿Ú
+ * æ‰€æœ‰çš„å…·ä½“æ“ä½œéƒ½å¿…é¡»å®ç°è¯¥æ¥å£
  * 
- * ¾ßÌåÊµÏÖÒ²¿ÉÒÔ´Ó AbstractOperation ³éÏóÀà¼Ì³Ğ
+ * å…·ä½“å®ç°ä¹Ÿå¯ä»¥ä» AbstractOperation æŠ½è±¡ç±»ç»§æ‰¿
  */
 public interface Operation
 {
-	/** Ö´ĞĞ²Ù×÷ */
+	/** æ‰§è¡Œæ“ä½œ */
 	public void execute() throws Exception;
 }

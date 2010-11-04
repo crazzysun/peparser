@@ -9,7 +9,7 @@ public class PEDllTest
 	{
 		flag = true;
 		Thread.sleep(3000);
-		System.out.println("连接成功");
+		System.out.println("杩炴帴鎴愬姛");
 	}
 
 	public static void main(String[] args) throws InterruptedException
@@ -20,7 +20,7 @@ public class PEDllTest
 			Thread.sleep(3000);
 			while (i == 5)
 			{
-				System.out.println("正在初始化连接！");
+				System.out.println("姝ｅ湪鍒濆鍖栬繛鎺ワ紒");
 				getData();
 				while (flag)
 				{
@@ -28,7 +28,7 @@ public class PEDllTest
 				}
 			}
 			i++;
-			System.out.println("连接失败，正在发起第" + i + "连接");
+			System.out.println("杩炴帴澶辫触锛屾鍦ㄥ彂璧风" + i + "杩炴帴");
 		}
 	}
 }

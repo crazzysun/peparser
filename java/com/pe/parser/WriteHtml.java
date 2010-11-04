@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import com.pe.UserException;
 
 /**
- * 生成结果html
+ * 鐢熸垚缁撴灉html
  *
  * @author FangZhiyang
  */
@@ -20,7 +20,7 @@ public class WriteHtml
 		{
 			getFile(s1);
 			FileOutputStream fileOutputStream = new FileOutputStream(s1 + s2);
-			OutputStreamWriter out = new OutputStreamWriter(fileOutputStream, "GB2312");
+			OutputStreamWriter out = new OutputStreamWriter(fileOutputStream, "UTF-8");
 			BufferedWriter bw = new BufferedWriter(out);
 			bw.write(s);
 			bw.close();

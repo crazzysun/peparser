@@ -14,9 +14,9 @@ import com.pe.UserException;
 import com.pe.entity.parser.Edge;
 import com.pe.entity.parser.Node;
 import com.pe.operation.Operation;
-import com.pe.operation.ÎÄ¼ş.AbstractFileOperation;
+import com.pe.operation.æ–‡ä»¶.AbstractFileOperation;
 
-public class ÎÄ¼ş¹ØÏµ·ÖÎö extends AbstractFileOperation implements Operation
+public class æ–‡ä»¶å…³ç³»åˆ†æ extends AbstractFileOperation implements Operation
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -35,15 +35,15 @@ public class ÎÄ¼ş¹ØÏµ·ÖÎö extends AbstractFileOperation implements Operation
 			File path = getWorkFile("");
 			File file = new File(path, fileName);
 			
-			/** ½«½ÚµãĞÅÏ¢Ğ´ÈëÎÄ¼ş*/
+			/** å°†èŠ‚ç‚¹ä¿¡æ¯å†™å…¥æ–‡ä»¶*/
 			String destFileName = "nodes.txt";
 			File destFile = new File(path, destFileName);
             FileWriter writer = new FileWriter(destFile); 
             BufferedWriter bw = new BufferedWriter(writer);
 			
-			/** Èç¹ûÎÄ¼şÃûÎª¿Õ»òÕßnull£¬ÔòÅ×³öÒì³£ */
+			/** å¦‚æœæ–‡ä»¶åä¸ºç©ºæˆ–è€…nullï¼Œåˆ™æŠ›å‡ºå¼‚å¸¸ */
 			if (fileName == null || fileName.equalsIgnoreCase("")) 
-				throw new UserException("ÎÄ¼şÒÑÉÏ´«£¬µ«Ç°Ì¨Ò³Ãæ»ñÈ¡µÄÎÄ¼şÃûÎª¿Õ£¡");
+				throw new UserException("æ–‡ä»¶å·²ä¸Šä¼ ï¼Œä½†å‰å°é¡µé¢è·å–çš„æ–‡ä»¶åä¸ºç©ºï¼");
 			
 			FileInputStream fileinputstream = new FileInputStream(file);
 			InputStreamReader reader = new InputStreamReader(fileinputstream, "GB2312");
@@ -64,12 +64,12 @@ public class ÎÄ¼ş¹ØÏµ·ÖÎö extends AbstractFileOperation implements Operation
 					String nodestr = "node:";
 					Node node = new Node();
 					String ch = "\"";
-					/** ½ÚµãId */
+					/** èŠ‚ç‚¹Id */
 					int startIndex = str.indexOf(ch, 0);
 					int endIndex = str.indexOf(ch, startIndex + 1);
 					String nodeIndex = str.substring(startIndex + 1, endIndex);
 
-					/** ½Úµãname */
+					/** èŠ‚ç‚¹name */
 //					int startName = str.indexOf(ch, endIndex + 1);
 //					int endName = str.indexOf(ch, startName + 1);
 //					String nodeName = str.substring(startName + 1, endName);
@@ -87,12 +87,12 @@ public class ÎÄ¼ş¹ØÏµ·ÖÎö extends AbstractFileOperation implements Operation
 					Edge edge = new Edge();
 					
 					String ch = "\"";
-					/** sourceNode½ÚµãId */
+					/** sourceNodeèŠ‚ç‚¹Id */
 					int startSrc = str.indexOf(ch, 0);
 					int endSrc = str.indexOf(ch, startSrc + 1);
 					String sourceNode = str.substring(startSrc + 1, endSrc);
 
-					/** tagetNode½ÚµãId */
+					/** tagetNodeèŠ‚ç‚¹Id */
 					int startTrgt = str.indexOf(ch, endSrc + 1);
 					int endTrgt = str.indexOf(ch, startTrgt + 1);
 					String targetNode = str.substring(startTrgt + 1, endTrgt);

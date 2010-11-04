@@ -41,7 +41,7 @@ public class ParserServlet extends HttpServlet
 		String fileName = "";
 		File file = null;
 		
-		/** ÉÏÔØÎÄ¼şµ½Ö¸¶¨Ä¿Â¼½øĞĞ·ÖÎö */  
+		/** ä¸Šè½½æ–‡ä»¶åˆ°æŒ‡å®šç›®å½•è¿›è¡Œåˆ†æ */  
 		try
 		{
 			DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -80,47 +80,47 @@ public class ParserServlet extends HttpServlet
 					output.close(); 
 				}
 				
-				if (log.isDebugEnabled()) log.debug("×¼±¸·ÖÎöÎÄ¼ş: " + fileName);
+				if (log.isDebugEnabled()) log.debug("å‡†å¤‡åˆ†ææ–‡ä»¶: " + fileName);
 			}
 		}
 		catch (Exception e)
 		{
-			if (log.isDebugEnabled()) log.debug("ÉÏÔØÎÄ¼ş´íÎó", e);
+			if (log.isDebugEnabled()) log.debug("ä¸Šè½½æ–‡ä»¶é”™è¯¯", e);
 		}
 		
-		//Èç¹ûÎÄ¼şÃûÎª¿Õ»òÕßnull£¬ÔòÅ×³öÒì³£
+		//å¦‚æœæ–‡ä»¶åä¸ºç©ºæˆ–è€…nullï¼Œåˆ™æŠ›å‡ºå¼‚å¸¸
 		if (fileName == null || fileName.equalsIgnoreCase(""))
 		{
-			response.sendError(503, "Î´Ñ¡ÔñĞèÒª·ÖÎöµÄÎÄ¼ş£¡");
+			response.sendError(503, "æœªé€‰æ‹©éœ€è¦åˆ†æçš„æ–‡ä»¶ï¼");
 			return;
 		}
 		
-		/** ¿ªÊ¼·ÖÎöÎÄ¼ş */
+		/** å¼€å§‹åˆ†ææ–‡ä»¶ */
 		PEAnalyzerDll PE = PEAnalyzerDll.INSTANCE;
 		
-		//Í¨¹ıdll¼ÓÔØPEÎÄ¼ş
+		//é€šè¿‡dllåŠ è½½PEæ–‡ä»¶
 		PE.LoadPEHeader(file.getPath());
-		//¶¨Òå×°headerµÄVectorÈİÆ÷
+		//å®šä¹‰è£…headerçš„Vectorå®¹å™¨
 		Vector<PEHeader> peHeaders = new Vector<PEHeader>();
 		
-		/** ×°ÔØÎÄ¼şĞÅÏ¢ */
+		/** è£…è½½æ–‡ä»¶ä¿¡æ¯ */
 		FileInfo fileInfo = new FileInfo();
 		fileInfo.setFileName(PE.GetFileName());
 		fileInfo.setFileSize(PE.GetFileSiz());
 		fileInfo.setCreateTime(PE.GetFileCreateTime());
 		fileInfo.setModifyTime(PE.GetFileModifyTime());
 		
-		int headerCount = PE.GetHeaderCount();			//»ñÈ¡header¸öÊı
-		/** ×°ÔØDOSÍ·£¬PEÎÄ¼ş±êÖ¾£¬PEÎÄ¼şÍ·£¬¿ÉÑ¡Í·²¿ */
+		int headerCount = PE.GetHeaderCount();			//è·å–headerä¸ªæ•°
+		/** è£…è½½DOSå¤´ï¼ŒPEæ–‡ä»¶æ ‡å¿—ï¼ŒPEæ–‡ä»¶å¤´ï¼Œå¯é€‰å¤´éƒ¨ */
 		PEHeader peHeader;		
-		Map<String, String> peDetail;						//ÓÃÓÚ´æ·ÅdosÍ·µÄÏêÏ¸Êı¾İ£ºÃû³Æ->Öµ
+		Map<String, String> peDetail;						//ç”¨äºå­˜æ”¾doså¤´çš„è¯¦ç»†æ•°æ®ï¼šåç§°->å€¼
 		
 		for (int i = 0; i < headerCount; i++)
 		{
 			peHeader = new PEHeader();					
 			peDetail = new HashMap<String, String>();
 			
-			peHeader.setName(PE.GetHeaderName(i));			//±£´æÍ·name
+			peHeader.setName(PE.GetHeaderName(i));			//ä¿å­˜å¤´name
 			
 			int memberCount = PE.GetMemberCount(i);		
 			for (int j = 0; j < memberCount; j++)
@@ -129,12 +129,12 @@ public class ParserServlet extends HttpServlet
 				String memberValue = "0x" + Integer.toHexString(PE.GetMemberValue(i, j));
 				peDetail.put(memberKey, memberValue);
 			}
-			peHeader.setValue(peDetail);					//±£´æ³ÉÔ±ÏêÏ¸ĞÅÏ¢
+			peHeader.setValue(peDetail);					//ä¿å­˜æˆå‘˜è¯¦ç»†ä¿¡æ¯
 			peHeaders.add(peHeader);
 		}
 		
-		/** ×°ÔØ½Ú±íĞÅÏ¢ */
-		Vector<SectionHeader> sectionHeaders = new Vector<SectionHeader>();	//±£´æËùÓĞ½Ú±íĞÅÏ¢
+		/** è£…è½½èŠ‚è¡¨ä¿¡æ¯ */
+		Vector<SectionHeader> sectionHeaders = new Vector<SectionHeader>();	//ä¿å­˜æ‰€æœ‰èŠ‚è¡¨ä¿¡æ¯
 		SectionHeader sectionHeader;
 		Map<String, String> sectionDetail;
 		
@@ -145,7 +145,7 @@ public class ParserServlet extends HttpServlet
 			sectionHeader = new SectionHeader();
 			sectionDetail = new HashMap<String, String>();
 			
-			sectionHeader.setName(PE.GetSectionName(i));	//±£´æÍ·name
+			sectionHeader.setName(PE.GetSectionName(i));	//ä¿å­˜å¤´name
 			int memberCount = PE.GetSectionMemberCount(i);
 			for (int j = 0; j < memberCount; j++)
 			{
@@ -153,18 +153,18 @@ public class ParserServlet extends HttpServlet
 				String sectionValue = "0x" + Integer.toHexString(PE.GetSectionMemberValue(i, j));
 				sectionDetail.put(sectionKey, sectionValue);
 			}
-			sectionHeader.setValue(sectionDetail);			//±£´æ³ÉÔ±ÏêÏ¸ĞÅÏ¢
+			sectionHeader.setValue(sectionDetail);			//ä¿å­˜æˆå‘˜è¯¦ç»†ä¿¡æ¯
 			sectionHeaders.add(sectionHeader);
 		}
 		
-		//½«×°ÓĞPEÍ·Êı¾İ·Åµ½sessionÀïÃæ£¬ÒÔ±ãÇ°Ì¨ÒıÓÃ
+		//å°†è£…æœ‰PEå¤´æ•°æ®æ”¾åˆ°sessioné‡Œé¢ï¼Œä»¥ä¾¿å‰å°å¼•ç”¨
 		request.getSession().setAttribute("fileInfo", fileInfo);
 		request.getSession().setAttribute("headers", peHeaders);
 		request.getSession().setAttribute("sectionHeaders", sectionHeaders);
 		
 		try
 		{
-			//½«Ò³Ãæ×ªÏò£º"/parser/parser_result.jsp"
+			//å°†é¡µé¢è½¬å‘ï¼š"/parser/parser_result.jsp"
 			RequestDispatcher rd;
 			rd = getServletContext().getRequestDispatcher("/parser/parser_result.jsp");
 			rd.forward(request, response);

@@ -18,7 +18,7 @@ import org.directwebremoting.util.Messages;
 import com.pe.UserException;
 
 /**
- * ÓÃÓÚDWRµÄOperation×ª»»Æ÷
+ * ç”¨äºDWRçš„Operationè½¬æ¢å™¨
  */
 public class OperationConverter extends BeanConverter
 {
@@ -52,7 +52,7 @@ public class OperationConverter extends BeanConverter
 			// Loop through the properties passed in
 			Map<String, String> tokens = extractInboundTokens(paramType, value);
 
-			// Í¨¹ıOperationManager»ñµÃ²Ù×÷ÊµÏÖÀà
+			// é€šè¿‡OperationManagerè·å¾—æ“ä½œå®ç°ç±»
 			String name = tokens.get("name");
 
 			String[] split = ParseUtil.splitInbound(name);
@@ -60,14 +60,14 @@ public class OperationConverter extends BeanConverter
 			String splitType = split[LocalUtil.INBOUND_INDEX_TYPE];
 			InboundVariable iv2 = new InboundVariable(iv.getLookup(), null, splitType, splitValue);
 			
-			// ×ª»»²Ù×÷Ãû
+			// è½¬æ¢æ“ä½œå
 			name = (String) stringConverter.convertInbound(String.class, iv2, inctx);
 			
 			Class<? extends Operation> type = OperationManager.getInstance().getOperationClass(name);
 			
-			log.trace("×ª»»²Ù×÷Àà: " + type.getName());
+			log.trace("è½¬æ¢æ“ä½œç±»: " + type.getName());
 			
-			// ×ª»»¶ÔÏó
+			// è½¬æ¢å¯¹è±¡
 			String data = tokens.get("data");
 			
 			split = ParseUtil.splitInbound(data);
@@ -75,7 +75,7 @@ public class OperationConverter extends BeanConverter
 			splitType = split[LocalUtil.INBOUND_INDEX_TYPE];
 			iv2 = new InboundVariable(iv.getLookup(), null, splitType, splitValue);
 
-			// Í¨¹ıBeanConverter×ª»»³ÉÊµ¼ÊµÄOperation¶ÔÏó
+			// é€šè¿‡BeanConverterè½¬æ¢æˆå®é™…çš„Operationå¯¹è±¡
 			return beanConverter.convertInbound(type, iv2, inctx);
 		}
 		catch (MarshallException ex)
@@ -84,7 +84,7 @@ public class OperationConverter extends BeanConverter
 		}
 		catch (UserException ex)
 		{
-			return new ´íÎó²Ù×÷(ex);
+			return new é”™è¯¯æ“ä½œ(ex);
 		}
 		catch (Exception ex)
 		{

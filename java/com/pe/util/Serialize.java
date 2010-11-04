@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 
 public class Serialize
 {
-	//ĞòÁĞ»¯¶ÔÏó
+	//åºåˆ—åŒ–å¯¹è±¡
 	public static final byte[] serializeData(Object object) throws Exception
 	{
 		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
@@ -18,7 +18,7 @@ public class Serialize
 		return bytes;
 	}
 
-	//·´ĞòÁĞ»¯¶ÔÏó
+	//ååºåˆ—åŒ–å¯¹è±¡
 	public static final Object deSerializeData(byte[] bytes) throws Exception
 	{
 		ByteArrayInputStream byteIn = new ByteArrayInputStream(bytes);

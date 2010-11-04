@@ -3,7 +3,7 @@ package com.pe.entity.parser;
 import com.pe.entity.Bean;
 
 /**
- * µ¼³ö±íº¯ÊıĞÅÏ¢
+ * å¯¼å‡ºè¡¨å‡½æ•°ä¿¡æ¯
  * @author FangZhiyang
  *
  */

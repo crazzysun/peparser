@@ -5,7 +5,7 @@ import java.util.List;
 import com.pe.entity.Bean;
 
 /**
- * µ¼Èë±í
+ * å¯¼å…¥è¡¨
  * @author FangZhiyang
  *
  */

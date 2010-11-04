@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import com.pe.UserException;
 
 /**
- * 读取模板文件
+ * 璇诲彇妯℃澘鏂囦欢
  *
  * @author FangZhiyang
  */
@@ -35,7 +35,7 @@ public class ReadTemplates
 		try
 		{
 			FileInputStream fileinputstream = new FileInputStream(s);
-			InputStreamReader reader = new InputStreamReader(fileinputstream, "GB2312");
+			InputStreamReader reader = new InputStreamReader(fileinputstream, "UTF-8");
 			BufferedReader br = new BufferedReader(reader);
 			
 			String str = "";

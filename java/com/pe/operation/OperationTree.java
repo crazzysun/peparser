@@ -5,13 +5,13 @@ import java.util.List;
 
 
 /**
- * ²Ù×÷Ê÷
+ * æ“ä½œæ ‘
  */
 public class OperationTree
 {
 	private OperationNode root = new OperationNode(null);
 	
-	/** ½«²Ù×÷Ìí¼Óµ½Ê÷ÉÏ */
+	/** å°†æ“ä½œæ·»åŠ åˆ°æ ‘ä¸Š */
 	public void add(String name)
 	{
 		String[] s = name.split("[.]");
@@ -34,7 +34,7 @@ public class OperationTree
 		}
 	}
 	
-	/** »ñÈ¡Ö¸¶¨²Ù×÷½Úµã */
+	/** è·å–æŒ‡å®šæ“ä½œèŠ‚ç‚¹ */
 	public OperationNode get(String name)
 	{
 		String[] s = name.split("[.]");
@@ -51,7 +51,7 @@ public class OperationTree
 		return n;
 	}
 	
-	/** »ñÈ¡Ö¸¶¨½ÚµãµÄËùÓĞ×ÓËï²Ù×÷µÄÃû×Ö */
+	/** è·å–æŒ‡å®šèŠ‚ç‚¹çš„æ‰€æœ‰å­å­™æ“ä½œçš„åå­— */
 	public List<String> getAllChildren(String name)
 	{
 		OperationNode n = get(name);

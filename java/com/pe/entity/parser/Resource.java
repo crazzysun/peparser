@@ -5,7 +5,7 @@ import java.util.List;
 import com.pe.entity.Bean;
 
 /**
- * 资源
+ * 璧勬簮
  *
  * @author FangZhiyang
  */
@@ -13,8 +13,8 @@ public class Resource implements Bean
 {
 	private static final long serialVersionUID = 1L;
 
-	private String recType;				//资源类型
-	private int recCount;			//资源数量
+	private String recType;				//璧勬簮绫诲瀷
+	private int recCount;			//璧勬簮鏁伴噺
 	private List<ResourceItem> item;
 	
 	public String getRecType()

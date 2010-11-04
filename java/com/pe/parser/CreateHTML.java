@@ -1,5 +1,6 @@
 package com.pe.parser;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,7 +25,7 @@ import com.pe.entity.parser.SectionHeader;
 import com.pe.util.SystemConfigure;
 
 /**
- * ´´½¨½á¹ûÒ³Ãæ
+ * åˆ›å»ºç»“æœé¡µé¢
  * @author FangZhiyang
  *
  */
@@ -32,13 +33,13 @@ public class CreateHTML
 {
 	private static Log log = LogFactory.getLog(CreateHTML.class);
 	
-	public static final int SIZE_OF_WORD = 2;					//C++ÖĞWORDµÄ³¤¶È
-	public static final int SIZE_OF_DWORD = 4;					//C++ÖĞDWORDµÄ³¤¶È
-	public static final int SIZE_OF_BYTE = 1;					//C++ÖĞBYTEµÄ³¤¶È
+	public static final int SIZE_OF_WORD = 2;					//C++ä¸­WORDçš„é•¿åº¦
+	public static final int SIZE_OF_DWORD = 4;					//C++ä¸­DWORDçš„é•¿åº¦
+	public static final int SIZE_OF_BYTE = 1;					//C++ä¸­BYTEçš„é•¿åº¦
 	
 	private PEFile peFile;
-	private String e_lfanew;				//peÎÄ¼ş±íÊ¾µÄÆ«ÒÆÁ¿
-	private String multiAnalyPath;			//ÓÃÓÚ´æ·Å"·ÖÎö¶à¸öPEÎÄ¼ş"Ê±½á¹ûµÄÎÄ¼ş¼ĞÂ·¾¶
+	private String e_lfanew;				//peæ–‡ä»¶è¡¨ç¤ºçš„åç§»é‡
+	private String multiAnalyPath;			//ç”¨äºå­˜æ”¾"åˆ†æå¤šä¸ªPEæ–‡ä»¶"æ—¶ç»“æœçš„æ–‡ä»¶å¤¹è·¯å¾„
 	
 	public CreateHTML(PEFile file)
 	{
@@ -54,9 +55,9 @@ public class CreateHTML
 
 	public void create() throws Exception
 	{
-		if (log.isTraceEnabled()) log.trace("¿ªÊ¼´´½¨ÎÄ¼ş£º" +  peFile.getFileInfo().getFileName() + "µÄ·ÖÎö½á¹û...");
-		/** ¶ÁÈ¡Ä£°åÎÄ¼ş */
-		String filePath = SystemConfigure.get("TemplateHome") + "/" + "pe.template";
+		if (log.isTraceEnabled()) log.trace("å¼€å§‹åˆ›å»ºæ–‡ä»¶ï¼š" +  peFile.getFileInfo().getFileName() + "çš„åˆ†æç»“æœ...");
+		/** è¯»å–æ¨¡æ¿æ–‡ä»¶ */
+		String filePath = SystemConfigure.get("TemplateHome") + File.separator + "pe.template";
 		String templateContent;
 		try
 		{
@@ -67,21 +68,21 @@ public class CreateHTML
 			throw new Exception(e.getMessage());
 		}
 		
-		/** ¿ªÊ¼Ìæ»»ÎÄ¼ş */
+		/** å¼€å§‹æ›¿æ¢æ–‡ä»¶ */
 		String result = replaceValue(templateContent);
 
-		/** Éú³É·ÖÎö½á¹û */
-		String pathName = SystemConfigure.get("PEResultHome") + "/" + multiAnalyPath;
+		/** ç”Ÿæˆåˆ†æç»“æœ */
+		String pathName = SystemConfigure.get("PEResultHome") + File.separator + multiAnalyPath;
 		String fileName = peFile.getFileInfo().getFileName() + ".html";
 		
 		try
 		{
-			WriteHtml.save(result, pathName, "/" + fileName);
-			if (log.isTraceEnabled()) log.trace("Íê³ÉÎÄ¼ş£º" +  peFile.getFileInfo().getFileName() + "·ÖÎö½á¹ûµÄ´´½¨...");
+			WriteHtml.save(result, pathName, File.separator + fileName);
+			if (log.isTraceEnabled()) log.trace("å®Œæˆæ–‡ä»¶ï¼š" +  peFile.getFileInfo().getFileName() + "åˆ†æç»“æœçš„åˆ›å»º...");
 		}
 		catch (Exception e)
 		{
-			throw new Exception("·ÖÎö½á¹û·¢²¼Ê§°Ü¡£¿ÉÄÜÊÇÄ¿Â¼²»¾ß±¸IO²Ù×÷È¨ÏŞ¡£ÇëÓë¹ÜÀíÔ±ÁªÏµ¡£");
+			throw new Exception("åˆ†æç»“æœå‘å¸ƒå¤±è´¥ã€‚å¯èƒ½æ˜¯ç›®å½•ä¸å…·å¤‡IOæ“ä½œæƒé™ã€‚è¯·ä¸ç®¡ç†å‘˜è”ç³»ã€‚");
 		}
 	}
 
@@ -89,7 +90,7 @@ public class CreateHTML
 	{
 		int offset = 0;
 		
-		/** Ìæ»»ÎÄ¼şĞÅÏ¢ */
+		/** æ›¿æ¢æ–‡ä»¶ä¿¡æ¯ */
 		FileInfo fileInfo = peFile.getFileInfo();
 		templateContent = replace(templateContent, "{FileName}", fileInfo.getFileName());
 		templateContent = replace(templateContent, "{FileSize}", fileInfo.getFileSize());
@@ -97,8 +98,8 @@ public class CreateHTML
 		templateContent = replace(templateContent, "{FileModifyTime}", fileInfo.getModifyTime());
 		templateContent = replace(templateContent, "{FileCreateReportTime}", showNowTime());
 		
-		/** Ìæ»»DOSÍ·£¬PEÎÄ¼ş±êÖ¾£¬PEÎÄ¼şÍ·£¬¿ÉÑ¡Í·²¿ */
-		//DOSÍ·
+		/** æ›¿æ¢DOSå¤´ï¼ŒPEæ–‡ä»¶æ ‡å¿—ï¼ŒPEæ–‡ä»¶å¤´ï¼Œå¯é€‰å¤´éƒ¨ */
+		//DOSå¤´
 		PEHeader dosHeader = peFile.getHeaders().get(0);
 		Map<String, String> dosValue = dosHeader.getValue();
 		e_lfanew = dosValue.get("e_lfanew");
@@ -123,11 +124,11 @@ public class CreateHTML
 		templateContent = replace(templateContent, "{e_res2}", "0x0");
 		templateContent = replace(templateContent, "{e_lfanew}", dosValue.get("e_lfanew"));
 		
-		//PEÎÄ¼ş±êÖ¾
+		//PEæ–‡ä»¶æ ‡å¿—
 		templateContent = replace(templateContent, "{signature_add}", dosValue.get("e_lfanew"));
 		templateContent = replace(templateContent, "{signature}", "PE00");
 		
-		//PEÎÄ¼şÍ·
+		//PEæ–‡ä»¶å¤´
 		PEHeader fileHeader = peFile.getHeaders().get(2);
 		Map<String, String> fileValue = fileHeader.getValue();
 		
@@ -154,7 +155,7 @@ public class CreateHTML
 		templateContent = replace(templateContent, "{HAR_add}", getNewOffset(offset));
 		offset += CreateHTML.SIZE_OF_WORD;
 		
-		//¿ÉÑ¡Í·²¿
+		//å¯é€‰å¤´éƒ¨
 		PEHeader optionalHeader = peFile.getHeaders().get(3);
 		Map<String, String> optionalValue = optionalHeader.getValue();
 		templateContent = replace(templateContent, "{magic_add}", getNewOffset(offset));
@@ -249,7 +250,7 @@ public class CreateHTML
 		offset += CreateHTML.SIZE_OF_DWORD;
 		
 		
-		/** Ìæ»»Êı¾İÄ¿Â¼ */
+		/** æ›¿æ¢æ•°æ®ç›®å½• */
 		List<DataDirectory> dataDirectory = peFile.getDataDirectory();
 		String strDataDirData = getTempleteChunk(templateContent, "<!--DataDir_Item_Start-->", "<!--DataDir_Item_End-->");
 		String strDataDirTemplate = strDataDirData;
@@ -278,7 +279,7 @@ public class CreateHTML
 		templateContent = replace(templateContent, strDataDirTemplate, strTemp);
 		offset += CreateHTML.SIZE_OF_DWORD << 5;
 		
-		/** Ìæ»»½Ú±íĞÅÏ¢ */
+		/** æ›¿æ¢èŠ‚è¡¨ä¿¡æ¯ */
 		List<SectionHeader> sectionHeader = peFile.getSections();
 		String strSectionData = getTempleteChunk(templateContent, "<!--SECTION_HEADER_START-->", "<!--SECTION_HEADER_END-->");
 		String strSectionTemplate = strSectionData;
@@ -330,7 +331,7 @@ public class CreateHTML
 	
 			strSectionData = replace(strSectionData,"{Char_add}", getNewOffset(offset));
 			String strChar = "", strCharAll;
-			String Characteristics = sectionValue.get("Characteristics");	//È¡³öCharacteristics£¬ÅĞ¶ÏÃ¿Ò»Î»
+			String Characteristics = sectionValue.get("Characteristics");	//å–å‡ºCharacteristicsï¼Œåˆ¤æ–­æ¯ä¸€ä½
 			if (Characteristics.charAt(8) == '2')
 //			if (Characteristics == WINNT_H.IMAGE_SCN_CNT_CODE)
 				strChar += (strChar == "" ? " Code" : ", Code");
@@ -386,7 +387,7 @@ public class CreateHTML
 		}
 		templateContent = replace(templateContent, strSectionTemplate, strTemp);
 
-		/** Ìæ»»µ¼Èë±í */
+		/** æ›¿æ¢å¯¼å…¥è¡¨ */
 		List<ImportTable> importTable = peFile.getImportTable();
 		String strImpData = getTempleteChunk(templateContent, "<!--IMPORT_TABLE_START-->", "<!--IMPORT_TABLE_END-->");
 		String strImpFun = getTempleteChunk(templateContent, "<!--IMP_TABLE_ITME_START-->", "<!--IMP_TABLE_ITME_END-->");
@@ -396,7 +397,7 @@ public class CreateHTML
 		for (int i = 0; i < importTable.size(); i++)
 		{
 			strImpData = strImpTemplate;
-			//È¡³öÃ¿Ò»¸öµ¼Èë±íµÄÊı¾İ
+			//å–å‡ºæ¯ä¸€ä¸ªå¯¼å…¥è¡¨çš„æ•°æ®
 			String strDllName = importTable.get(i).getName();
 			
 			List<String> funName = importTable.get(i).getFunctionName();
@@ -425,14 +426,14 @@ public class CreateHTML
 		templateContent = replace(templateContent, strImpTemplate, strImpAll);
 		
 
-		/** Ìæ»»µ¼³ö±í */
+		/** æ›¿æ¢å¯¼å‡ºè¡¨ */
 		ExportTable exportTable = peFile.getExportTable();
 		String strExpData = getTempleteChunk(templateContent, "<!--EXPORT_TABLE_START-->", "<!--EXPORT_TABLE_END-->");
 		String strExpFun = getTempleteChunk(templateContent, "<!--EXP_TABLE_ITME_START-->", "<!--EXP_TABLE_ITME_END-->");
 		String strExpTemplate = strExpData;
 		String strExpAll = "";
 		
-		//Ìæ»»µ¼³ö±íÄ£°åÖĞÇ°Èı¸öĞÅÏ¢
+		//æ›¿æ¢å¯¼å‡ºè¡¨æ¨¡æ¿ä¸­å‰ä¸‰ä¸ªä¿¡æ¯
 		if (exportTable != null && !exportTable.getDllName().equals(""))
 		{
 			strExpData = replace(strExpData, "{EXP_DLL_NAME}", exportTable.getDllName());
@@ -455,7 +456,7 @@ public class CreateHTML
 		}
 		templateContent = replace(templateContent, strExpTemplate, strExpAll);
 		
-		/** Ìæ»»ÖØ¶¨Î»±í */
+		/** æ›¿æ¢é‡å®šä½è¡¨ */
 		List<Relocation> relocation = peFile.getRelocation();
 		String strRelocData = getTempleteChunk(templateContent, "<!--RELOC_TABLE_START-->", "<!--RELOC_TABLE_END-->");
 		String strRelocItem = getTempleteChunk(templateContent, "<!--RELOC_TABLE_ITME_START-->", "<!--RELOC_TABLE_ITME_END-->");
@@ -485,7 +486,7 @@ public class CreateHTML
 		}
 		templateContent = replace(templateContent, strRelocTemplate, strRelocAll);
 		
-		/** Ìæ»»×ÊÔ´Ä¿Â¼ */
+		/** æ›¿æ¢èµ„æºç›®å½• */
 		List<Resource> resource = peFile.getResource();
 		String strRecData = getTempleteChunk(templateContent, "<!--RES_TABLE_START-->", "<!--RES_TABLE_END-->");
 		String strRecItem = getTempleteChunk(templateContent, "<!--RES_TABLE_ITME_START-->", "<!--RES_TABLE_ITME_END-->");
@@ -534,7 +535,7 @@ public class CreateHTML
 		return stringbuffer.toString();
 	}
 	
-	/** ÏÔÊ¾µ±Ç°ÈÕÆÚ */
+	/** æ˜¾ç¤ºå½“å‰æ—¥æœŸ */
 	private String showNowTime()
 	{
 		Date date = new Date();
@@ -543,7 +544,7 @@ public class CreateHTML
 		return s;
 	}
 	
-	/** ½«16½øÖÆString×ª»»Îªlong£¬ÒÔ±ã½øĞĞoffsetµÄ¼ÓÔËËã */
+	/** å°†16è¿›åˆ¶Stringè½¬æ¢ä¸ºlongï¼Œä»¥ä¾¿è¿›è¡Œoffsetçš„åŠ è¿ç®— */
 	private long hexStringToint(String str)
 	{
 		String hexString = "0123456789abcdef";
@@ -558,16 +559,16 @@ public class CreateHTML
 		return result;
 	}
 	
-	/** ¸øÒ»¸öStringÀàĞÍµÄÆ«ÒÆÁ¿Êı¾İ½øĞĞ¼Ó²Ù×÷ */
+	/** ç»™ä¸€ä¸ªStringç±»å‹çš„åç§»é‡æ•°æ®è¿›è¡ŒåŠ æ“ä½œ */
 	private String getNewOffset(int offset)
 	{
-		String value = e_lfanew.substring(2);								//È¥µô¡°0x¡±
-		return "0x" + Long.toHexString(hexStringToint(value) + offset);	 	//¼ÓÉÏ¡°0x¡±£¬·µ»Ø
+		String value = e_lfanew.substring(2);								//å»æ‰â€œ0xâ€
+		return "0x" + Long.toHexString(hexStringToint(value) + offset);	 	//åŠ ä¸Šâ€œ0xâ€ï¼Œè¿”å›
 	}
 	
 	/**
-	 * ½ØÈ¡Ä£¿é×Ö·û´®
-	 * strSourceÔ­×Ö·û´®£¬strStart¿ªÊ¼×Ö·û´®£¬strEnd½áÊø×Ö·û´®
+	 * æˆªå–æ¨¡å—å­—ç¬¦ä¸²
+	 * strSourceåŸå­—ç¬¦ä¸²ï¼ŒstrStartå¼€å§‹å­—ç¬¦ä¸²ï¼ŒstrEndç»“æŸå­—ç¬¦ä¸²
 	 */
 	private String getTempleteChunk(String strSource, String strStart, String strEnd)
 	{

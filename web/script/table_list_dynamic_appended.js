@@ -2,36 +2,36 @@ $import("rpc.js");
 
 function AppendTableList(operation, titles, columns, total)
 {
-	this.operation = operation;				// ²Ù×÷¶ÔÏó
-	this.titles = titles;					// ±êÌâÀ¸
-	this.columns = columns;					// Ã¿ÁĞµÄµ¥ÔªÄÚÈİº¯Êı
-	this.tbody = null;						// ÓÃÓÚÏÔÊ¾Êı¾İµÄ±í¸ñÖĞµÄtbody±êÇ©
+	this.operation = operation;				// æ“ä½œå¯¹è±¡
+	this.titles = titles;					// æ ‡é¢˜æ 
+	this.columns = columns;					// æ¯åˆ—çš„å•å…ƒå†…å®¹å‡½æ•°
+	this.tbody = null;						// ç”¨äºæ˜¾ç¤ºæ•°æ®çš„è¡¨æ ¼ä¸­çš„tbodyæ ‡ç­¾
 	
-	this.total = total;						//´´½¨Ê±ÒÑÖªµÀ¹²ÓĞ¶àÉÙÌõ¼ÇÂ¼
-	this.current = 0;						//µ±Ç°·ÖÎöµ½µÄÌõÊı
+	this.total = total;						//åˆ›å»ºæ—¶å·²çŸ¥é“å…±æœ‰å¤šå°‘æ¡è®°å½•
+	this.current = 0;						//å½“å‰åˆ†æåˆ°çš„æ¡æ•°
 }
 
 /**
- * Ñ­»·Ç¶Ì×µ÷ÓÃ´Ëº¯Êı£¬Ã¿´Î´Ó¶ÓÁĞÖĞÈ¡³öÒ»¸öfilePathÖ´ĞĞrpc
- * Ö»ÓĞÉÏÒ»Ìõ½á¹û·µ»Øºó²Åµ÷ÓÃÏÂÒ»Ìõrpc
+ * å¾ªç¯åµŒå¥—è°ƒç”¨æ­¤å‡½æ•°ï¼Œæ¯æ¬¡ä»é˜Ÿåˆ—ä¸­å–å‡ºä¸€ä¸ªfilePathæ‰§è¡Œrpc
+ * åªæœ‰ä¸Šä¸€æ¡ç»“æœè¿”å›åæ‰è°ƒç”¨ä¸‹ä¸€æ¡rpc
  * @param {Object} fileList
  */
 AppendTableList.prototype.append = function (fileList)
 {
-	this.current++;								//Ñ­»·È¡¶ÓÁĞÍ·
+	this.current++;								//å¾ªç¯å–é˜Ÿåˆ—å¤´
 	if (this.current > this.total) return;	
 	if (!(this.file = fileList.shift())) alert("TableList Gets File Error!");
 	
 	var self = this;
-	this.operation.filePath = this.file;		//¸øoperation´«²Î
-	$("statusBar").innerHTML = this.file;		//Ò³ÃæÖĞµÄ×´Ì¬½ø¶ÈÌõ
+	this.operation.filePath = this.file;		//ç»™operationä¼ å‚
+	$("statusBar").innerHTML = this.file;		//é¡µé¢ä¸­çš„çŠ¶æ€è¿›åº¦æ¡
 	var callback = function(result)
 	{
 		dwr.util.addRows(self.tbody, result.data, self.columns, {rowCreator: self.rowCreator});
 		
-		self.recordsSpan.innerHTML = "¹²" + self.total + "Ìõ¼ÇÂ¼£¬ÒÑ·ÖÎö" + self.current + "Ìõ";
+		self.recordsSpan.innerHTML = "å…±" + self.total + "æ¡è®°å½•ï¼Œå·²åˆ†æ" + self.current + "æ¡";
 		
-		if (self.current == self.total)			//È«²¿·ÖÎöÍê³Éºó
+		if (self.current == self.total)			//å…¨éƒ¨åˆ†æå®Œæˆå
 		{
 			$("progress").style.display = "none";
 			$("status").style.display = "none";
@@ -60,25 +60,25 @@ AppendTableList.prototype.rowCreator = function (options)
 AppendTableList.prototype.create = function (container)
 {
 	container.innerHTML = 
-		"" +		// ¿ØÖÆÀ¸
+		"" +		// æ§åˆ¶æ 
 		"<div>" + 
 		"<table class='table_list'>" +
-		"<thead><tr></tr></thead>" +					// ±êÌâ 
-		"<tbody></tbody>" + 							// Êı¾İ
+		"<thead><tr></tr></thead>" +					// æ ‡é¢˜ 
+		"<tbody></tbody>" + 							// æ•°æ®
 		"</table>" + 
 		"</div><div class='table_list_control'></div>";
 		
 	var tableDiv = container.firstChild;	
 	
 	var controlDiv = tableDiv.nextSibling;
-	controlDiv.innerHTML = "<span>¹²" + this.total + "Ìõ¼ÇÂ¼£¬ÒÑ·ÖÎö" + this.current + "Ìõ</span>";
+	controlDiv.innerHTML = "<span>å…±" + this.total + "æ¡è®°å½•ï¼Œå·²åˆ†æ" + this.current + "æ¡</span>";
 	controlDiv.className = "pagecontrol";
-	this.recordsSpan = controlDiv.firstChild;			// ¿ØÖÆÀ¸
+	this.recordsSpan = controlDiv.firstChild;			// æ§åˆ¶æ 
 	
 	
-	var table = tableDiv.firstChild;					// ±í¸ñ²¿·Ö
+	var table = tableDiv.firstChild;					// è¡¨æ ¼éƒ¨åˆ†
 	var thead = table.firstChild;
-	var tr = thead.firstChild;							// ±êÌâ
+	var tr = thead.firstChild;							// æ ‡é¢˜
 	
 	for (var i = 0 ; i < this.titles.length; i++)
 	{
@@ -91,14 +91,14 @@ AppendTableList.prototype.create = function (container)
 		tr.appendChild(th);
 	}
 
-	var tbody = thead.nextSibling;						// Êı¾İÏÔÊ¾²¿·Ö
+	var tbody = thead.nextSibling;						// æ•°æ®æ˜¾ç¤ºéƒ¨åˆ†
 	this.tbody = tbody;
 
 	return;
 }
 
 
-/** ½«ÎÄ±¾ÏÔÊ¾ÎªÁ´½Ó */
+/** å°†æ–‡æœ¬æ˜¾ç¤ºä¸ºé“¾æ¥ */
 AppendTableList.link = function(text, action, object)
 {
 	var span = document.createElement("span");
@@ -113,7 +113,7 @@ AppendTableList.link = function(text, action, object)
 	return span;
 }
 
-/** °ïÖúÏÔÊ¾²Ù×÷ÁĞ */
+/** å¸®åŠ©æ˜¾ç¤ºæ“ä½œåˆ— */
 AppendTableList.links = function(operations, object)
 {
 	var sspan = document.createElement("span");

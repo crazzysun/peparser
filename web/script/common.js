@@ -3,32 +3,32 @@ common.scriptBase = "";
 common.scripts = {};
 
 //******************************************************
-// °üº¬ÎÄ¼ş 
-// ÓÃ·¨: $import("dwr/interface/RPC.js");
-// ×¢Òâ: ±»°üº¬jsÎÄ¼şµÄÂ·¾¶ĞèÒªÓÃÏà¶ÔÓÚcommon.jsµÄÏà¶ÔÂ·¾¶Ö¸Ê¾
+// åŒ…å«æ–‡ä»¶ 
+// ç”¨æ³•: $import("dwr/interface/RPC.js");
+// æ³¨æ„: è¢«åŒ…å«jsæ–‡ä»¶çš„è·¯å¾„éœ€è¦ç”¨ç›¸å¯¹äºcommon.jsçš„ç›¸å¯¹è·¯å¾„æŒ‡ç¤º
 //******************************************************
 function $import(path)
 {
-	// È·±£Ã¿¸öÎÄ¼şÖ»±»ÒıÈëÒ»´Î
+	// ç¡®ä¿æ¯ä¸ªæ–‡ä»¶åªè¢«å¼•å…¥ä¸€æ¬¡
 	var s = common.scripts[path];
 	if (s == "yes") return;
 
 	common.scripts[path] = "yes";
 	
-	// °üº¬½Å±¾½øÀ´
-	// ÕâÖÖ×ö·¨ÓÉÓÚÊ±ĞòÎÊÌâ£¬¿ÉÄÜ²»ÄÜÕı³£¹¤×÷
+	// åŒ…å«è„šæœ¬è¿›æ¥
+	// è¿™ç§åšæ³•ç”±äºæ—¶åºé—®é¢˜ï¼Œå¯èƒ½ä¸èƒ½æ­£å¸¸å·¥ä½œ
 //	var script = document.createElement("script");
 //	script.type = "text/javascript";
 //	script.language = "JavaScript";
 //	script.src = common.scriptBase + path;
 //	document.getElementsByTagName("head")[0].appendChild(script);		
 
-	// ÕâÖÖ×ö·¨»¹Ã»ÓĞ·¢ÏÖÎÊÌâ
+	// è¿™ç§åšæ³•è¿˜æ²¡æœ‰å‘ç°é—®é¢˜
 	document.write("<script src='" + common.scriptBase + path + "'></sc" + "ript>");
 }
 
 //===================================
-// ÉèÖÃ½Å±¾»ù´¡Â·¾¶
+// è®¾ç½®è„šæœ¬åŸºç¡€è·¯å¾„
 common.setupScriptBase = function ()
 {
 	var src = "common.js";
