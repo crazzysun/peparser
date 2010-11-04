@@ -1,13 +1,13 @@
-package com.pe.operation.PE·ÖÎö;
+package com.pe.operation.PEåˆ†æ;
 
 import java.io.File;
 
 import com.pe.UserException;
 import com.pe.operation.Operation;
-import com.pe.operation.ÎÄ¼ş.AbstractFileOperation;
+import com.pe.operation.æ–‡ä»¶.AbstractFileOperation;
 import com.pe.packed.PackClassifier;
 
-public class ´´½¨¼Ó¿Ç·ÖÎöÑµÁ·¼¯ extends AbstractFileOperation implements Operation
+public class åˆ›å»ºåŠ å£³åˆ†æè®­ç»ƒé›† extends AbstractFileOperation implements Operation
 {
 	private String classifierName;
 	private int classifier;
@@ -24,16 +24,26 @@ public class ´´½¨¼Ó¿Ç·ÖÎöÑµÁ·¼¯ extends AbstractFileOperation implements Operati
 		System.out.println(result);
 		result = replace(result, "\n", "<br/>");
 		result = replace(result, " ", "&nbsp;");
-		System.out.println(result);
 	}
 
 	private void validateTrainFile() throws UserException
 	{
-		File file = new File(dataset);
-		if (!file.isFile())
-			throw new UserException("ÑµÁ·¼¯ÎÄ¼şÑ¡È¡´íÎó£¬ÇëÖØĞÂÑ¡Ôñ£¡");
+		File file;
+		try
+		{
+			file = new File(getWorkFile(""), dataset);
+			if (!file.isFile())
+				throw new UserException("è®­ç»ƒé›†æ–‡ä»¶é€‰å–é”™è¯¯ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼");
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
+	/** æ ¹æ®å‰å°çš„selectæ§ä»¶å€¼ï¼Œè·å–åˆ†ç±»å™¨çš„å€¼ */
 	private void validateClassifierName() throws UserException
 	{
 		switch(classifier)
@@ -51,10 +61,13 @@ public class ´´½¨¼Ó¿Ç·ÖÎöÑµÁ·¼¯ extends AbstractFileOperation implements Operati
 			classifierName = "weka.classifiers.lazy.IBk";
 			break;
 		default:
-			throw new UserException("classifierÑ¡Ôñ´íÎó£¬ÇëÖØĞÂÑ¡Ôñ£¡");
+			throw new UserException("classifieré€‰æ‹©é”™è¯¯ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼");
 		}
 	}
 	
+	/** æ›¿æ¢å­—æ®µs1ä¸ºs2ï¼Œ
+	 *  è¿™é‡Œç”¨äºæ›¿æ¢ç»“æœå­—ç¬¦ä¸²çš„"\n"ä¸º"<br/>" 
+	 *  ä»¥åŠ" "ä¸º"&nbsp;" */
 	private String replace(String s, String s1, String s2)
 	{
 		if (s == null) return null;

@@ -23,49 +23,49 @@ public class Launcher extends HttpServlet implements ServletContextListener
 
 		try
 		{
-			log.info("Æô¶¯PE·ÖÎöÏµÍ³...");
+			log.info("å¯åŠ¨PEåˆ†æç³»ç»Ÿ...");
 
 			Context context = new javax.naming.InitialContext();
 			context = (Context) context.lookup("java:comp/env");
 
-			// ÔØÈëÏµÍ³ÅäÖÃ
+			// è½½å…¥ç³»ç»Ÿé…ç½®
 			try
 			{
 				SystemConfigure.load((String) context.lookup("configure")); 
 			}
 			catch (Exception e)
 			{
-				throw new Exception("Çë¼ì²étomcatÄ¿Â¼ÏÂµÄpeparser.xmlÎÄ¼ş", e);
+				throw new Exception("è¯·æ£€æŸ¥tomcatç›®å½•ä¸‹çš„peparser.xmlæ–‡ä»¶", e);
 			}
 			
-			// ³õÊ¼»¯DAO¹ÜÀíÆ÷
+			// åˆå§‹åŒ–DAOç®¡ç†å™¨
 //			DaoManager.initialize((DataSource) context.lookup("jdbc/tcc"));
 			
-			// ÎÄ¼ş¹ÜÀíÆ÷
+			// æ–‡ä»¶ç®¡ç†å™¨
 //			FileManager.initialize();
 
-			// ²Ù×÷¹ÜÀíÆ÷
+			// æ“ä½œç®¡ç†å™¨
 			OperationManager.initialize();
 
-			// ±¨±í¹ÜÀíÏµÍ³
+			// æŠ¥è¡¨ç®¡ç†ç³»ç»Ÿ
 //			ReportManager.initialize();
 						
-			log.info("Æô¶¯PE·ÖÎöÏµÍ³Íê±Ï£¡");
+			log.info("å¯åŠ¨PEåˆ†æç³»ç»Ÿå®Œæ¯•ï¼");
 		}
 		catch (Exception e)
 		{
-			log.fatal("Æô¶¯PE·ÖÎöÏµÍ³Ê§°Ü£¡", e);
+			log.fatal("å¯åŠ¨PEåˆ†æç³»ç»Ÿå¤±è´¥ï¼", e);
 
-			throw new ServletException("Æô¶¯Ìá½»ÏµÍ³Ê§°Ü: " + e.getMessage(), e);
+			throw new ServletException("å¯åŠ¨æäº¤ç³»ç»Ÿå¤±è´¥: " + e.getMessage(), e);
 		}
 	}
 
 	@Override
 	public void destroy()
 	{
-		log.info("¹Ø±ÕPE·ÖÎöÏµÍ³...");
+		log.info("å…³é—­PEåˆ†æç³»ç»Ÿ...");
 		
-		log.info("¹Ø±ÕPE·ÖÎöÏµÍ³Íê±Ï£¡");
+		log.info("å…³é—­PEåˆ†æç³»ç»Ÿå®Œæ¯•ï¼");
 
 		super.destroy();
 	}

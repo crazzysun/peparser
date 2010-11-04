@@ -6,10 +6,10 @@ public class RelocationChunk implements Bean
 {
 	private static final long serialVersionUID = 1L;
 	
-	private int index;			//±àºÅ
-	private String RVA;			//ËùÊô¿éÃû
-	private String farAddress;	//¿éÊıÁ¿
-	private String type;		//ÀàĞÍ
+	private int index;			//ç¼–å·
+	private String RVA;			//æ‰€å±å—å
+	private String farAddress;	//å—æ•°é‡
+	private String type;		//ç±»å‹
 	
 	public int getIndex()
 	{

@@ -1,9 +1,9 @@
-package com.pe.operation.PE·ÖÎö;
+package com.pe.operation.PEåˆ†æ;
 
 import com.pe.operation.Operation;
-import com.pe.operation.ÎÄ¼ş.AbstractFileOperation;
+import com.pe.operation.æ–‡ä»¶.AbstractFileOperation;
 
-public class ¼ì²âµ¥¸öÎÄ¼şÊÇ·ñ¼Ó¿Ç extends AbstractFileOperation implements Operation
+public class æ£€æµ‹å•ä¸ªæ–‡ä»¶æ˜¯å¦åŠ å£³ extends AbstractFileOperation implements Operation
 {
 	private String name;
 	

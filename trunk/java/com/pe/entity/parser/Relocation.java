@@ -5,7 +5,7 @@ import java.util.List;
 import com.pe.entity.Bean;
 
 /**
- * ÖØ¶¨Òå¿é
+ * é‡å®šä¹‰å—
  *
  * @author FangZhiyang
  */
@@ -13,9 +13,9 @@ public class Relocation implements Bean
 {
 	private static final long serialVersionUID = 1L;
 
-	private int itemIndex;			//±àºÅ
-	private String sectionName;		//ËùÊô¿éÃû
-	private int recCount;				//¿éÊıÁ¿
+	private int itemIndex;			//ç¼–å·
+	private String sectionName;		//æ‰€å±å—å
+	private int recCount;				//å—æ•°é‡
 	private List<RelocationChunk> relocChunk;
 	
 	public int getItemIndex()

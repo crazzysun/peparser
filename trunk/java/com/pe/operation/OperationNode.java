@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 操作树的节点
+ * 鎿嶄綔鏍戠殑鑺傜偣
  */
 public class OperationNode
 {

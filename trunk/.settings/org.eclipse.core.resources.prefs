@@ -1,14 +1,15 @@
-#Tue Nov 02 16:42:38 CST 2010
+#Thu Nov 04 15:24:29 CST 2010
 eclipse.preferences.version=1
-encoding//java/com/pe/operation/PE\u5206\u6790/\u5206\u6790\u591A\u4E2A\u6587\u4EF6.java=GB18030
-encoding//java/com/pe/operation/PE\u5206\u6790/\u88C5\u8F7D\u591A\u6587\u4EF6\u5206\u6790\u76EE\u5F55.java=GB18030
-encoding//java/com/pe/operation/\u6587\u4EF6/AbstractFileOperation.java=gbk
+encoding//java/com/pe/dao/PostgreSQL.java=UTF-8
+encoding//java/com/pe/dll/petest/PEAnalyzerDll.java=UTF-8
+encoding//java/com/pe/entity/parser/ExportFunction.java=UTF-8
+encoding//java/com/pe/entity/parser/ExportTable.java=UTF-8
 encoding//web/index.html=UTF-8
 encoding//web/left.html=UTF-8
 encoding//web/packed/create_trainSet.html=UTF-8
 encoding//web/packed/judge.html=UTF-8
 encoding//web/parser/file_select.html=UTF-8
-encoding//web/parser/folder_select.html=UTF-8
 encoding//web/parser/parser_result.jsp=UTF-8
 encoding//web/styles/style.css=gbk
-encoding/<project>=GBK
+encoding/<project>=UTF-8
+encoding/web=UTF-8

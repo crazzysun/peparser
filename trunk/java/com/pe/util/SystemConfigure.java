@@ -21,7 +21,7 @@ public class SystemConfigure
 		}
 		catch (Exception e)
 		{
-			throw new Exception("ÔØÈëÏµÍ³ÅäÖÃ´íÎó", e);
+			throw new Exception("è½½å…¥ç³»ç»Ÿé…ç½®é”™è¯¯", e);
 		}
 		finally
 		{
@@ -42,7 +42,7 @@ public class SystemConfigure
 			if (s.startsWith("#")) continue;
 			
 			int k = s.indexOf("=");
-			if (k < 0) throw new Exception("LINE " + reader.getLineNumber() + ": ¸ñÊ½´íÎó");
+			if (k < 0) throw new Exception("LINE " + reader.getLineNumber() + ": æ ¼å¼é”™è¯¯");
 			
 			String key = s.substring(0, k).trim();
 			String value = s.substring(k + 1).trim();
@@ -54,7 +54,7 @@ public class SystemConfigure
 	public static String get(String key) throws Exception
 	{
 		String value = configures.get(key);
-		if (value == null) throw new Exception("ÏµÍ³ÅäÖÃ " + key + " ²»´æÔÚ");
+		if (value == null) throw new Exception("ç³»ç»Ÿé…ç½® " + key + " ä¸å­˜åœ¨");
 		
 		return value;
 	}

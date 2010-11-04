@@ -1,19 +1,19 @@
 package com.pe.operation;
 
 /**
- * ´íÎó²Ù×÷
+ * é”™è¯¯æ“ä½œ
  * 
- * Èç¹ûÓÃ»§ÔÚ²»ÊÊµ±µÄÊ±ºò, Ö´ĞĞÁË²»ÊÊµ±µÄ²Ù×÷, ±ÈÈçÃ»ÓĞµÇÂ¼, Ã»ÓĞÈ¨ÏŞµÈ, ¾Í»á±ä³ÉÖ´ĞĞ±¾²Ù×÷
+ * å¦‚æœç”¨æˆ·åœ¨ä¸é€‚å½“çš„æ—¶å€™, æ‰§è¡Œäº†ä¸é€‚å½“çš„æ“ä½œ, æ¯”å¦‚æ²¡æœ‰ç™»å½•, æ²¡æœ‰æƒé™ç­‰, å°±ä¼šå˜æˆæ‰§è¡Œæœ¬æ“ä½œ
  */
-public class ´íÎó²Ù×÷ implements Operation
+public class é”™è¯¯æ“ä½œ implements Operation
 {
 	private Exception exception = null;
 	
-	public ´íÎó²Ù×÷()
+	public é”™è¯¯æ“ä½œ()
 	{
 	}
 	
-	public ´íÎó²Ù×÷(Exception exception)
+	public é”™è¯¯æ“ä½œ(Exception exception)
 	{
 		this.exception = exception;
 	}

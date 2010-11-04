@@ -4,16 +4,16 @@ function TableList(operation, titles, columns, limit)
 {
 	this.reset();
 	
-	this.operation = operation;				// ²Ù×÷¶ÔÏó
-	this.titles = titles;					// ±êÌâÀ¸
-	this.columns = columns;					// Ã¿ÁĞµÄµ¥ÔªÄÚÈİº¯Êı
+	this.operation = operation;				// æ“ä½œå¯¹è±¡
+	this.titles = titles;					// æ ‡é¢˜æ 
+	this.columns = columns;					// æ¯åˆ—çš„å•å…ƒå†…å®¹å‡½æ•°
 	
-	this.order = null;						// ÅÅĞò×Ö¶Î
-	this.desc = false;						// ÄæĞò
+	this.order = null;						// æ’åºå­—æ®µ
+	this.desc = false;						// é€†åº
 	this.orderSpan = null;
 	
-	this.tbody = null;						// ÓÃÓÚÏÔÊ¾Êı¾İµÄ±í¸ñÖĞµÄtbody±êÇ©
-	this.onchange = null;					// µ±Ò³Ãæ·¢Éú±ä»¯ºóÖ´ĞĞ
+	this.tbody = null;						// ç”¨äºæ˜¾ç¤ºæ•°æ®çš„è¡¨æ ¼ä¸­çš„tbodyæ ‡ç­¾
+	this.onchange = null;					// å½“é¡µé¢å‘ç”Ÿå˜åŒ–åæ‰§è¡Œ
 	
 	this.limit = limit == null ? 10 : limit;
 }
@@ -40,9 +40,9 @@ TableList.prototype.sort = function (title, span)
 	this.orderSpan = span;
 	
 	if (this.desc)
-		this.orderSpan.innerHTML = this.order.text + "¡ı";
+		this.orderSpan.innerHTML = this.order.text + "â†“";
 	else
-		this.orderSpan.innerHTML = this.order.text + "¡ü";
+		this.orderSpan.innerHTML = this.order.text + "â†‘";
 	
 	this.refresh();
 }
@@ -60,17 +60,17 @@ TableList.prototype.gotoPage = function ()
 	
 	if (null == page || isNaN(page) || page < 1)
 	{
-		alert("ÇëÊäÈëÕıÈ·µÄÒ³Âë£¡");
+		alert("è¯·è¾“å…¥æ­£ç¡®çš„é¡µç ï¼");
 		this.refresh();
 		return;
 	}
 	
-	/** ÅĞ¶ÏÊäÈëµÄÒ³ÊıÊÇ·ñ³¬¹ı×î´óÒ³ÊıÖµ */
+	/** åˆ¤æ–­è¾“å…¥çš„é¡µæ•°æ˜¯å¦è¶…è¿‡æœ€å¤§é¡µæ•°å€¼ */
 	if (this.total % this.limit == 0 && this.total > 0)
 	{
 		if (page > this.total / this.limit)
 		{
-			alert("ÇëÊäÈëÕıÈ·µÄÒ³Âë£¡");
+			alert("è¯·è¾“å…¥æ­£ç¡®çš„é¡µç ï¼");
 			this.refresh();
 			return;
 		}
@@ -79,7 +79,7 @@ TableList.prototype.gotoPage = function ()
 	{
 		if (page > this.total / this.limit + 1)
 		{
-			alert("ÇëÊäÈëÕıÈ·µÄÒ³Âë£¡");
+			alert("è¯·è¾“å…¥æ­£ç¡®çš„é¡µç ï¼");
 			this.refresh();
 			return;
 		}
@@ -160,7 +160,7 @@ TableList.prototype.cellCreator = function (options)
 TableList.prototype.showLoading = function()
 {
 	dwr.util.removeAllRows(this.tbody);
-	var loadingColumns = [ function(data){return "¼ÓÔØÖĞ...";} ];
+	var loadingColumns = [ function(data){return "åŠ è½½ä¸­...";} ];
 	
 	dwr.util.addRows(this.tbody, [{}], loadingColumns, {rowCreator: this.rowCreator});
 	
@@ -181,21 +181,21 @@ TableList.prototype.showData = function (data)
 	
 	this.pageInput.value = "" + Math.floor(data.offset / data.limit + 1);
 	this.totalSpan.innerHTML = "" + Math.floor((data.total - 1) / data.limit + 1);
-	this.recordsSpan.innerHTML = "¹²" + this.total + "Ìõ¼ÇÂ¼";
+	this.recordsSpan.innerHTML = "å…±" + this.total + "æ¡è®°å½•";
 }
 
 TableList.prototype.createControlLine = function (div)
 {
 
 	div.innerHTML = 
-		"<span class='action'><a href='#'>Ê×Ò³</a></span>" +
-		"<span class='action'><a href='#'>ÉÏÒ»Ò³</a></span>" +
-		"<span class='action'><a href='#'>ÏÂÒ»Ò³</a></span>" +
-		"<span class='action'><a href='#'>Î²Ò³</a></span>" +
-		"<span>Ò³Êı:<span><input type='text' style='text-align:center'/></span> /<span>×ÜÒ³</span></span>" +
-		"<span class='action'><a href='#'>×ªµ½</a></span>" +
-		"<span class='action'><a href='#'>Ë¢ĞÂ</a></span>" +
-		"<span>¹² Ìõ¼ÇÂ¼</span>";
+		"<span class='action'><a href='#'>é¦–é¡µ</a></span>" +
+		"<span class='action'><a href='#'>ä¸Šä¸€é¡µ</a></span>" +
+		"<span class='action'><a href='#'>ä¸‹ä¸€é¡µ</a></span>" +
+		"<span class='action'><a href='#'>å°¾é¡µ</a></span>" +
+		"<span>é¡µæ•°:<span><input type='text' style='text-align:center'/></span> /<span>æ€»é¡µ</span></span>" +
+		"<span class='action'><a href='#'>è½¬åˆ°</a></span>" +
+		"<span class='action'><a href='#'>åˆ·æ–°</a></span>" +
+		"<span>å…± æ¡è®°å½•</span>";
 	div.className = "pagecontrol";
 	
 	var self = this;
@@ -231,22 +231,22 @@ TableList.prototype.createControlLine = function (div)
 TableList.prototype.create = function (container)
 {
 	container.innerHTML = 
-		"" +		// ¿ØÖÆÀ¸
+		"" +		// æ§åˆ¶æ 
 		"<div>" + 
 		"<table class='table_list'>" +
-		"<thead><tr></tr></thead>" +					// ±êÌâ 
-		"<tbody></tbody>" + 							// Êı¾İ
+		"<thead><tr></tr></thead>" +					// æ ‡é¢˜ 
+		"<tbody></tbody>" + 							// æ•°æ®
 		"</table>" + 
 		"</div><div class='table_list_control'></div>";
 		
-	var tableDiv = container.firstChild;				// ¿ØÖÆÀ¸
+	var tableDiv = container.firstChild;				// æ§åˆ¶æ 
 	//alert(controlDiv.tagName);
 	this.createControlLine(tableDiv.nextSibling);
 	
 	
-	var table = tableDiv.firstChild;		// ±í¸ñ²¿·Ö
+	var table = tableDiv.firstChild;		// è¡¨æ ¼éƒ¨åˆ†
 	var thead = table.firstChild;
-	var tr = thead.firstChild;							// ±êÌâ
+	var tr = thead.firstChild;							// æ ‡é¢˜
 	
 	var self = this;
 
@@ -283,14 +283,14 @@ TableList.prototype.create = function (container)
 		}
 	}
 
-	var tbody = thead.nextSibling;						// Êı¾İÏÔÊ¾²¿·Ö
+	var tbody = thead.nextSibling;						// æ•°æ®æ˜¾ç¤ºéƒ¨åˆ†
 	this.tbody = tbody;
 
 	return;
 }
 
 
-/** ½«ÎÄ±¾ÏÔÊ¾ÎªÁ´½Ó */
+/** å°†æ–‡æœ¬æ˜¾ç¤ºä¸ºé“¾æ¥ */
 TableList.link = function(text, action, object)
 {
 	var span = document.createElement("span");
@@ -305,7 +305,7 @@ TableList.link = function(text, action, object)
 	return span;
 }
 
-/** °ïÖúÏÔÊ¾²Ù×÷ÁĞ */
+/** å¸®åŠ©æ˜¾ç¤ºæ“ä½œåˆ— */
 TableList.links = function(operations, object)
 {
 	var sspan = document.createElement("span");

@@ -1,7 +1,7 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>PE文件分析</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>多个PE文件分析</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
 <script src="../script/common.js"></script>
@@ -12,6 +12,9 @@ $import("table_list_dynamic_appended.js");
 var suffixList;
 var fileList;
 var fileTotal;
+var completed;
+var status;
+
 
 /** 变量初始化 */
 function init()
@@ -19,19 +22,68 @@ function init()
 	suffixList = new Array();
 	fileList = new Array();
 	fileTotal = 0;
+	completed = false;
+	status = null;
 }
 
 function onSubmit()
 {
 	init();
-	if ($("folderPath").value == "" || $("folderPath").value == "路径名类似:C:/peFiles/test")
+
+	if ($("folderPath").value == "")
 	{
-		alert("请输入要分析的文件夹路径");
+		alert("请选择要分析的zip文件包！");
 		return;
+	}
+
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
 	}
 	$("progress").style.display = "";
 	$("finish").style.display = "none";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = "";
+	operation.execute(callback);
+}
+
+/** 检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				$("progress").style.display = "none";
+				status = null;
+				loadFiles();
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
 	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
+}
+
+function loadFiles()
+{
 	var callback = function(o)
 	{
 		fileList = o.fileList;
@@ -97,44 +149,47 @@ function onError(data)
 }
 
 /** 设置路径输入框的提示信息 */
-function addListener(element,e,fn)
-{   
-	if(element.addEventListener)
-    {   
-    	element.addEventListener(e,fn,false);   
-    } 
-    else 
-    {   
-        element.attachEvent("on" + e,fn);   
-    }   
-}
-
-function onLoad()
-{
-	var myinput = $("folderPath");
-	addListener(myinput,"click",function(){
-		if (myinput.value == "路径名类似:C:/peFiles/test")
-			myinput.value = "";
-		});
-	addListener(myinput,"blur",function(){
-		if (myinput.value == "")
-			myinput.value = "路径名类似:C:/peFiles/test";
-		});
-}
+//function addListener(element,e,fn)
+//{   
+//	if(element.addEventListener)
+//    {   
+//    	element.addEventListener(e,fn,false);   
+//    } 
+//    else 
+//    {   
+//        element.attachEvent("on" + e,fn);   
+//    }   
+//}
+//
+//function onLoad()
+//{
+//	var myinput = $("folderPath");
+//	addListener(myinput,"click",function(){
+//		if (myinput.value == "路径名类似:C:/peFiles/test")
+//			myinput.value = "";
+//		});
+//	addListener(myinput,"blur",function(){
+//		if (myinput.value == "")
+//			myinput.value = "路径名类似:C:/peFiles/test";
+//		});
+//}
 </script>
 
 </head>
-<body onLoad="onLoad()">
-<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » PE多个文件分析 </div>
+<body>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 多个PE文件分析 </div>
 <div id="wrap">
 <div id="containaer" >
 	<div class="filter">
 		<div class="filterTitle">
 				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
 					<tr class='tablecell'>
-						<td class='tit' width="20%">指定一个待分析的文件夹</td>
+						<td class='tit' width="20%">选择待分析的zip压缩文件</td>
 						<td class='inp'>
-							<input id="folderPath" name="folderPath" type="text" class="form_input_l" value="路径名类似:C:/peFiles/test"/>
+							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+								<input id="folderPath" name="folderPath" type="file" size="40"/>
+							</form>
+							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>	
 						</td>
 					</tr>
 					<tr class='tablecell'>

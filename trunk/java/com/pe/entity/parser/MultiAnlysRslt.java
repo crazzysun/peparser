@@ -3,7 +3,7 @@ package com.pe.entity.parser;
 import com.pe.entity.Bean;
 
 /**
- * ¶àÎÄ¼ş·ÖÎö½á¹û
+ * å¤šæ–‡ä»¶åˆ†æç»“æœ
  * @author FangZhiyang
  *
  */
@@ -11,11 +11,11 @@ public class MultiAnlysRslt implements Bean
 {
 	private static final long serialVersionUID = 1L;
 
-	private String name;		//Ãû³Æ
-	private String path;		//Â·¾¶
-	private String size;		//´óĞ¡
-	private String status;		//×´Ì¬
-	private String parentFolder;	//´æ·Å½á¹ûÂ·¾¶
+	private String name;		//åç§°
+	private String path;		//è·¯å¾„
+	private String size;		//å¤§å°
+	private String status;		//çŠ¶æ€
+	private String parentFolder;	//å­˜æ”¾ç»“æœè·¯å¾„
 	
 	public String getName()
 	{

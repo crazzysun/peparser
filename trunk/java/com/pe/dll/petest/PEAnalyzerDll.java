@@ -7,13 +7,13 @@ public interface PEAnalyzerDll extends Library
 {
 	PEAnalyzerDll INSTANCE = (PEAnalyzerDll) Native.loadLibrary("PEAnalyzer", PEAnalyzerDll.class);
 	
-	/** ¼ÓÔØPEÎÄ¼ş */
+	/** åŠ è½½PEæ–‡ä»¶ */
 	public int LoadPEHeader(String FileName);
 	
-	/** ¼ì²éÎÄ¼şÊÇ·ñÊÇÓĞĞ§µÄPEÎÄ¼ş */
+	/** æ£€æŸ¥æ–‡ä»¶æ˜¯å¦æ˜¯æœ‰æ•ˆçš„PEæ–‡ä»¶ */
 	public boolean IsPE();
 	
-	/** »ñÈ¡PEÍ· */
+	/** è·å–PEå¤´ */
 	public int GetHeaderCount();
 	public String GetHeaderName(int HeaderIndex);
 	public int GetMemberCount(int HeaderIndex);
@@ -21,18 +21,18 @@ public interface PEAnalyzerDll extends Library
 	public int GetMemberLen(int HeaderIndex, int MemberIndex);
 	public int GetMemberValue(int HeaderIndex, int MemberIndex);
 	
-	/** »ñÈ¡ÎÄ¼şĞÅÏ¢ */
+	/** è·å–æ–‡ä»¶ä¿¡æ¯ */
 	public String GetFileName();
 	public String GetFileSiz();
 	public String GetFileCreateTime();
 	public String GetFileModifyTime();
 	
-	/** »ñÈ¡×ÊÔ´Ä¿Â¼ */
+	/** è·å–èµ„æºç›®å½• */
 	public String GetDataDirectoryItemName(int DataDirectoryItemIndex);
 	public int GetDataDirectoryItemVirtualAddress(int DataDirectoryItemIndex);
 	public int GetDataDirectoryItemSize(int DataDirectoryItemIndex);
 	
-	/** »ñÈ¡½Ú±íĞÅÏ¢ */
+	/** è·å–èŠ‚è¡¨ä¿¡æ¯ */
 	public int GetSectionCount();
 	public String GetSectionName(int SectionIndex);
 	public int GetSectionMemberCount(int SectionIndex);
@@ -40,13 +40,13 @@ public interface PEAnalyzerDll extends Library
 	public int GetSectionMemberLen(int SectionIndex, int MemberIndex);
 	public int GetSectionMemberValue(int SectionIndex, int MemberIndex);
 	
-	/** »ñÈ¡µ¼Èë±íĞÅÏ¢ */
+	/** è·å–å¯¼å…¥è¡¨ä¿¡æ¯ */
 	public int GetImportDllCount();
 	public String GetImportDllName(int DllIndex);
 	public int GetImportDllFunCount(int DllIndex);
 	public String GetImportDllFunName(int DllIndex, int FunIndex);
 	
-	/** »ñÈ¡µ¼³ö±íĞÅÏ¢ */
+	/** è·å–å¯¼å‡ºè¡¨ä¿¡æ¯ */
 	public String GetExportDllName();
 	public int GetExportFunCount();
 	public int GetExportFunNameCount();
@@ -54,7 +54,7 @@ public interface PEAnalyzerDll extends Library
 	public String GetExportFunRVA(int FunIndex);
 	public String GetExportFunIndex(int FunIndex);
 	
-	/** »ñÈ¡ÖØ¶¨Î»±íĞÅÏ¢ */
+	/** è·å–é‡å®šä½è¡¨ä¿¡æ¯ */
 	public int GetRelocCount();
 	public String GetRelocName(int RelocIndex);
 	public int GetRelocIndex(int RelocIndex);
@@ -64,7 +64,7 @@ public interface PEAnalyzerDll extends Library
 	public int GetRelocChunkFarAddr(int RelocIndex, int ChunkIndex);
 	public String GetRelocChunkType(int RelocIndex, int ChunkIndex);
 	
-	/** »ñÈ¡×ÊÔ´Ä¿Â¼ĞÅÏ¢ */
+	/** è·å–èµ„æºç›®å½•ä¿¡æ¯ */
 	public int GetRSCCount();
 	public String GetRSCType(int RSCIndex);
 	public int GetRSCItemCount(int RSCIndex);

@@ -6,7 +6,7 @@ public class ResourceItem implements Bean
 {
 	private static final long serialVersionUID = 1L;
 
-	private String name;			//Ãû³Æ
+	private String name;			//åç§°
 	private String RAV;				
 	private int size;
 	

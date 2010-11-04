@@ -1,4 +1,4 @@
-package com.pe.operation.PE·ÖÎö;
+package com.pe.operation.PEåˆ†æ;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,16 +10,16 @@ import com.pe.operation.Operation;
 import com.pe.parser.CreateHTML;
 import com.pe.parser.LoadPEInfo;
 
-public class ·ÖÎö¶à¸öÎÄ¼ş implements Operation
+public class åˆ†æå¤šä¸ªæ–‡ä»¶ implements Operation
 {
-	private String filePath;				//·ÖÎöÎÄ¼şÂ·¾¶
-	private List<MultiAnlysRslt> data;		//·ÖÎö¹ıµÄÎÄ¼şÃûÊı×é
+	private String filePath;				//åˆ†ææ–‡ä»¶è·¯å¾„
+	private List<MultiAnlysRslt> data;		//åˆ†æè¿‡çš„æ–‡ä»¶åæ•°ç»„
 	
 	public void execute() throws Exception
 	{
-		/** ×°ÔØPEÎÄ¼ş·ÖÎö½á¹û */
+		/** è£…è½½PEæ–‡ä»¶åˆ†æç»“æœ */
 		File file = new File(filePath);
-		LoadPEInfo loadPEInfo = new LoadPEInfo(file, false);
+		LoadPEInfo loadPEInfo = new LoadPEInfo(file);
 		PEFile peFile = loadPEInfo.Analyze();
 		
 		data = new ArrayList<MultiAnlysRslt>();
@@ -27,24 +27,24 @@ public class ·ÖÎö¶à¸öÎÄ¼ş implements Operation
 		if (peFile == null)
 		{
 			result.setPath(filePath);
-			result.setSize("Î´Öª");
-			result.setStatus("²»ÊÇÓĞĞ§µÄPEÎÄ¼ş");
+			result.setSize("æœªçŸ¥");
+			result.setStatus("ä¸æ˜¯æœ‰æ•ˆçš„PEæ–‡ä»¶");
 		}
 		else
 		{
-			/** Éú³ÉÒ³ÃæÎÄ¼ş */
+			/** ç”Ÿæˆé¡µé¢æ–‡ä»¶ */
 			String path = filePath;
-			path = path.substring(0, path.lastIndexOf("\\"));					//È¡µÃ¸¸ÎÄ¼ş¼ĞÂ·¾¶
-			String parentFolder = path.substring(path.lastIndexOf("\\") + 1);	//È¡µÃ¸¸ÎÄ¼ş¼ĞÃû³Æ
+			path = path.substring(0, path.lastIndexOf("\\"));					//å–å¾—çˆ¶æ–‡ä»¶å¤¹è·¯å¾„
+			String parentFolder = path.substring(path.lastIndexOf("\\") + 1);	//å–å¾—çˆ¶æ–‡ä»¶å¤¹åç§°
 			if (parentFolder.contains(":"))
-				parentFolder = "";												//¸¸ÎÄ¼ş¼ĞÎªÅÌ·ûµÄÇé¿ö
+				parentFolder = "";												//çˆ¶æ–‡ä»¶å¤¹ä¸ºç›˜ç¬¦çš„æƒ…å†µ
 			CreateHTML html = new CreateHTML(peFile, parentFolder);
 			html.create();
 			
 			result.setPath(filePath);
 			result.setName(file.getName());
 			result.setSize(peFile.getFileInfo().getFileSize());
-			result.setStatus("·ÖÎöÍê³É");
+			result.setStatus("åˆ†æå®Œæˆ");
 			result.setParentFolder(parentFolder);
 		}
 		data.add(result);

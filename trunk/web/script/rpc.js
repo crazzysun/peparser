@@ -21,7 +21,7 @@ Operation.prototype.execute = function (callback)
 	var aaa = this.$name$;
 	delete this.$name$;
 	
-	// ½«´«ÈëµÄ»Øµ÷º¯Êı±£´æÆğÀ´
+	// å°†ä¼ å…¥çš„å›è°ƒå‡½æ•°ä¿å­˜èµ·æ¥
 	var callback1 = null;
 	if (callback)
 	{
@@ -35,7 +35,7 @@ Operation.prototype.execute = function (callback)
 		}
 	}
 	
-	// ¶¨ÒåĞÂµÄ»Øµ÷º¯Êı
+	// å®šä¹‰æ–°çš„å›è°ƒå‡½æ•°
 	var callback2 = function (result)
 	{
 		var message = result.message;
@@ -49,11 +49,11 @@ Operation.prototype.execute = function (callback)
 			return;
 		}
 	
-		// µ÷ÓÃÔ­À´µÄ»Øµ÷º¯Êı
+		// è°ƒç”¨åŸæ¥çš„å›è°ƒå‡½æ•°
 		if (callback1) callback1(result.data);
 	}
 
-	// ¶¨ÒåĞÂµÄ»Øµ÷²ÎÊı
+	// å®šä¹‰æ–°çš„å›è°ƒå‚æ•°
 	var option = null;
 	if (callback)
 	{

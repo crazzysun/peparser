@@ -1,10 +1,10 @@
-package com.pe.operation.文件;
+package com.pe.operation.鏂囦欢;
 
 import com.pe.operation.Operation;
 import com.pe.operation.OperationContext;
 import com.pe.web.servlet.UploadStatus;
 
-public class 获取上载进度 implements Operation
+public class 鑾峰彇涓婅浇杩涘害 implements Operation
 {
 	private UploadStatus status;
 	

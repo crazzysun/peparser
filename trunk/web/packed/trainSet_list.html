@@ -85,56 +85,58 @@ function createTrainSet()
 /** 4.显示训练集结果 */
 function showTrainResult(result)
 {
-	$("result").style.display = "";
-	$("container").style.display = "";
 	$("container").innerHTML = result;
-}
-
-function onLoad()
-{
-	$("result").style.display = "none";
-	$("container").style.display = "none";
 }
 </script>
 
 </head>
-<body onLoad="onLoad()">
+<body>
 <div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 创建加壳判断训练集 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div id="title" class="title">判断是否加壳</div>
-	<div class="filter" id="testFile_div">
+	<div id="title" class="title">创建训练集</div>
+	<div class="filter">
 		<div class="filterTitle">
-		<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
-			<tr class='tablecell'>
-				<td class='tit' width="20%">选择分析文件</td>
-				<td class='inp'>
-					<input id="testfile" name="testfile" type="file" size="40"/>
-				</td>
-			</tr>
-			<tr class='tablecell'>
-				<td class='tit' width="20%">选择训练集</td>
-				<td class='inp'>
-					<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
-						<input id="trainSet" type="text"/>
-						<input id="trainSetButton" type="button"/>
-					</form> 
-					<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
-				</td>
-			</tr>
-		</table>
+				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+					<tr class='tablecell'>
+						<td class='tit' width="20%">选择所需的分类器</td>
+						<td class='inp'>
+							<select id="classifier" name="classifier" class="form_input_l">
+								<option value="0">J48</option>
+								<option value="1">MultilayerPerceptron</option>
+								<option value="2">NaiveBayes</option>
+								<option value="3">IBk</option>
+							</select>
+						</td>
+					</tr>
+					<tr class='tablecell'>
+						<td class='tit'>选择训练样本文件路径</td>
+						<td class='inp'>
+							<!-- 表单提交，上传文件 -->
+							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+								<input id="dataset" name="dataset" type="text" size="55" value="D:/work/peparser/data/trainSet/PEC_trainingset.arff"/>
+							</form> 
+							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
+						</td>
+					</tr>
+				</table>
 		</div>
-		<div class="filterInput" style="padding:2px 0px 0px 25px;">
-			<input type="button" class="pe_result" onClick="onSubmit()"/>
+		<div class="filterInput" style="padding:16px 0px 0px 25px;">
+			<input type="button" class="pe_result" onClick="createTrainSet()"/>
+			&nbsp;&nbsp;
+			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
 		</div>
 		<div class="clear"></div>
-		<div class="title">
-			恭喜你，训练集创建完成，结果如下！现在你可以在上面选择文件进行加壳判断：
+		<div class="title" id="result">
+			恭喜你，训练集创建完成，结果已保存。具体生成树结果如下！
+			现在你可以在<a href="judge.html">"判断PE文件是否加壳"</a>菜单选择文件进行是否加壳判断
+			或<a href="trainSet_list.html">"查看所有训练集"</a>：
 		</div>
 	</div>
 	
 	<!-- 结果展示div，默认隐藏的 -->
 	<div id="container" class="tips"></div>
+	
 </div>
 </div>
 </body>

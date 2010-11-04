@@ -16,14 +16,14 @@ import com.pe.UserException;
 import com.pe.operation.Operation;
 import com.pe.operation.OperationContext;
 
-/** ÓÃÓÚºÍÈ¨ÏŞÏµÍ³´îÅäµÄÍ¨ÓÃDWRÀà */
+/** ç”¨äºå’Œæƒé™ç³»ç»Ÿæ­é…çš„é€šç”¨DWRç±» */
 public class RPC
 {
 	private static Log log = LogFactory.getLog(RPC.class);
 	
 	public static Object call(String name, Operation operation) throws Exception
 	{
-		if (log.isTraceEnabled()) log.trace("Í¨¹ıDWRÖ´ĞĞ²Ù×÷: " + operation);
+		if (log.isTraceEnabled()) log.trace("é€šè¿‡DWRæ‰§è¡Œæ“ä½œ: " + operation);
 
 		OperationContext context = createOperationContext();
 		OperationContext.setContext(context);

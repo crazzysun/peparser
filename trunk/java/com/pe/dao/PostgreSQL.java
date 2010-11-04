@@ -1,6 +1,6 @@
 package com.pe.dao;
 
-/** 用于标识DAO的PostgreSQL实现 */
+/** 鐢ㄤ簬鏍囪瘑DAO鐨凱ostgreSQL瀹炵幇 */
 public interface PostgreSQL
 {
 
