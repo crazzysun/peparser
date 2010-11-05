@@ -19,7 +19,7 @@ function onSubmit()
 
 	if ($("dataset").value == "")
 	{
-		if (!confirm("训练样本文件未选择，确认使用系统默认训练样本？"));
+		if (!confirm("训练样本文件未选择，确认使用系统默认训练样本？"))
 		return;
 	}
 
@@ -123,7 +123,7 @@ function onLoad()
 							<!-- 表单提交，上传文件 -->
 							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
 								<input id="dataset" name="dataset" type="file" size="40"/>
-								<span style="display:inline-block;color:red">*为空即为使用系统默认训练样本</span>
+								<span style="color:red">&nbsp;&nbsp;*为空即为使用系统默认训练样本</span>
 							</form> 
 							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
 							

@@ -6,6 +6,7 @@ import com.pe.UserException;
 import com.pe.operation.Operation;
 import com.pe.operation.文件.AbstractFileOperation;
 import com.pe.packed.PackClassifier;
+import com.pe.util.SystemConfigure;
 
 public class 创建加壳分析训练集 extends AbstractFileOperation implements Operation
 {
@@ -26,21 +27,16 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implement
 		result = replace(result, " ", "&nbsp;");
 	}
 
-	private void validateTrainFile() throws UserException
+	private void validateTrainFile() throws Exception
 	{
-		File file;
-		try
+		if (dataset == null || dataset.equals(""))
+			dataset = SystemConfigure.get("TrainSetHome");
+		else
 		{
-			file = new File(getWorkFile(""), dataset);
+			File file = new File(getWorkFile(""), dataset);
 			if (!file.isFile())
 				throw new UserException("训练集文件选取错误，请重新选择！");
-		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+			dataset = file.getAbsolutePath();		}
 	}
 
 	/** 根据前台的select控件值，获取分类器的值 */

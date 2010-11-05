@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.pe.UserException;
 import com.pe.dll.petest.PEAnalyzerDll;
 import com.pe.entity.parser.DataDirectory;
@@ -28,6 +31,7 @@ import com.pe.entity.parser.SectionHeader;
  */
 public class LoadPEInfo
 {
+	private static Log log = LogFactory.getLog(LoadPEInfo.class);
 	public static final int IMAGE_NUMBEROF_DIRECTORY_ENTRIES = 16;			//数据目录的个数
 	
 	private PEAnalyzerDll PE = PEAnalyzerDll.INSTANCE;
@@ -64,6 +68,16 @@ public class LoadPEInfo
 		catch (Exception e)
 		{
 			throw new UserException("分析文件出错，可能文件不符合有效的PE格式");
+		}
+		
+		/** 分析完成后删除文件 */
+		if (file.delete())
+		{
+			if (log.isTraceEnabled()) log.trace("文件" + file.getName() + "删除成功!");
+		}
+		else
+		{
+			if (log.isTraceEnabled()) log.trace("文件" + file.getName() + "未删除，请手工清理!");
 		}
 		
 		return peFile;
