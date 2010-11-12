@@ -1,18 +1,18 @@
-package com.pe.operation.æ–‡ä»¶;
+package com.pe.operation.ÎÄ¼ş;
 
 import java.io.File;
 
 import com.pe.UserException;
-import com.pe.util.SystemConfigure;
+import com.pe.util.FileManager;
 
 /**
- * æŠ½è±¡æ–‡ä»¶ç›¸å…³æ“ä½œ
+ * ³éÏóÎÄ¼şÏà¹Ø²Ù×÷
  */
 public abstract class AbstractFileOperation
 {
 	protected File getHomeDirectory() throws Exception
 	{
-		File home = new File(SystemConfigure.get("PEHome"));
+		File home = FileManager.getInstance().getPEHome();
 		if (!home.exists()) home.mkdirs();
 
 		return home;
@@ -23,12 +23,12 @@ public abstract class AbstractFileOperation
 		File home = getHomeDirectory();
 		File work = new File(home, path);
 
-		// åˆ¤æ–­workçš„åˆæ³•æ€§
-		if (!work.getCanonicalPath().startsWith(home.getCanonicalPath())) throw new UserException("è®¿é—®éæ³•: " + path);
+		// ÅĞ¶ÏworkµÄºÏ·¨ĞÔ
+		if (!work.getCanonicalPath().startsWith(home.getCanonicalPath())) throw new UserException("·ÃÎÊ·Ç·¨: " + path);
 		
-		// åˆ¤æ–­æ˜¯å¦å­˜åœ¨
+		// ÅĞ¶ÏÊÇ·ñ´æÔÚ
 		if (!work.exists()) 
-			throw new UserException("æ–‡ä»¶æˆ–ç›®å½•ä¸å­˜åœ¨: " + path);
+			throw new UserException("ÎÄ¼ş»òÄ¿Â¼²»´æÔÚ: " + path);
 
 		return work;
 	}

@@ -13,41 +13,42 @@ import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
 
 import com.pe.UserException;
+import com.pe.dao.DaoManager;
 import com.pe.operation.Operation;
 import com.pe.operation.OperationContext;
 
-/** ç”¨äºå’Œæƒé™ç³»ç»Ÿæ­é…çš„é€šç”¨DWRç±» */
+/** ÓÃÓÚºÍÈ¨ÏŞÏµÍ³´îÅäµÄÍ¨ÓÃDWRÀà */
 public class RPC
 {
 	private static Log log = LogFactory.getLog(RPC.class);
 	
 	public static Object call(String name, Operation operation) throws Exception
 	{
-		if (log.isTraceEnabled()) log.trace("é€šè¿‡DWRæ‰§è¡Œæ“ä½œ: " + operation);
+		if (log.isTraceEnabled()) log.trace("Í¨¹ıDWRÖ´ĞĞ²Ù×÷: " + operation);
 
 		OperationContext context = createOperationContext();
 		OperationContext.setContext(context);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-//		DaoManager dm = DaoManager.getInstance();
+		DaoManager dm = DaoManager.getInstance();
 		try
 		{
-//			dm.begin();
+			dm.begin();
 			
 			operation.execute();
 			
 			map.put("data", operation);
 
-//			dm.commit();
+			dm.commit();
 		}
 		catch (UserException e)
 		{
 			map.put("message", e.getMessage());
 		}
-//		finally
-//		{
-//			dm.end();
-//		}
+		finally
+		{
+			dm.end();
+		}
 		
 		return map;
 	}

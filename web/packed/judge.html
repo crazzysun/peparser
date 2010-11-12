@@ -7,9 +7,11 @@
 <script src="../script/common.js"></script>
 <script type="text/javascript">
 $import("rpc.js");
+$import("table_list_without_page_control_bar.js");
 
 var status = null;
 var completed = false;
+var trainSetId = null;
 
 /** 1.提交，检查输入 */
 function onSubmit()
@@ -17,9 +19,9 @@ function onSubmit()
 	completed = false;
 	status = null;
 
-	if ($("dataset").value == "")
+	if ($("testfile").value == "")
 	{
-		alert("请选择训练样本文件！");
+		alert("请选择要判断的样本文件！");
 		return;
 	}
 
@@ -55,9 +57,8 @@ function check()
 			if (status.completed)
 			{
 				completed = true;
-				$("progress").style.display = "none";
 				status = null;
-				createTrainSet();
+				createResult();
 				return;
 			}
 		}
@@ -68,37 +69,49 @@ function check()
 	operation.execute(callback);
 }
 
-/** 3.创建训练集 */
-function createTrainSet()
+/** 3.创建判断结果 */
+function createResult()
 {
-	var callback = function(result)
-	{
-		showTrainResult(result.result);
-	};
-	
-	var operation = new Operation("PE分析.创建加壳分析训练集");
-	operation.classifier = $("classifier").value;
-	operation.dataset = $("dataset").value;
-	operation.execute(callback);
+	var titles = 
+	[
+		{text:"文件名", width:"40%"},
+		{text:"判断结果", width:"40%"}
+	];
+	var columns =  
+	[
+		function(data) { return data.name; },
+		function(data) { showResult();return data.result; }
+	];   
+	var operation = new Operation("PE分析.判断文件是否加壳");
+	operation.name = $("testfile").value;
+	operation.trainSetId = trainSetId;
+	var tableList = new TableList(operation, titles, columns);
+	tableList.create($("container"));
+	tableList.refresh();
 }
 
-/** 4.显示训练集结果 */
-function showTrainResult(result)
+/** 4.显示判断结果 */
+function showResult()
 {
+	$("progress").style.display = "none";
 	$("result").style.display = "";
-	$("container").style.display = "";
-	$("container").innerHTML = result;
 }
 
-function onLoad()
+function selectTrainSet()
 {
-	$("result").style.display = "none";
-	$("container").style.display = "none";
+	var result = window.showModalDialog("trainSet_select.html", null, "dialogWidth=800px;dialogHeight=600px");
+	if (result == null)
+	    return ;
+	else
+	{
+		$("trainSet").value = result.name;
+		trainSetId = result.id;
+	}
 }
 </script>
 
 </head>
-<body onLoad="onLoad()">
+<body>
 <div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 创建加壳判断训练集 </div>
 <div id="wrap">
 <div id="containaer" >
@@ -109,32 +122,34 @@ function onLoad()
 			<tr class='tablecell'>
 				<td class='tit' width="20%">选择分析文件</td>
 				<td class='inp'>
-					<input id="testfile" name="testfile" type="file" size="40"/>
+					<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+						<input id="testfile" name="testfile" type="file" size="40"/>
+						<span style="color:red">&nbsp;&nbsp;*单个文件直接上传分析，多个文件请打包为zip格式上传分析</span>
+					</form> 
+					<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
 				</td>
 			</tr>
 			<tr class='tablecell'>
 				<td class='tit' width="20%">选择训练集</td>
 				<td class='inp'>
-					<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
-						<input id="trainSet" type="text"/>
-						<input id="trainSetButton" type="button"/>
-					</form> 
-					<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
+					<input id="trainSet" type="text"/>
+					<input id="trainSetSelect" type="button" value="选择训练集" onclick="selectTrainSet()"/>
 				</td>
 			</tr>
 		</table>
 		</div>
 		<div class="filterInput" style="padding:2px 0px 0px 25px;">
 			<input type="button" class="pe_result" onClick="onSubmit()"/>
+			<span id="progress" style="display:none">判断中...<img src="../images/loading.gif" align="absmiddle"></span>
 		</div>
 		<div class="clear"></div>
-		<div class="title">
-			恭喜你，训练集创建完成，结果如下！现在你可以在上面选择文件进行加壳判断：
+		<div class="title" id="result" style="display:none">
+			判断结果如下！
 		</div>
 	</div>
 	
-	<!-- 结果展示div，默认隐藏的 -->
-	<div id="container" class="tips"></div>
+	<!-- 结果展示div -->
+	<div id="container"></div>
 </div>
 </div>
 </body>

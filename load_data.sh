@@ -22,14 +22,6 @@ echo Import basic data
 )
 echo OK!
 
-echo
-echo Import $abc data
-(
-	cd sql/$abc
-	psql -c "\i data.sql" $abc
-)
-echo OK!
-
 #=====================================================
 
 x=:

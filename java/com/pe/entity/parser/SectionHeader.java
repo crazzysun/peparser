@@ -5,7 +5,7 @@ import java.util.Map;
 import com.pe.entity.Bean;
 
 /**
- * æ®µå¤´éƒ¨ä¿¡æ¯
+ * ¶ÎÍ·²¿ĞÅÏ¢
  * @author FangZhiyang
  *
  */

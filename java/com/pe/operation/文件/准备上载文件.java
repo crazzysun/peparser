@@ -1,4 +1,4 @@
-package com.pe.operation.æ–‡ä»¶;
+package com.pe.operation.ÎÄ¼ş;
 
 import java.io.File;
 
@@ -11,16 +11,16 @@ import com.pe.web.servlet.UploadServlet;
 import com.pe.web.servlet.UploadStatus;
 
 /**
- * å‡†å¤‡ä¸Šè½½æ–‡ä»¶ éœ€è¦å’Œ UploadServlet é…åˆä½¿ç”¨
+ * ×¼±¸ÉÏÔØÎÄ¼ş ĞèÒªºÍ UploadServlet ÅäºÏÊ¹ÓÃ
  */
-public class å‡†å¤‡ä¸Šè½½æ–‡ä»¶ extends AbstractFileOperation implements Operation
+public class ×¼±¸ÉÏÔØÎÄ¼ş extends AbstractFileOperation implements Operation
 {
 	private String path;
 	
 	public void execute() throws Exception
 	{
 		File work = getWorkFile(path);
-		if (!work.isDirectory()) throw new UserException("ä¸èƒ½ä¸Šè½½åˆ°ç›®å½•: " + path);
+		if (!work.isDirectory()) throw new UserException("²»ÄÜÉÏÔØµ½Ä¿Â¼: " + path);
 		
 		UploadStatus status = new UploadStatus(UploadServlet.MAX_FILE_SIZE);
 		

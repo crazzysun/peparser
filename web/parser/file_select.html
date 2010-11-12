@@ -95,7 +95,7 @@ function appendTab(fileName)
 		alert("页面中tab数目有误，请重新打开该页面");
 		/** 一旦发生错误，整个页面重新初始化 */
 		tabCount = 0;
-		util.clear(tabContainer);
+		util.clear($("tab_ul"));
 		fileNameArray = new Array();
 		$("progress").style.display = "none";
 		return;
@@ -162,7 +162,7 @@ function form_tab_show(totle, now, src)
         </ul>
 	</div>
     
-	<div id="container" style="display:none">
+	<div id="container" style="display:none;">
 		<iframe id="tab_form"></iframe>
 	</div>
 </div>

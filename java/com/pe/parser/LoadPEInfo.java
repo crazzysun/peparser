@@ -25,14 +25,14 @@ import com.pe.entity.parser.ResourceItem;
 import com.pe.entity.parser.SectionHeader;
 
 /**
- * åŠ è½½peæ–‡ä»¶ä¿¡æ¯
+ * ¼ÓÔØpeÎÄ¼şĞÅÏ¢
  * @author FangZhiyang
  *
  */
 public class LoadPEInfo
 {
 	private static Log log = LogFactory.getLog(LoadPEInfo.class);
-	public static final int IMAGE_NUMBEROF_DIRECTORY_ENTRIES = 16;			//æ•°æ®ç›®å½•çš„ä¸ªæ•°
+	public static final int IMAGE_NUMBEROF_DIRECTORY_ENTRIES = 16;			//Êı¾İÄ¿Â¼µÄ¸öÊı
 	
 	private PEAnalyzerDll PE = PEAnalyzerDll.INSTANCE;
 	private File file; 
@@ -42,13 +42,13 @@ public class LoadPEInfo
 		this.file = file; 
 	}
 	
-	/** å¼€å§‹åˆ†ææ–‡ä»¶ 
+	/** ¿ªÊ¼·ÖÎöÎÄ¼ş 
 	 * @throws UserException */
 	public PEFile Analyze() throws UserException
 	{
-		/** é€šè¿‡dllåŠ è½½PEæ–‡ä»¶ */
+		/** Í¨¹ıdll¼ÓÔØPEÎÄ¼ş */
 		PE.LoadPEHeader(file.getPath());
-		/** æ£€æŸ¥æ–‡ä»¶æ˜¯å¦æ˜¯æœ‰æ•ˆçš„PEæ–‡ä»¶ */
+		/** ¼ì²éÎÄ¼şÊÇ·ñÊÇÓĞĞ§µÄPEÎÄ¼ş */
 		if(!PE.IsPE())
 			return null;
 		
@@ -67,23 +67,23 @@ public class LoadPEInfo
 		}
 		catch (Exception e)
 		{
-			throw new UserException("åˆ†ææ–‡ä»¶å‡ºé”™ï¼Œå¯èƒ½æ–‡ä»¶ä¸ç¬¦åˆæœ‰æ•ˆçš„PEæ ¼å¼");
+			throw new UserException("·ÖÎöÎÄ¼ş³ö´í£¬¿ÉÄÜÎÄ¼ş²»·ûºÏÓĞĞ§µÄPE¸ñÊ½");
 		}
 		
-		/** åˆ†æå®Œæˆååˆ é™¤æ–‡ä»¶ */
+		/** ·ÖÎöÍê³ÉºóÉ¾³ıÎÄ¼ş */
 		if (file.delete())
 		{
-			if (log.isTraceEnabled()) log.trace("æ–‡ä»¶" + file.getName() + "åˆ é™¤æˆåŠŸ!");
+			if (log.isTraceEnabled()) log.trace("ÎÄ¼ş" + file.getName() + "É¾³ı³É¹¦!");
 		}
 		else
 		{
-			if (log.isTraceEnabled()) log.trace("æ–‡ä»¶" + file.getName() + "æœªåˆ é™¤ï¼Œè¯·æ‰‹å·¥æ¸…ç†!");
+			if (log.isTraceEnabled()) log.trace("ÎÄ¼ş" + file.getName() + "Î´É¾³ı£¬ÇëÊÖ¹¤ÇåÀí!");
 		}
 		
 		return peFile;
 	}
 	
-	/** è£…è½½æ–‡ä»¶ä¿¡æ¯ 
+	/** ×°ÔØÎÄ¼şĞÅÏ¢ 
 	 * @throws UserException */
 	private FileInfo loadFileInfo() throws UserException
 	{
@@ -98,26 +98,26 @@ public class LoadPEInfo
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½æ–‡ä»¶ä¿¡æ¯å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØÎÄ¼şĞÅÏ¢³ö´í£¡");
 		}
 	}
 	
-	/** è£…è½½DOSå¤´ï¼ŒPEæ–‡ä»¶æ ‡å¿—ï¼ŒPEæ–‡ä»¶å¤´ï¼Œå¯é€‰å¤´éƒ¨ 
+	/** ×°ÔØDOSÍ·£¬PEÎÄ¼ş±êÖ¾£¬PEÎÄ¼şÍ·£¬¿ÉÑ¡Í·²¿ 
 	 * @throws UserException */
 	private List<PEHeader> loadHeaders() throws UserException
 	{
 		try
 		{
 			List<PEHeader> peHeaders = new ArrayList<PEHeader>();
-			int headerCount = PE.GetHeaderCount(); //è·å–headerä¸ªæ•°
+			int headerCount = PE.GetHeaderCount(); //»ñÈ¡header¸öÊı
 			PEHeader peHeader;
-			Map<String, String> peDetail; //ç”¨äºå­˜æ”¾doså¤´çš„è¯¦ç»†æ•°æ®ï¼šåç§°->å€¼
+			Map<String, String> peDetail; //ÓÃÓÚ´æ·ÅdosÍ·µÄÏêÏ¸Êı¾İ£ºÃû³Æ->Öµ
 			for (int i = 0; i < headerCount; i++)
 			{
 				peHeader = new PEHeader();
 				peDetail = new HashMap<String, String>();
 
-				peHeader.setName(PE.GetHeaderName(i)); //ä¿å­˜å¤´name
+				peHeader.setName(PE.GetHeaderName(i)); //±£´æÍ·name
 
 				int memberCount = PE.GetMemberCount(i);
 				for (int j = 0; j < memberCount; j++)
@@ -126,18 +126,18 @@ public class LoadPEInfo
 					String memberValue = "0x" + Integer.toHexString(PE.GetMemberValue(i, j));
 					peDetail.put(memberKey, memberValue);
 				}
-				peHeader.setValue(peDetail); //ä¿å­˜æˆå‘˜è¯¦ç»†ä¿¡æ¯
+				peHeader.setValue(peDetail); //±£´æ³ÉÔ±ÏêÏ¸ĞÅÏ¢
 				peHeaders.add(peHeader);
 			}
 			return peHeaders;
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½DOSå¤´ï¼ŒPEæ–‡ä»¶æ ‡å¿—ï¼ŒPEæ–‡ä»¶å¤´ï¼Œå¯é€‰å¤´éƒ¨å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØDOSÍ·£¬PEÎÄ¼ş±êÖ¾£¬PEÎÄ¼şÍ·£¬¿ÉÑ¡Í·²¿³ö´í£¡");
 		}
 	}
 	
-	/** è£…è½½æ•°æ®ç›®å½• 
+	/** ×°ÔØÊı¾İÄ¿Â¼ 
 	 * @throws UserException */
 	private List<DataDirectory> loadDataDirectory() throws UserException
 	{
@@ -165,17 +165,17 @@ public class LoadPEInfo
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½æ•°æ®ç›®å½•å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØÊı¾İÄ¿Â¼³ö´í£¡");
 		}
 	}
 	
-	/** è£…è½½èŠ‚è¡¨ä¿¡æ¯ 
+	/** ×°ÔØ½Ú±íĞÅÏ¢ 
 	 * @throws UserException */
 	private List<SectionHeader> loadSectionHeaders() throws UserException
 	{
 		try
 		{
-			List<SectionHeader> sectionHeaders = new ArrayList<SectionHeader>(); //ä¿å­˜æ‰€æœ‰èŠ‚è¡¨ä¿¡æ¯
+			List<SectionHeader> sectionHeaders = new ArrayList<SectionHeader>(); //±£´æËùÓĞ½Ú±íĞÅÏ¢
 			int sectionCount = PE.GetSectionCount();
 			SectionHeader sectionHeader;
 			Map<String, String> sectionDetail;
@@ -184,7 +184,7 @@ public class LoadPEInfo
 				sectionHeader = new SectionHeader();
 				sectionDetail = new HashMap<String, String>();
 
-				sectionHeader.setName(PE.GetSectionName(i)); //ä¿å­˜å¤´name
+				sectionHeader.setName(PE.GetSectionName(i)); //±£´æÍ·name
 				int memberCount = PE.GetSectionMemberCount(i);
 				for (int j = 0; j < memberCount; j++)
 				{
@@ -192,18 +192,18 @@ public class LoadPEInfo
 					String sectionValue = "0x" + Integer.toHexString(PE.GetSectionMemberValue(i, j));
 					sectionDetail.put(sectionKey, sectionValue);
 				}
-				sectionHeader.setValue(sectionDetail); //ä¿å­˜æˆå‘˜è¯¦ç»†ä¿¡æ¯
+				sectionHeader.setValue(sectionDetail); //±£´æ³ÉÔ±ÏêÏ¸ĞÅÏ¢
 				sectionHeaders.add(sectionHeader);
 			}
 			return sectionHeaders;
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½èŠ‚è¡¨ä¿¡æ¯å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØ½Ú±íĞÅÏ¢³ö´í£¡");
 		}
 	}
 	
-	/** è£…è½½å¯¼å…¥è¡¨ 
+	/** ×°ÔØµ¼Èë±í 
 	 * @throws UserException */
 	private List<ImportTable> loadImportTables() throws UserException
 	{
@@ -229,11 +229,11 @@ public class LoadPEInfo
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½å¯¼å…¥è¡¨å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØµ¼Èë±í³ö´í£¡");
 		}
 	}
 	
-	/** è£…è½½å¯¼å‡ºè¡¨ 
+	/** ×°ÔØµ¼³ö±í 
 	 * @throws UserException */
 	private ExportTable loadExportTable() throws UserException
 	{
@@ -258,11 +258,11 @@ public class LoadPEInfo
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½å¯¼å‡ºè¡¨å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØµ¼³ö±í³ö´í£¡");
 		}
 	}
 	
-	/** è£…è½½é‡å®šä½è¡¨ 
+	/** ×°ÔØÖØ¶¨Î»±í 
 	 * @throws UserException */
 	private List<Relocation> loadRelocation() throws UserException
 	{
@@ -294,11 +294,11 @@ public class LoadPEInfo
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½é‡å®šä½è¡¨å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØÖØ¶¨Î»±í³ö´í£¡");
 		}
 	}
 	
-	/** è£…è½½èµ„æºç›®å½• 
+	/** ×°ÔØ×ÊÔ´Ä¿Â¼ 
 	 * @throws UserException */
 	private List<Resource> loadResource() throws UserException
 	{
@@ -328,7 +328,7 @@ public class LoadPEInfo
 		}
 		catch (Exception e)
 		{
-			throw new UserException(file.getName() + "è£…è½½èµ„æºç›®å½•å‡ºé”™ï¼");
+			throw new UserException(file.getName() + "×°ÔØ×ÊÔ´Ä¿Â¼³ö´í£¡");
 		}
 	}
 }

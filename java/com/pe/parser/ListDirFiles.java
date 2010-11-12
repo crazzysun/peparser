@@ -8,32 +8,28 @@ import com.pe.UserException;
 
 
 /**
- * java è¯»å–ç›®å½•åŠå­ç›®å½•ä¸‹æŒ‡å®šæ–‡ä»¶åçš„è·¯å¾„ å¹¶æ”¾åˆ°ä¸€ä¸ªListæ•°ç»„é‡Œé¢
+ * java ¶ÁÈ¡Ä¿Â¼¼°×ÓÄ¿Â¼ÏÂÖ¸¶¨ÎÄ¼şÃûµÄÂ·¾¶ ²¢·Åµ½Ò»¸öListÊı×éÀïÃæ
  *
  * @author FangZhiyang
  */
 public class ListDirFiles
 {
-	public static List<String> fileList;		//å­˜å‚¨éå†åçš„æ‰€æœ‰æ–‡ä»¶å
+	public static List<String> fileList = new ArrayList<String>();;		//´æ´¢±éÀúºóµÄËùÓĞÎÄ¼şÃû
 
-	public static void initalize()
-	{
-		fileList = new ArrayList<String>();
-	}
 	/**
 	 * 
 	 * @param path
-	 *            æ–‡ä»¶è·¯å¾„
+	 *            ÎÄ¼şÂ·¾¶
 	 * @param suffix
-	 *            åç¼€å
+	 *            ºó×ºÃû
 	 * @param isDepth
-	 *            æ˜¯å¦éå†å­ç›®å½•
+	 *            ÊÇ·ñ±éÀú×ÓÄ¿Â¼
 	 * @return
 	 * @throws UserException 
 	 */
 	public static List<String> listFile(File f, List<String> suffix, boolean isDepth) throws Exception
 	{
-		// æ˜¯ç›®å½•ï¼ŒåŒæ—¶éœ€è¦éå†å­ç›®å½•
+		// ÊÇÄ¿Â¼£¬Í¬Ê±ĞèÒª±éÀú×ÓÄ¿Â¼
 		if (f.isDirectory())
 		{
 			if (isDepth)
@@ -51,10 +47,10 @@ public class ListDirFiles
 
 			if (suffix.size() != 0)
 			{
-				int begIndex = filePath.lastIndexOf(".");	// æœ€åä¸€ä¸ª.(å³åç¼€åå‰é¢çš„.)çš„ç´¢å¼•
+				int begIndex = filePath.lastIndexOf(".");	// ×îºóÒ»¸ö.(¼´ºó×ºÃûÇ°ÃæµÄ.)µÄË÷Òı
 				String tempsuffix = "";
 
-				if (begIndex != -1)							// é˜²æ­¢æ˜¯æ–‡ä»¶ä½†å´æ²¡æœ‰åç¼€åç»“æŸçš„æ–‡ä»¶
+				if (begIndex != -1)							// ·ÀÖ¹ÊÇÎÄ¼şµ«È´Ã»ÓĞºó×ºÃû½áÊøµÄÎÄ¼ş
 				{
 					tempsuffix = filePath.substring(begIndex + 1, filePath.length());
 				}
@@ -64,7 +60,12 @@ public class ListDirFiles
 					fileList.add(filePath);
 				}
 			}
-			else throw new UserException("è¯·æŒ‡å®šè¦åˆ†æçš„æ–‡ä»¶ç±»å‹ï¼");
+//			else throw new UserException("ÇëÖ¸¶¨Òª·ÖÎöµÄÎÄ¼şÀàĞÍ£¡");
+			/** ²»Ö¸¶¨ÀàĞÍ£¬ÈÏÎª·ÖÎöÈ«²¿ÎÄ¼ş */
+			else
+			{
+				fileList.add(filePath);
+			}
 		}
 		return fileList;
 	}

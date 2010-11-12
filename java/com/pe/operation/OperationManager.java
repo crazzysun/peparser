@@ -15,25 +15,25 @@ import com.pe.util.SystemConfigure;
 import com.pe.util.bean.BeanCreator;
 
 /**
- * æ“ä½œç®¡ç†å™¨ æ ¹æ®æŒ‡å®šçš„å¸å·ã€æ“ä½œåï¼ŒæŸ¥è¯¢æ•°æ®åº“å¾—åˆ°å…·ä½“çš„æ“ä½œJavaç±»ï¼Œå¹¶æ‰§è¡ŒåŠ¨ä½œ
+ * ²Ù×÷¹ÜÀíÆ÷ ¸ù¾İÖ¸¶¨µÄÕÊºÅ¡¢²Ù×÷Ãû£¬²éÑ¯Êı¾İ¿âµÃµ½¾ßÌåµÄ²Ù×÷JavaÀà£¬²¢Ö´ĞĞ¶¯×÷
  * 
- * æœ¬æ¶æ„ç›®çš„æ˜¯ä¸ºäº†å®ç°çµæ´»çš„æƒé™æ§åˆ¶ã€‚
+ * ±¾¼Ü¹¹Ä¿µÄÊÇÎªÁËÊµÏÖÁé»îµÄÈ¨ÏŞ¿ØÖÆ¡£
  * 
- * åœ¨æœ¬æ¶æ„ä¸­ï¼Œç»™æ¯ä¸ªæ“ä½œè¿›è¡Œäº†å‘½åï¼Œæ¯ä¸ªæ“ä½œå¯ä»¥æœ‰è‹¥å¹²ä¸ªå…·ä½“çš„å®ç°ï¼Œä»¥å¯¹åº”ä¸åŒæƒé™ä¸‹çš„å…·ä½“æ“ä½œè¿‡ç¨‹ã€‚
- * ä¾‹å¦‚ï¼Œâ€œåˆ—å‡ºäººå‘˜åå•â€æ˜¯ä¸€ä¸ªæ“ä½œã€‚å¯¹ç®¡ç†å‘˜æ¥è¯´ï¼Œè¯¥æ“ä½œæ˜¯åˆ—å‡ºæ‰€æœ‰äººå‘˜çš„åå•ï¼Œä½†å¯¹å­éƒ¨é—¨ç®¡ç†å‘˜ï¼Œ
- * åˆ™æ˜¯åˆ—å‡ºæœ¬éƒ¨é—¨çš„äººå‘˜åå•ã€‚ä¸¤ä¸ªå…·ä½“æ“ä½œåˆ†åˆ«ç”¨ä¸¤ä¸ªJavaç±»å®ç°ï¼Œä½†éƒ½å®ç°äº†Operationæ¥å£(ä¹Ÿå¯ç»§æ‰¿AbstractOperation)ã€‚
+ * ÔÚ±¾¼Ü¹¹ÖĞ£¬¸øÃ¿¸ö²Ù×÷½øĞĞÁËÃüÃû£¬Ã¿¸ö²Ù×÷¿ÉÒÔÓĞÈô¸É¸ö¾ßÌåµÄÊµÏÖ£¬ÒÔ¶ÔÓ¦²»Í¬È¨ÏŞÏÂµÄ¾ßÌå²Ù×÷¹ı³Ì¡£
+ * ÀıÈç£¬¡°ÁĞ³öÈËÔ±Ãûµ¥¡±ÊÇÒ»¸ö²Ù×÷¡£¶Ô¹ÜÀíÔ±À´Ëµ£¬¸Ã²Ù×÷ÊÇÁĞ³öËùÓĞÈËÔ±µÄÃûµ¥£¬µ«¶Ô×Ó²¿ÃÅ¹ÜÀíÔ±£¬
+ * ÔòÊÇÁĞ³ö±¾²¿ÃÅµÄÈËÔ±Ãûµ¥¡£Á½¸ö¾ßÌå²Ù×÷·Ö±ğÓÃÁ½¸öJavaÀàÊµÏÖ£¬µ«¶¼ÊµÏÖÁËOperation½Ó¿Ú(Ò²¿É¼Ì³ĞAbstractOperation)¡£
  * 
- * åœ¨å®¢æˆ·ç«¯ï¼Œå¯ä»¥é€šè¿‡JavaScriptç›´æ¥è°ƒç”¨:
+ * ÔÚ¿Í»§¶Ë£¬¿ÉÒÔÍ¨¹ıJavaScriptÖ±½Óµ÷ÓÃ:
  * 
- * // é¦–å…ˆåˆ›å»ºä¸€ä¸ªæ“ä½œå¯¹è±¡, æŒ‡å®šè¦æ‰§è¡Œå“ªä¸ªæ“ä½œ
- * var operation = new Operation("ç³»ç»Ÿ.æŸ¥çœ‹");
+ * // Ê×ÏÈ´´½¨Ò»¸ö²Ù×÷¶ÔÏó, Ö¸¶¨ÒªÖ´ĞĞÄÄ¸ö²Ù×÷
+ * var operation = new Operation("ÏµÍ³.²é¿´");
  * 
- * // ç»™æ“ä½œå¯¹è±¡è®¾ç½®å€¼  è¯·å¯¹ç…§ç›¸åº”çš„Operationç±»
+ * // ¸ø²Ù×÷¶ÔÏóÉèÖÃÖµ  Çë¶ÔÕÕÏàÓ¦µÄOperationÀà
  * operation.id = 2;
  * operation.offset = 4;
  * operation.limit = 10;
  * 
- * // æ‰§è¡Œ, ç”¨å›è°ƒå‡½æ•°å¤„ç†è¿”å›ç»“æœ
+ * // Ö´ĞĞ, ÓÃ»Øµ÷º¯Êı´¦Àí·µ»Ø½á¹û
  * var callback = function (result)
  * {
  *     ......
@@ -64,16 +64,16 @@ public class OperationManager
 	
 	//====================================================
 	
-	/** æ‰€æœ‰å¯ç”¨æ“ä½œå®ç°ç±» */
+	/** ËùÓĞ¿ÉÓÃ²Ù×÷ÊµÏÖÀà */
 	public Map<String, Class<? extends Operation>> operations = new ConcurrentHashMap<String, Class<? extends Operation>>();
 	
-	/** ç»„ç»‡æˆæ ‘çš„æ‰€æœ‰æ“ä½œ */
+	/** ×éÖ¯³ÉÊ÷µÄËùÓĞ²Ù×÷ */
 	protected OperationTree tree = new OperationTree();
 
-	/** åˆå§‹åŒ–ç®¡ç†å™¨ */
+	/** ³õÊ¼»¯¹ÜÀíÆ÷ */
 	public void startup() throws Exception
 	{
-		log.info("å¯åŠ¨æ“ä½œç®¡ç†å™¨");
+		log.info("Æô¶¯²Ù×÷¹ÜÀíÆ÷");
 		
 //		DaoManager dm = DaoManager.getInstance();
 //		try
@@ -92,12 +92,12 @@ public class OperationManager
 //		}
 	}
 
-	/** æ‰§è¡Œæ“ä½œ */
+	/** Ö´ĞĞ²Ù×÷ */
 	public Object execute(String name, Map<String, ? extends Object> parameters) throws Exception
 	{
 		try
 		{
-			// è£…å…¥å…·ä½“å®ç°ç±», è¿›è¡Œæ‰§è¡Œ
+			// ×°Èë¾ßÌåÊµÏÖÀà, ½øĞĞÖ´ĞĞ
 			Class<? extends Operation> type = getOperationClass(name);
 			Operation operation = BeanCreator.create(type, parameters);
 
@@ -107,19 +107,19 @@ public class OperationManager
 		}
 		catch (UserException e)
 		{
-			String s = "æ‰§è¡Œæ“ä½œ " + name + " é”™è¯¯: " + e.getMessage();
+			String s = "Ö´ĞĞ²Ù×÷ " + name + " ´íÎó: " + e.getMessage();
 			log.info(s);
 			throw e;
 		}
 		catch (Exception e)
 		{
-			String s = "æ‰§è¡Œæ“ä½œ " + name + " é”™è¯¯: " + e.getMessage();
+			String s = "Ö´ĞĞ²Ù×÷ " + name + " ´íÎó: " + e.getMessage();
 			log.error(s);
 			throw new Exception(s, e);
 		}
 	}
 
-	/** è½½å…¥æ‰€æœ‰çš„æ“ä½œå®ç°ç±» */
+	/** ÔØÈëËùÓĞµÄ²Ù×÷ÊµÏÖÀà */
 	private void loadOperationClasses() throws Exception
 	{
 		JavaPackageExplorer explorer = new JavaPackageExplorer(operationPackageName);
@@ -130,7 +130,7 @@ public class OperationManager
 		}
 	}
 	
-	/** æ³¨å†Œä¸€ä¸ªæ“ä½œå®ç°ç±» */
+	/** ×¢²áÒ»¸ö²Ù×÷ÊµÏÖÀà */
 	@SuppressWarnings("unchecked")
 	private void register(String className)
 	{
@@ -142,31 +142,31 @@ public class OperationManager
 			if (Modifier.isAbstract(m) || Modifier.isInterface(m)) return;
 			if (!Operation.class.isAssignableFrom(type)) return;
 
-			// æ ¹æ®æ“ä½œåå’Œå®ç°åè¿›è¡Œæ³¨å†Œ
+			// ¸ù¾İ²Ù×÷ÃûºÍÊµÏÖÃû½øĞĞ×¢²á
 			String operationName = type.getCanonicalName();
 			operationName = operationName.substring(operationPackageName.length() + 1);
 			
 			operations.put(operationName, (Class<? extends Operation>) type);
 			tree.add(operationName);
 
-			if (log.isDebugEnabled()) log.debug("è½½å…¥æ“ä½œ: " + operationName);
+			if (log.isDebugEnabled()) log.debug("ÔØÈë²Ù×÷: " + operationName);
 		}
 		catch (Exception e)
 		{
-			log.warn("è½½å…¥æ“ä½œå¤±è´¥: " + className, e);
+			log.warn("ÔØÈë²Ù×÷Ê§°Ü: " + className, e);
 		}
 	}
 
-	/** è·å¾—æŒ‡å®šå¸æˆ·æŒ‡å®šæ“ä½œçš„å®ç°ç±» */
+	/** »ñµÃÖ¸¶¨ÕÊ»§Ö¸¶¨²Ù×÷µÄÊµÏÖÀà */
 	public Class<? extends Operation> getOperationClass(String name) throws Exception
 	{
 		Class<? extends Operation> clazz = operations.get(name);
-		if (clazz == null) throw new UserException("æ“ä½œä¸å­˜åœ¨: " + name);
+		if (clazz == null) throw new UserException("²Ù×÷²»´æÔÚ: " + name);
 		
 		return clazz;
 	}
 	
-	/** è·å–æ‰€æœ‰æ“ä½œçš„åç§°é›†åˆ */
+	/** »ñÈ¡ËùÓĞ²Ù×÷µÄÃû³Æ¼¯ºÏ */
 	public Collection<String> getAllOperationNames()
 	{
 		return operations.keySet();

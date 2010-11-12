@@ -26,7 +26,7 @@ public class UploadStatus implements ProgressListener, Bean
 
 	public synchronized void update(long read, long length, int item)
 	{
-		if (length > limit) throw new RuntimeException("鏂囦欢澶у皬瓒呯晫");
+		if (length > limit) throw new RuntimeException("文件大小超界");
 
 		this.item = item;
 		this.read = read;

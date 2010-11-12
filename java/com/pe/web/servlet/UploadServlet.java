@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import com.pe.UserException;
 
 /**
- * Д╦┼Х╫╫Ф√┤Д╩╤Е┬╟Г■╗Ф┬╥Г⌡╝Е╫∙
+ * иотьнд╪Ч╣╫сц╩╖д©б╪
  */
 public class UploadServlet extends HttpServlet
 {
@@ -45,9 +45,9 @@ public class UploadServlet extends HttpServlet
 		{
 //			dm.begin();
 			
-			if (status == null || work == null) throw new UserException("Д╦┼Х╫╫Ф°╙Е┤├Е╓┤Е╟╠Г╩╙");
+			if (status == null || work == null) throw new UserException("иотьн╢в╪╠╦╬мпВ");
 
-			// Д╦┼Х╫╫Ф√┤Д╩╤ 
+			// иотьнд╪Ч 
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			factory.setSizeThreshold(1 * 1024 * 1024);
 
@@ -69,7 +69,7 @@ public class UploadServlet extends HttpServlet
 				
 				upload(work, name, item);
 				
-				if (log.isDebugEnabled()) log.debug("Ф√┤Д╩╤: " + name + " Д╦┼Х╫╫Е╝▄Ф┬░");
+				if (log.isDebugEnabled()) log.debug("нд╪Ч: " + name + " иотьмЙЁи");
 			}
 			
 			status.complete();
@@ -79,7 +79,7 @@ public class UploadServlet extends HttpServlet
 		catch (Exception e)
 		{
 			status.abort(e.getMessage());
-			if (log.isDebugEnabled()) log.debug("Д╦┼Х╫╫Ф√┤Д╩╤И■≥Х╞╞", e);
+			if (log.isDebugEnabled()) log.debug("иотьнд╪Ч╢МнС", e);
 		}
 		finally
 		{

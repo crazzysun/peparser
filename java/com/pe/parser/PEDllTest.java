@@ -1,34 +1,82 @@
 package com.pe.parser;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.util.regex.PatternSyntaxException;
+
+import com.pe.dll.petest.PEAnalyzerDll;
+import com.sun.jna.WString;
 
 public class PEDllTest
 {
-	static boolean flag = false;
+	// static boolean flag = false;
+	//
+	// private static void getData() throws InterruptedException
+	// {
+	// flag = true;
+	// Thread.sleep(3000);
+	// System.out.println("连接成功");
+	// }
 
-	private static void getData() throws InterruptedException
+	public static void main(String[] args) throws UnsupportedEncodingException
 	{
-		flag = true;
-		Thread.sleep(3000);
-		System.out.println("杩炴帴鎴愬姛");
+		// int i = 0;
+		// while (true)
+		// {
+		// Thread.sleep(3000);
+		// while (i == 5)
+		// {
+		// System.out.println("正在初始化连接！");
+		// getData();
+		// while (flag)
+		// {
+		// return;
+		// }
+		// }
+		// i++;
+		// System.out.println("连接失败，正在发起第" + i + "连接");
+		// }�汾
+		PEAnalyzerDll PE = PEAnalyzerDll.INSTANCE;
+		// PE.LoadPEHeader("c:/test/createlang.exe");
+//		String str = PE.say(new String("Hello World!"));
+//		System.out.println(getWebContext(str));
+		// String str = PE.GetRSCType(0);
+		// System.out.println("2:" +new
+		// String(str.getBytes("gb18030"),"utf-8"));
+		// System.out.println("2:" +new
+		// String(str.getBytes("gb18030"),"gb18030"));
+		// System.out.println("2:" +new String(str.getBytes("utf-8"),"utf-8"));
+		// System.out.println("2:" +new
+		// String(str.getBytes("utf-8"),"gb18030"));
 	}
 
-	public static void main(String[] args) throws InterruptedException
+	private static String getWebContext(String aa)
 	{
-		int i = 0;
-		while (true)
+		StringBuffer input123 = new StringBuffer();
+		try
 		{
-			Thread.sleep(3000);
-			while (i == 5)
-			{
-				System.out.println("姝ｅ湪鍒濆鍖栬繛鎺ワ紒");
-				getData();
-				while (flag)
-				{
-					return;
-				}
-			}
-			i++;
-			System.out.println("杩炴帴澶辫触锛屾鍦ㄥ彂璧风" + i + "杩炴帴");
+			String urlString;
+
+			urlString = "http://www..sina.com";
+
+			System.out.println("urlString length" + urlString.length());
+			InputStreamReader in = new InputStreamReader(new URL(urlString).openStream(), "UTF-8");
+
+			int ch;
+			while ((ch = in.read()) != -1)
+				input123.append((char) ch);
+
 		}
+		catch (IOException exception)
+		{
+			exception.printStackTrace();
+		}
+		catch (PatternSyntaxException exception)
+		{
+			exception.printStackTrace();
+		}
+		return input123.toString();
 	}
 }
