@@ -37,7 +37,7 @@ public abstract class Converter
 	public static Converter getConverter(Class<?> type)
 	{
 		Converter converter = map.get(type);
-		if (converter == null) throw new RuntimeException("娌℃湁鎸囧畾鐨勮浆鎹㈠櫒: " + type);
+		if (converter == null) throw new RuntimeException("没有指定的转换器: " + type);
 
 		return converter;
 	}
