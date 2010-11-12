@@ -1,221 +1,220 @@
 package com.pe.dao;
-//package com.dao;
-//
-//import java.lang.reflect.Modifier;
-//import java.sql.Connection;
-//import java.sql.SQLException;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import javax.sql.DataSource;
-//
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
-//
-//import zuojie.esql.Esql;
-//import zuojie.esql.EsqlPgsqlImpl;
-//
-//import com.util.JavaPackageExplorer;
-//
-//public class DaoManager
-//{
-//	public final static int READ_COMMITTED = Connection.TRANSACTION_READ_COMMITTED;
-//	public final static int SERIALIZABLE = Connection.TRANSACTION_SERIALIZABLE;
-//
-//	private static Log log = LogFactory.getLog(DaoManager.class);
-//
-//	private static Map<String, DaoManager> managers = new HashMap<String, DaoManager>();
-//	
-//	public static DaoManager getInstance(String name)
-//	{
-//		return managers.get(name);
-//	}
-//
-//	public static DaoManager getInstance()
-//	{
-//		return managers.get("default");
-//	}
-//	
-//	public static void initialize(DataSource source) throws Exception
-//	{
-//		// æœ¬åœ°é»˜è®¤æ•°æ®æº
-//		DaoManager manager = new DaoManager();
-//		manager.setDaoPackageName("com.dao");
-//		manager.setDatabase(Class.forName("com.dao.PostgreSQL"));
-//		manager.setDataSource(source);
-//		manager.startup();
-//		managers.put("default", manager);
-//	}
-//	
-//	//====================================================================
-//	
-//	private String name;
-//	private String daoPackageName;
-//	private Class<?> database;			// Daoå¯¹è±¡åº”è¯¥å®ç°çš„ç±», ç”¨äºåŒºåˆ«è°ƒå…¥ç”¨äºä¸åŒæ•°æ®åº“çš„Dao
-//	private DataSource dataSource;
-//
-//	private Esql esql;
-//
-//	public DaoManager()
-//	{
-//	}
-//	
-//	private Map<Class<?>, Object> daos = new HashMap<Class<?>, Object>();
-//
-//	/** é€šè¿‡è¿æ¥æ± æ•°æ®æºåˆå§‹åŒ– */
-//	public void startup() throws Exception
-//	{
-//		managers.put(name, this);
-//
-//		log.info("å¯åŠ¨DAOç®¡ç†å™¨");
-//		
-//		/** æ•°æ®æºåˆå§‹åŒ–çš„å¦å¤–ä¸€ç§æ–¹å¼ 
-//		OracleConnectionPoolDataSource ds = new OracleConnectionPoolDataSource();
-//		ds.setDriverType("thin");
-//		ds.setNetworkProtocol("tcp");
-//		ds.setServerName("localhost");
-//		ds.setPortNumber(1521);
-//		ds.setDatabaseName("tcc");
-//		ds.setUser("tccdba");
-//		ds.setPassword("tcc123");
-//		*/
-//		
-//		// å£°æ˜ä¸€ä¸ªESQLå¯¹è±¡
-//		//esql = Esql.create("Oracle", dataSource);
-//		
-//		// æ ¹æ®æ•°æ®åº“ç±»å‹å’Œæ•°æ®æºåˆ›å»ºesqlå¯¹è±¡
-//		esql = new EsqlPgsqlImpl();
-//		esql.setDataSource(dataSource);
-//
-//		// è®¾ç½®æ•°æ®å­˜å–å¯¹è±¡
-//		JavaPackageExplorer explorer = new JavaPackageExplorer(daoPackageName);
-//		List<String> list = explorer.explore();
-//		for (String s : list)
-//		{
-//			register(s);
-//		}
-//	}
-//
-//	/** æ³¨å†Œä¸€ä¸ªDAOå¯¹è±¡ */
-//	private void register(String name)
-//	{
-//		try
-//		{
-//			Class<?> type = Class.forName(name);
-//
-//			if (type.equals(BaseDao.class)) return;
-//			if (!BaseDao.class.isAssignableFrom(type)) return;
-//			if (!database.isAssignableFrom(type)) return;
-//			//æ’é™¤æŠ½è±¡ç±»
-//			if (Modifier.isAbstract(type.getModifiers())) return ;
-//
-//			if (log.isDebugEnabled()) log.debug("æ³¨å†ŒDAOç±»: " + name);
-//
-//			BaseDao dao = (BaseDao) type.newInstance();
-//			dao.setEsql(esql);
-//
-//			Class<?>[] cs = type.getInterfaces();
-//			for (Class<?> c : cs)
-//			{
-//				daos.put(c, dao);
-//			}
-//		}
-//		catch (Exception e)
-//		{
-//			log.error("æ³¨å†ŒDAOç±»å¤±è´¥: " + name, e);
-//		}
-//	}
-//
-//	public <T> T getDao(Class<T> type)
-//	{
-//		Object dao = daos.get(type);
-//		if (dao == null) throw new RuntimeException("æŒ‡å®šçš„DAOä¸å­˜åœ¨: " + type.getCanonicalName());
-//		return type.cast(dao);
-//	}
-//
-//	public Esql getEsql()
-//	{
-//		return esql;
-//	}
-//	
-//	/** å¼€å§‹äº‹åŠ¡ */
-//	public void begin(int isolation) throws Exception
-//	{
-//		try
-//		{
-//			esql.begin(isolation);
-//		}
-//		catch (Exception e)
-//		{
-//			throw new Exception("å¼€å§‹äº‹åŠ¡é”™è¯¯", e);
-//		}
-//	}
-//
-//	public void begin() throws Exception
-//	{
-//		begin(DaoManager.READ_COMMITTED);
-//	}
-//
-//	/** æäº¤å½“å‰äº‹åŠ¡ */
-//	public void commit() throws Exception
-//	{
-//		try
-//		{
-//			esql.commit();
-//		}
-//		catch (Exception e)
-//		{
-//			throw new Exception("æäº¤äº‹åŠ¡é”™è¯¯", e);
-//		}
-//	}
-//
-//	/** ç»“æŸå½“å‰äº‹åŠ¡ã€‚å¦‚æœæ²¡æœ‰æäº¤ï¼Œå°±å›æ»š */
-//	public void end()
-//	{
-//		try
-//		{
-//			esql.end();
-//		}
-//		catch (Exception e)
-//		{
-//		}
-//	}
-//
-//	public void setTransactionIsolation(int isolation) throws Exception
-//	{
-//		try
-//		{
-//			esql.setIsolation(isolation);
-//		}
-//		catch (SQLException e)
-//		{
-//			throw new Exception("è®¾ç½®äº‹åŠ¡éš”ç¦»åº¦é”™è¯¯", e);
-//		}
-//	}
-//
-//	public void setDaoPackageName(String daoPackageName)
-//	{
-//		this.daoPackageName = daoPackageName;
-//	}
-//
-//	public void setDatabase(Class<?> database)
-//	{
-//		this.database = database;
-//	}
-//
-//	public void setDataSource(DataSource dataSource)
-//	{
-//		this.dataSource = dataSource;
-//	}
-//
-//	public String getName()
-//	{
-//		return name;
-//	}
-//
-//	public void setName(String name)
-//	{
-//		this.name = name;
-//	}
-//}
+
+import java.lang.reflect.Modifier;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import zuojie.esql.Esql;
+import zuojie.esql.EsqlPgsqlImpl;
+
+import com.pe.util.JavaPackageExplorer;
+
+public class DaoManager
+{
+	public final static int READ_COMMITTED = Connection.TRANSACTION_READ_COMMITTED;
+	public final static int SERIALIZABLE = Connection.TRANSACTION_SERIALIZABLE;
+
+	private static Log log = LogFactory.getLog(DaoManager.class);
+
+	private static Map<String, DaoManager> managers = new HashMap<String, DaoManager>();
+	
+	public static DaoManager getInstance(String name)
+	{
+		return managers.get(name);
+	}
+
+	public static DaoManager getInstance()
+	{
+		return managers.get("default");
+	}
+	
+	public static void initialize(DataSource source) throws Exception
+	{
+		// ±¾µØÄ¬ÈÏÊı¾İÔ´
+		DaoManager manager = new DaoManager();
+		manager.setDaoPackageName("com.pe.dao");
+		manager.setDatabase(Class.forName("com.pe.dao.PostgreSQL"));
+		manager.setDataSource(source);
+		manager.startup();
+		managers.put("default", manager);
+	}
+	
+	//====================================================================
+	
+	private String name;
+	private String daoPackageName;
+	private Class<?> database;			// Dao¶ÔÏóÓ¦¸ÃÊµÏÖµÄÀà, ÓÃÓÚÇø±ğµ÷ÈëÓÃÓÚ²»Í¬Êı¾İ¿âµÄDao
+	private DataSource dataSource;
+
+	private Esql esql;
+
+	public DaoManager()
+	{
+	}
+	
+	private Map<Class<?>, Object> daos = new HashMap<Class<?>, Object>();
+
+	/** Í¨¹ıÁ¬½Ó³ØÊı¾İÔ´³õÊ¼»¯ */
+	public void startup() throws Exception
+	{
+		managers.put(name, this);
+
+		log.info("Æô¶¯DAO¹ÜÀíÆ÷");
+		
+		/** Êı¾İÔ´³õÊ¼»¯µÄÁíÍâÒ»ÖÖ·½Ê½ 
+		OracleConnectionPoolDataSource ds = new OracleConnectionPoolDataSource();
+		ds.setDriverType("thin");
+		ds.setNetworkProtocol("tcp");
+		ds.setServerName("localhost");
+		ds.setPortNumber(1521);
+		ds.setDatabaseName("tcc");
+		ds.setUser("tccdba");
+		ds.setPassword("tcc123");
+		*/
+		
+		// ÉùÃ÷Ò»¸öESQL¶ÔÏó
+		//esql = Esql.create("Oracle", dataSource);
+		
+		// ¸ù¾İÊı¾İ¿âÀàĞÍºÍÊı¾İÔ´´´½¨esql¶ÔÏó
+		esql = new EsqlPgsqlImpl();
+		esql.setDataSource(dataSource);
+
+		// ÉèÖÃÊı¾İ´æÈ¡¶ÔÏó
+		JavaPackageExplorer explorer = new JavaPackageExplorer(daoPackageName);
+		List<String> list = explorer.explore();
+		for (String s : list)
+		{
+			register(s);
+		}
+	}
+
+	/** ×¢²áÒ»¸öDAO¶ÔÏó */
+	private void register(String name)
+	{
+		try
+		{
+			Class<?> type = Class.forName(name);
+
+			if (type.equals(BaseDao.class)) return;
+			if (!BaseDao.class.isAssignableFrom(type)) return;
+			if (!database.isAssignableFrom(type)) return;
+			//ÅÅ³ı³éÏóÀà
+			if (Modifier.isAbstract(type.getModifiers())) return ;
+
+			if (log.isDebugEnabled()) log.debug("×¢²áDAOÀà: " + name);
+
+			BaseDao dao = (BaseDao) type.newInstance();
+			dao.setEsql(esql);
+
+			Class<?>[] cs = type.getInterfaces();
+			for (Class<?> c : cs)
+			{
+				daos.put(c, dao);
+			}
+		}
+		catch (Exception e)
+		{
+			log.error("×¢²áDAOÀàÊ§°Ü: " + name, e);
+		}
+	}
+
+	public <T> T getDao(Class<T> type)
+	{
+		Object dao = daos.get(type);
+		if (dao == null) throw new RuntimeException("Ö¸¶¨µÄDAO²»´æÔÚ: " + type.getCanonicalName());
+		return type.cast(dao);
+	}
+
+	public Esql getEsql()
+	{
+		return esql;
+	}
+	
+	/** ¿ªÊ¼ÊÂÎñ */
+	public void begin(int isolation) throws Exception
+	{
+		try
+		{
+			esql.begin(isolation);
+		}
+		catch (Exception e)
+		{
+			throw new Exception("¿ªÊ¼ÊÂÎñ´íÎó", e);
+		}
+	}
+
+	public void begin() throws Exception
+	{
+		begin(DaoManager.READ_COMMITTED);
+	}
+
+	/** Ìá½»µ±Ç°ÊÂÎñ */
+	public void commit() throws Exception
+	{
+		try
+		{
+			esql.commit();
+		}
+		catch (Exception e)
+		{
+			throw new Exception("Ìá½»ÊÂÎñ´íÎó", e);
+		}
+	}
+
+	/** ½áÊøµ±Ç°ÊÂÎñ¡£Èç¹ûÃ»ÓĞÌá½»£¬¾Í»Ø¹ö */
+	public void end()
+	{
+		try
+		{
+			esql.end();
+		}
+		catch (Exception e)
+		{
+		}
+	}
+
+	public void setTransactionIsolation(int isolation) throws Exception
+	{
+		try
+		{
+			esql.setIsolation(isolation);
+		}
+		catch (SQLException e)
+		{
+			throw new Exception("ÉèÖÃÊÂÎñ¸ôÀë¶È´íÎó", e);
+		}
+	}
+
+	public void setDaoPackageName(String daoPackageName)
+	{
+		this.daoPackageName = daoPackageName;
+	}
+
+	public void setDatabase(Class<?> database)
+	{
+		this.database = database;
+	}
+
+	public void setDataSource(DataSource dataSource)
+	{
+		this.dataSource = dataSource;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+}

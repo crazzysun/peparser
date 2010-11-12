@@ -1,12 +1,13 @@
 package com.pe.packed;
-
 /*
  * PackClassifier.java
+ * 
  * Copyright (C) 2010 SiChuan University. All rights reserved.
  */
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.math.BigDecimal;
 import java.util.Vector;
 
 import weka.classifiers.Classifier;
@@ -16,10 +17,13 @@ import weka.core.OptionHandler;
 import weka.core.Utils;
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.Filter;
+import java.io.Serializable;
 
-public class PackClassifier
+public class PackClassifier implements Serializable
 {
+	private static final long serialVersionUID = -8199292047586576593L;
 	// Property
+	protected String m_ClassifierName = null;
 	protected Classifier m_Classifier = null;
 	protected Filter m_Filter = null;
 	protected String m_TrainingFile = null;
@@ -30,53 +34,86 @@ public class PackClassifier
 	{
 		/*
 		 * Version Date Comments -------- --------- -----------------------
-		 * 1.0.0 Oct. 21, 2010 First version
+		 * 1.0.0 Oct. 21, 2010 First version 
+		 * 1.1.0 Nov. 06, 2010 Added parameter
+		 * configuration
 		 */
-		return "1.0.0";
+		return "1.1.0";
 	}
 
-	public static PackClassifier BuildClassifier(String ClassifierName, String Dataset) throws Exception
+	public static PackClassifier BuildClassifier(String ClassifierName, String Dataset, int TestType, int TestParam) throws Exception
 	{
-		// Command line parameters
-		if (ClassifierName.equals("") || Dataset.equals(""))
-		{
-			System.out.println("Not all parameters provided!");
-			System.out.println(PackClassifier.usage());
-			System.exit(2);
-		}
+		// Parameter validation
+		if (ClassifierName.equals("") || Dataset.equals("")) 
+			throw new Exception("Classifier name or dataset isn't provided");
+		if (TestType != 0 && TestType != 1) 
+			throw new Exception("Unknown test types!");
+		if (TestType == 0 && TestParam < 2)
+			throw new Exception("Fold number must be greater than 1");
+		if (TestType == 1 && (TestParam <= 0 || TestParam >= 100)) 
+			throw new Exception("Percentage split value need to be > 0 and < 100!");
 
 		// Internal parameters
+		String WekaClassifierName = null;
 		String filter = "weka.filters.unsupervised.instance.Randomize";
 		Vector<String> classifierOptions = new Vector<String>();
 		Vector<String> filterOptions = new Vector<String>();
-		if (ClassifierName.equals("weka.classifiers.trees.J48")) 
-			classifierOptions.add("-U");
+
+		 if (ClassifierName.equals("C4.5")) {
+		 WekaClassifierName = "weka.classifiers.trees.J48";
+		 classifierOptions.add("-U");
+		 } else if (ClassifierName.equals("MultiLayerPerceptron")) {
+		 WekaClassifierName =
+		 "weka.classifiers.functions.MultilayerPerceptron";
+		 } else if (ClassifierName.equals("IBk")) {
+		 WekaClassifierName = "weka.classifiers.lazy.IBk";
+		 } else if (ClassifierName.equals("NaiveBayes")) {
+		 WekaClassifierName = "weka.classifiers.bayes.NaiveBayes";
+		 } else
+		 throw new Exception("Unknown classifier type!");
 
 		// Build specific classifier
-		PackClassifier Classifier;
-		Classifier = new PackClassifier();
-		Classifier.setClassifier(ClassifierName, (String[]) classifierOptions.toArray(new String[classifierOptions.size()]));
+		PackClassifier Classifier = new PackClassifier();
+		Classifier.setClassifier(ClassifierName, WekaClassifierName, (String[]) classifierOptions.toArray(new String[classifierOptions.size()]));
 		Classifier.setFilter(filter, (String[]) filterOptions.toArray(new String[filterOptions.size()]));
 		Classifier.setTraining(Dataset);
-		Classifier.execute();
+		if (TestType == 0)
+		{
+			Classifier.CrossValidateExecute(TestParam);
+		}
+		else
+			Classifier.SplitValidateExecute(TestParam);
 
 		return Classifier;
 	}
 
-	/*
-	 * outputs some evaluation data about the classifier
-	 */
+	public String ClassifyInstance(String filename) throws Exception
+	{
+		String FileName = filename + ".arff";
+		Instances test = DataSource.read(FileName);
+		test.setClassIndex(test.numAttributes() - 1);
+		if (!m_Training.equalHeaders(test)) throw new IllegalArgumentException("Train data and test data are not compatible!");
+
+		double pred = m_Classifier.classifyInstance(test.instance(0));
+		String ClassType = test.classAttribute().value((int) pred);
+
+		return ClassType;
+	}
+
 	public String GetEvaluation()
 	{
 		StringBuffer result;
 
 		result = new StringBuffer();
-		result.append("Classifier...: " + m_Classifier.getClass().getName() + " " + Utils.joinOptions(m_Classifier.getOptions()) + "\n");
-		if (m_Filter instanceof OptionHandler)
-			result.append("Filter.......: " + m_Filter.getClass().getName() + " "
-					+ Utils.joinOptions(((OptionHandler) m_Filter).getOptions()) + "\n");
-		else
-			result.append("Filter.......: " + m_Filter.getClass().getName() + "\n");
+		result.append("Classifier...: " + m_ClassifierName + " " + Utils.joinOptions(m_Classifier.getOptions()) + "\n");
+		if (m_Filter != null)
+		{
+			if (m_Filter instanceof OptionHandler)
+				result.append("Filter.......: " + m_Filter.getClass().getName() + " "
+						+ Utils.joinOptions(((OptionHandler) m_Filter).getOptions()) + "\n");
+			else
+				result.append("Filter.......: " + m_Filter.getClass().getName() + "\n");
+		}
 		result.append("Training file: " + m_TrainingFile + "\n");
 		result.append("\n");
 
@@ -102,49 +139,21 @@ public class PackClassifier
 		return result.toString();
 	}
 
-	public String ClassifyInstance(String filename) throws Exception
+	// ////////////////////////////////////////////////////////////////////////
+	private void setClassifier(String OfficialName, String WekaName, String[] options) throws Exception
 	{
-		String FileName = filename + ".arff";
-		Instances test = DataSource.read(FileName);
-		test.setClassIndex(test.numAttributes() - 1);
-		if (!m_Training.equalHeaders(test)) throw new IllegalArgumentException("Train data and test data are not compatible!");
-
-		double pred = m_Classifier.classifyInstance(test.instance(0));
-		String ClassType = test.classAttribute().value((int) pred);
-
-		return ClassType;
+		m_ClassifierName = OfficialName;
+		m_Classifier = Classifier.forName(WekaName, options);
 	}
 
-	/**
-	 * sets the classifier to use
-	 * 
-	 * @param name
-	 *            the classname of the classifier
-	 * @param options
-	 *            the options for the classifier
-	 */
-	private void setClassifier(String name, String[] options) throws Exception
-	{
-		m_Classifier = Classifier.forName(name, options);
-	}
-
-	/**
-	 * sets the filter to use
-	 * 
-	 * @param name
-	 *            the classname of the filter
-	 * @param options
-	 *            the options for the filter
-	 */
 	private void setFilter(String name, String[] options) throws Exception
 	{
-		m_Filter = (Filter) Class.forName(name).newInstance();
-		if (m_Filter instanceof OptionHandler) ((OptionHandler) m_Filter).setOptions(options);
+		/*
+		 * m_Filter = (Filter) Class.forName(name).newInstance(); 
+		 * if (m_Filter instanceof OptionHandler) ((OptionHandler) m_Filter).setOptions(options);
+		 */
 	}
 
-	/**
-	 * sets the file to use for training
-	 */
 	private void setTraining(String name) throws Exception
 	{
 		m_TrainingFile = name;
@@ -152,31 +161,127 @@ public class PackClassifier
 		m_Training.setClassIndex(m_Training.numAttributes() - 1);
 	}
 
-	/**
-	 * runs 10fold CV over the training file
-	 */
-	private void execute() throws Exception
+	private void CrossValidateExecute(int FoldNum) throws Exception
 	{
-		// run filter
-		m_Filter.setInputFormat(m_Training);
-		Instances filtered = Filter.useFilter(m_Training, m_Filter);
+		m_Classifier.buildClassifier(m_Training);
 
-		// train classifier on complete file for tree
-		m_Classifier.buildClassifier(filtered);
-
-		// 10fold CV with seed=1
-		m_Evaluation = new Evaluation(filtered);
-		m_Evaluation.crossValidateModel(m_Classifier, filtered, 10, m_Training.getRandomNumberGenerator(1));
+		m_Evaluation = new Evaluation(m_Training);
+		m_Evaluation.crossValidateModel(m_Classifier, m_Training, FoldNum, m_Training.getRandomNumberGenerator(1));
 	}
 
-	/**
-	 * returns the usage of the class
-	 */
-	private static String usage()
+	private void SplitValidateExecute(int SplitPercentage) throws Exception
 	{
-		return "\nusage:\n  " + PackClassifier.class.getName() + "  CLASSIFIER <classname> [options] \n"
-				+ "  FILTER <classname> [options]\n" + "  DATASET <trainingfile>\n\n" + "e.g., \n"
-				+ "  java -classpath \".:weka.jar\" WekaDemo \n" + "    CLASSIFIER weka.classifiers.trees.J48 -U \n"
-				+ "    FILTER weka.filters.unsupervised.instance.Randomize \n" + "    DATASET iris.arff\n";
+		int TrainSize = (int) Math.round(m_Training.numInstances() * SplitPercentage / 100);
+		int TestSize = m_Training.numInstances() - TrainSize;
+		//Instances TrainInstance = new Instances(m_Training, 0, TrainSize);
+		Instances TestInstance = new Instances(m_Training, TrainSize, TestSize);
+
+		m_Classifier.buildClassifier(m_Training);
+
+		m_Evaluation = new Evaluation(m_Training);
+		m_Evaluation.evaluateModel(m_Classifier, TestInstance);
+	}
+	
+	public Instances getTraining()
+	{
+		return m_Training;
+	}
+	
+	public Classifier getClassifier()
+	{
+		return m_Classifier;
+	}
+	
+	public int getClassSize() throws Exception
+	{
+		return m_Training.numClasses();
+	}
+	
+	public String getModal() throws Exception
+	{
+		return m_Classifier.toString();
+	}
+
+	public String getMatrix() throws Exception
+	{
+		return m_Evaluation.toMatrixString();
+	}
+
+	public String getClassName(int ClassIndex)
+	{
+		return m_Training.classAttribute().value(ClassIndex);
+	}
+
+	public int getInstanceNum()
+	{
+		return (int) m_Evaluation.numInstances();
+	}
+
+	public int getCorrectNum()
+	{
+		return (int) m_Evaluation.correct();
+	}
+
+	public int getIncorrectNum()
+	{
+		return (int) m_Evaluation.incorrect();
+	}
+
+	public double getErrorRate()
+	{
+		return m_Evaluation.errorRate();
+	}
+	
+	/** 得到正确率（6位小数） */
+	public String getCorrectRate()
+	{
+		BigDecimal a = new BigDecimal(1 - getErrorRate());   
+		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
+	}
+
+	public int getTruePositiveNum(int ClassIndex)
+	{
+		return (int) m_Evaluation.numTruePositives(ClassIndex);
+	}
+
+	public int getFalsePositiveNum(int ClassIndex)
+	{
+		return (int) m_Evaluation.numFalsePositives(ClassIndex);
+	}
+
+	public int getTrueNegativeNum(int ClassIndex)
+	{
+		return (int) m_Evaluation.numTrueNegatives(ClassIndex);
+	}
+
+	public int getFalseNegativeNum(int ClassIndex)
+	{
+		return (int) m_Evaluation.numFalseNegatives(ClassIndex);
+	}
+
+	public double getTruePositiveRate(int ClassIndex)
+	{
+		return m_Evaluation.truePositiveRate(ClassIndex);
+	}
+
+	public double getFalsePositiveRate(int ClassIndex)
+	{
+		return m_Evaluation.falsePositiveRate(ClassIndex);
+	}
+
+	public double getTrueNegativeRate(int ClassIndex)
+	{
+		return m_Evaluation.trueNegativeRate(ClassIndex);
+	}
+
+	public double getFalseNegativeRate(int ClassIndex)
+	{
+		return m_Evaluation.falseNegativeRate(ClassIndex);
+	}
+
+	public String getPrecision(int ClassIndex)
+	{
+		BigDecimal a = new BigDecimal(m_Evaluation.precision(ClassIndex));   
+		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
 	}
 }

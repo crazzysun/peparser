@@ -156,7 +156,7 @@ TableList.prototype.showData = function (data)
 
 	dwr.util.removeAllRows(this.tbody);
 	
-	this.offset = data.offset;
+//	this.offset = data.offset;
 	this.total = data.total;
 	dwr.util.addRows(this.tbody, data.data, this.columns, {rowCreator: this.rowCreator});
 	

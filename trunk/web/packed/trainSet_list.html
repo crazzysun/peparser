@@ -1,141 +1,69 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>创建加壳判断训练集</title>
+<title>查看所有训练集</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
 <script src="../script/common.js"></script>
 <script type="text/javascript">
 $import("rpc.js");
+$import("table_list.js");
 
-var status = null;
-var completed = false;
-
-/** 1.提交，检查输入 */
-function onSubmit()
+function showTrainSet()
 {
-	completed = false;
-	status = null;
-
-	if ($("dataset").value == "")
-	{
-		alert("请选择训练样本文件！");
-		return;
-	}
-
-	var callback = function()
-	{
-		$("fileForm").submit();
-		check();				//检查文件上传进度，完成后开始PE文件分析
-	}
-	$("progress").style.display = "";
-
-	var operation = new Operation("文件.准备上载文件");
-	operation.path = "";
-	operation.execute(callback);
+	var operations = 
+	[
+		{icon: "../images/icon_view.gif", text: "查看详情", onclick: onView}
+	];
+	var titles = 
+	[
+		{text:"名称", width:"10%"},
+		{text:"分类器", width:"10%"},
+		{text:"训练选项", width:"10%"},
+		{text:"选项值", width:"10%"},
+		{text:"创建时间", width:"10%"},
+		{text:"操作", width:"20%"}		
+	];
+	var columns =  
+	[
+		function(data) { return data.name; },
+		function(data) { return data.classifier; },
+		function(data) 
+		{ 
+			return data.testOptions == 0 ? "Cross-Validation" : "Percentage split"; 
+		},
+		function(data) { return data.optionValue; },
+		function(data) { return data.createTime; },
+		function(data) { return TableList.links(operations, data); }
+	];   
+	var operation = new Operation("PE分析.列所有训练集");
+	var tableList = new TableList(operation, titles, columns);
+	tableList.create($("container"));
+	tableList.refresh();
 }
 
-/** 2.检查上载进度 */
-function check()
+function onView(data)
 {
-	var callback = function (result)
-	{
-		if (completed) return;
-
-		status = result.status;
-		if (status != null)
-		{
-			if (status.aborted)
-			{
-				completed = true;
-				alert("上载被取消: " + status.reason);
-				status = null;
-				return;
-			}
-			if (status.completed)
-			{
-				completed = true;
-				$("progress").style.display = "none";
-				status = null;
-				createTrainSet();
-				return;
-			}
-		}
-		setTimeout(check, 1000);
-	}
-	
-	var operation = new Operation("文件.获取上载进度");
-	operation.execute(callback);
+	window.open("../packedResult/" + data.name + ".html", "_blank");
 }
 
-/** 3.创建训练集 */
-function createTrainSet()
+function onLoad()
 {
-	var callback = function(result)
-	{
-		showTrainResult(result.result);
-	};
-	
-	var operation = new Operation("PE分析.创建加壳分析训练集");
-	operation.classifier = $("classifier").value;
-	operation.dataset = $("dataset").value;
-	operation.execute(callback);
+	showTrainSet();
 }
 
-/** 4.显示训练集结果 */
-function showTrainResult(result)
-{
-	$("container").innerHTML = result;
-}
 </script>
 
 </head>
-<body>
-<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 创建加壳判断训练集 </div>
+<body onload="onLoad()">
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 查看所有训练集 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div id="title" class="title">创建训练集</div>
-	<div class="filter">
-		<div class="filterTitle">
-				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
-					<tr class='tablecell'>
-						<td class='tit' width="20%">选择所需的分类器</td>
-						<td class='inp'>
-							<select id="classifier" name="classifier" class="form_input_l">
-								<option value="0">J48</option>
-								<option value="1">MultilayerPerceptron</option>
-								<option value="2">NaiveBayes</option>
-								<option value="3">IBk</option>
-							</select>
-						</td>
-					</tr>
-					<tr class='tablecell'>
-						<td class='tit'>选择训练样本文件路径</td>
-						<td class='inp'>
-							<!-- 表单提交，上传文件 -->
-							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
-								<input id="dataset" name="dataset" type="text" size="55" value="D:/work/peparser/data/trainSet/PEC_trainingset.arff"/>
-							</form> 
-							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
-						</td>
-					</tr>
-				</table>
-		</div>
-		<div class="filterInput" style="padding:16px 0px 0px 25px;">
-			<input type="button" class="pe_result" onClick="createTrainSet()"/>
-			&nbsp;&nbsp;
-			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
-		</div>
-		<div class="clear"></div>
-		<div class="title" id="result">
-			恭喜你，训练集创建完成，结果已保存。具体生成树结果如下！
-			现在你可以在<a href="judge.html">"判断PE文件是否加壳"</a>菜单选择文件进行是否加壳判断
-			或<a href="trainSet_list.html">"查看所有训练集"</a>：
-		</div>
+	<div class="title" id="result">
+		所有训练集如下		
 	</div>
-	
-	<!-- 结果展示div，默认隐藏的 -->
-	<div id="container" class="tips"></div>
+	<!-- 结果展示div -->
+	<div id="container"></div>
 	
 </div>
 </div>

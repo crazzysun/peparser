@@ -1,95 +1,146 @@
-package com.pe.operation.PEåˆ†æ;
+package com.pe.operation.PE·ÖÎö;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.pe.UserException;
+import com.pe.dao.DaoManager;
+import com.pe.dao.packed.PackedTrainSetDao;
+import com.pe.entity.packed.PackedResult;
+import com.pe.entity.packed.PackedResultShow;
+import com.pe.entity.packed.PackedTrainSet;
 import com.pe.operation.Operation;
-import com.pe.operation.æ–‡ä»¶.AbstractFileOperation;
+import com.pe.operation.ÎÄ¼ş.AbstractFileOperation;
+import com.pe.packed.CreatePackedHTML;
 import com.pe.packed.PackClassifier;
+import com.pe.util.Serialize;
 import com.pe.util.SystemConfigure;
+import com.pe.util.Util;
 
-public class åˆ›å»ºåŠ å£³åˆ†æè®­ç»ƒé›† extends AbstractFileOperation implements Operation
+public class ´´½¨¼Ó¿Ç·ÖÎöÑµÁ·¼¯ extends AbstractFileOperation implements Operation
 {
 	private String classifierName;
 	private int classifier;
 	private String dataset;
-	private String result;
+	private int testOptions;
+	private int optionValue;
+	private PackedTrainSet trainSet;
+	private String trainSetName;
 	
 	public void execute() throws Exception
 	{
+		/** ´´½¨ÑµÁ·¼¯ */
 		validateClassifierName();
 		validateTrainFile();
+		PackClassifier cls = PackClassifier.BuildClassifier(classifierName, dataset, testOptions, optionValue);
 		
-		PackClassifier cls = PackClassifier.BuildClassifier(classifierName, dataset);
-		result = cls.GetEvaluation();
-		System.out.println(result);
-		result = replace(result, "\n", "<br/>");
-		result = replace(result, " ", "&nbsp;");
+		/** ±£´æÑµÁ·¼¯µÄÏà¹ØÊôĞÔ */
+		trainSet = new PackedTrainSet();
+		trainSet.setName(trainSetName);
+		trainSet.setClassifier(classifierName);
+		trainSet.setTestOptions(testOptions);
+		trainSet.setOptionValue(optionValue);
+		
+		PackedResult rst = new PackedResult();
+		rst.setClassifier(cls.getClassifier());
+		rst.setInstance(cls.getTraining());
+		
+		trainSet.setResult(Serialize.serializeData(rst));
+//		try
+//		{
+//			trainSet.setResult(Serialize.serializeData(cls));
+//		}
+//		catch (NotSerializableException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		trainSet.setCreateTime(Util.showNowTime());
+		
+		trainSet.setInstanceNum(cls.getInstanceNum());
+		trainSet.setCorrectNum(cls.getCorrectNum());
+		trainSet.setIncorrectNum(cls.getIncorrectNum());
+		trainSet.setCorrectRate(cls.getCorrectRate());
+		
+		List<PackedResultShow> resultShow = new ArrayList<PackedResultShow>();
+		
+		for (int i = 0; i < cls.getClassSize(); i++)
+		{
+			PackedResultShow result = new PackedResultShow();
+			result.setClassName(cls.getClassName(i));
+			result.setTotalNum(cls.getTruePositiveNum(i) + cls.getFalsePositiveNum(i));
+			result.setTrueNum(cls.getTruePositiveNum(i));
+			result.setFalseNum(cls.getFalsePositiveNum(i));
+			result.setPrecision(cls.getPrecision(i));
+			resultShow.add(result);
+		}
+		
+		trainSet.setResultShow(resultShow);
+		trainSet.setTree(Util.replace2HTML(cls.getModal()));
+		
+		/** ½á¹û¼ÓÈëÊı¾İ¿â */
+		PackedTrainSetDao trainSetDao = DaoManager.getInstance().getDao(PackedTrainSetDao.class);
+		trainSetDao.AddTrainSet(trainSet);
+		
+		/** ´´½¨½á¹ûÎÄ¼ş */
+		CreatePackedHTML HTML = new CreatePackedHTML(trainSet);
+		HTML.create();
 	}
 
 	private void validateTrainFile() throws Exception
 	{
 		if (dataset == null || dataset.equals(""))
-			dataset = SystemConfigure.get("TrainSetHome");
+		{
+			dataset = SystemConfigure.get("DefaultTrainSetPath");
+			trainSetName = "PEC_trainingset";
+		}
 		else
 		{
+			/** Ö»È¡ÎÄ¼şÃû£¬½â¾öieµÍ°æ±¾µÄ°²È«ÎÊÌâ */
+			dataset = dataset.replace('\\', '/');
+			int k = dataset.lastIndexOf("/");
+			if (k > 0) dataset  = dataset.substring(k + 1);
+			/** È¥µô.arff */
+			trainSetName = dataset.substring(0, dataset.length() - 5);
+			
 			File file = new File(getWorkFile(""), dataset);
 			if (!file.isFile())
-				throw new UserException("è®­ç»ƒé›†æ–‡ä»¶é€‰å–é”™è¯¯ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼");
-			dataset = file.getAbsolutePath();		}
+				throw new UserException("ÑµÁ·¼¯ÎÄ¼şÑ¡È¡´íÎó£¬ÇëÖØĞÂÑ¡Ôñ£¡");
+			dataset = file.getAbsolutePath();		
+		}
 	}
 
-	/** æ ¹æ®å‰å°çš„selectæ§ä»¶å€¼ï¼Œè·å–åˆ†ç±»å™¨çš„å€¼ */
+	/** ¸ù¾İÇ°Ì¨µÄselect¿Ø¼şÖµ£¬»ñÈ¡·ÖÀàÆ÷µÄÖµ */
 	private void validateClassifierName() throws UserException
 	{
 		switch(classifier)
 		{
-		case 0:
-			classifierName = "weka.classifiers.trees.J48";
-			break;
 		case 1:
-			classifierName = "weka.classifiers.functions.MultilayerPerceptron";
+			classifierName = "C4.5";
 			break;
 		case 2:
-			classifierName = "weka.classifiers.bayes.NaiveBayes";
+			classifierName = "MultilayerPerceptron";
 			break;
 		case 3:
-			classifierName = "weka.classifiers.lazy.IBk";
+			classifierName = "NaiveBayes";
+			break;
+		case 4:
+			classifierName = "IBk";
 			break;
 		default:
-			throw new UserException("classifieré€‰æ‹©é”™è¯¯ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼");
+			throw new UserException("classifierÑ¡Ôñ´íÎó£¬ÇëÖØĞÂÑ¡Ôñ£¡");
 		}
 	}
-	
-	/** æ›¿æ¢å­—æ®µs1ä¸ºs2ï¼Œ
-	 *  è¿™é‡Œç”¨äºæ›¿æ¢ç»“æœå­—ç¬¦ä¸²çš„"\n"ä¸º"<br/>" 
-	 *  ä»¥åŠ" "ä¸º"&nbsp;" */
-	private String replace(String s, String s1, String s2)
-	{
-		if (s == null) return null;
-		StringBuffer stringbuffer = new StringBuffer();
-		int i = s.length();
-		int j = s1.length();
-		int k;
-		int l;
-		for (k = 0; (l = s.indexOf(s1, k)) >= 0; k = l + j)
-		{
-			stringbuffer.append(s.substring(k, l));
-			stringbuffer.append(s2);
-		}
 
-		if (k < i) stringbuffer.append(s.substring(k));
-		return stringbuffer.toString();
+	public PackedTrainSet getTrainSet()
+	{
+		return trainSet;
 	}
 
-	public String getResult()
+	public void setTrainSet(PackedTrainSet trainSet)
 	{
-		return result;
-	}
-
-	public void setResult(String result)
-	{
-		this.result = result;
+		this.trainSet = trainSet;
 	}
 
 	public String getClassifierName()
@@ -120,5 +171,35 @@ public class åˆ›å»ºåŠ å£³åˆ†æè®­ç»ƒé›† extends AbstractFileOperation implement
 	public void setDataset(String dataset)
 	{
 		this.dataset = dataset;
+	}
+
+	public int getTestOptions()
+	{
+		return testOptions;
+	}
+
+	public void setTestOptions(int testOptions)
+	{
+		this.testOptions = testOptions;
+	}
+
+	public int getOptionValue()
+	{
+		return optionValue;
+	}
+
+	public void setOptionValue(int optionValue)
+	{
+		this.optionValue = optionValue;
+	}
+
+	public String getTrainSetName()
+	{
+		return trainSetName;
+	}
+
+	public void setTrainSetName(String trainSetName)
+	{
+		this.trainSetName = trainSetName;
 	}
 }

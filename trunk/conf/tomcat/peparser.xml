@@ -6,6 +6,20 @@
 		<Store className="org.apache.catalina.session.FileStore"/>
 	</Manager>
 	
+	<Resource 
+			name="jdbc/tcc" 
+			auth="Container"
+			type="javax.sql.DataSource"
+			driverClassName="org.postgresql.Driver"
+			url="jdbc:postgresql://localhost/peparser"
+			username="peuser" 
+			password="123"
+			maxActive="100"
+			maxIdle="30"
+			maxWait="10000"
+			validationQuery="select now()"
+	/>
+	
 	<Environment 
 			name="configure" 
 			type="java.lang.String"

@@ -1,15 +1,15 @@
-package com.pe.operation.PEåˆ†æž;
+package com.pe.operation.PE·ÖÎö;
 
 import java.io.File;
 
 import com.pe.UserException;
 import com.pe.entity.parser.PEFile;
 import com.pe.operation.Operation;
-import com.pe.operation.æ–‡ä»¶.AbstractFileOperation;
+import com.pe.operation.ÎÄ¼þ.AbstractFileOperation;
 import com.pe.parser.CreateHTML;
 import com.pe.parser.LoadPEInfo;
 
-public class åˆ†æžå•ä¸ªæ–‡ä»¶ extends AbstractFileOperation implements Operation
+public class ·ÖÎöµ¥¸öÎÄ¼þ extends AbstractFileOperation implements Operation
 {
 	private String fileName;
 	private PEFile peFile;
@@ -18,18 +18,28 @@ public class åˆ†æžå•ä¸ªæ–‡ä»¶ extends AbstractFileOperation implements Operati
 	{
 		File path = getWorkFile("");
 		
-		/** å¦‚æžœæ–‡ä»¶åä¸ºç©ºæˆ–è€…nullï¼Œåˆ™æŠ›å‡ºå¼‚å¸¸ */
-		if (fileName == null || fileName.equalsIgnoreCase("")) throw new UserException("æ–‡ä»¶å·²ä¸Šä¼ ï¼Œä½†å‰å°é¡µé¢èŽ·å–çš„æ–‡ä»¶åä¸ºç©ºï¼");
+		validateFileName();
 		
-		/** è£…è½½PEæ–‡ä»¶åˆ†æžç»“æžœ */
+		/** Èç¹ûÎÄ¼þÃûÎª¿Õ»òÕßnull£¬ÔòÅ×³öÒì³£ */
+		if (fileName == null || fileName.equalsIgnoreCase("")) throw new UserException("ÎÄ¼þÒÑÉÏ´«£¬µ«Ç°Ì¨Ò³Ãæ»ñÈ¡µÄÎÄ¼þÃûÎª¿Õ£¡");
+		
+		/** ×°ÔØPEÎÄ¼þ·ÖÎö½á¹û */
 		File file = new File(path, fileName);
 		LoadPEInfo loadPEInfo = new LoadPEInfo(file);
 		peFile = loadPEInfo.Analyze();
-		if (peFile == null) throw new UserException("æ–‡ä»¶" + fileName + "ä¸æ˜¯æœ‰æ•ˆçš„PEæ–‡ä»¶ï¼");
+		if (peFile == null) throw new UserException("ÎÄ¼þ" + fileName + "²»ÊÇÓÐÐ§µÄPEÎÄ¼þ£¡");
 		
-		/** ç”Ÿæˆé¡µé¢æ–‡ä»¶ */
+		/** Éú³ÉÒ³ÃæÎÄ¼þ */
 		CreateHTML html = new CreateHTML(peFile);
 		html.create();
+	}
+
+	/** Ö»È¡ÎÄ¼þÃû£¬½â¾öieµÍ°æ±¾µÄ°²È«ÎÊÌâ */
+	private void validateFileName()
+	{
+		fileName = fileName.replace('\\', '/');
+		int k = fileName.lastIndexOf("/");
+		if (k > 0) fileName  = fileName.substring(k + 1);
 	}
 
 	public PEFile getPeFile()

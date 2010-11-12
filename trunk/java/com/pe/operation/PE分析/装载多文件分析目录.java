@@ -1,60 +1,58 @@
-package com.pe.operation.PEåˆ†æ;
+package com.pe.operation.PE·ÖÎö;
 
 import java.io.File;
 import java.util.List;
 
 import com.pe.UserException;
 import com.pe.operation.Operation;
-import com.pe.operation.æ–‡ä»¶.AbstractFileOperation;
+import com.pe.operation.ÎÄ¼ş.AbstractFileOperation;
 import com.pe.parser.ListDirFiles;
 import com.pe.util.Zip;
 
 /**
- * åˆ†æå¤šä¸ªæ–‡ä»¶æ—¶ï¼Œé¦–å…ˆåŠ è½½è¿™ä¸ªç›®å½•ä¸‹æ‰€æœ‰çš„æ–‡ä»¶åï¼Œä¼ ç»™å‰å°
- * ä»¥å®ç°å¤šæ–‡ä»¶åˆ†æä¸­ï¼Œåˆ†æä¸€æ¡ï¼Œrpcè¿”å›ä¸€æ¡
+ * ·ÖÎö¶à¸öÎÄ¼şÊ±£¬Ê×ÏÈ¼ÓÔØÕâ¸öÄ¿Â¼ÏÂËùÓĞµÄÎÄ¼şÃû£¬´«¸øÇ°Ì¨
+ * ÒÔÊµÏÖ¶àÎÄ¼ş·ÖÎöÖĞ£¬·ÖÎöÒ»Ìõ£¬rpc·µ»ØÒ»Ìõ
  * @author FangZhiyang
  *
  */
-public class è£…è½½å¤šæ–‡ä»¶åˆ†æç›®å½•  extends AbstractFileOperation implements Operation
+public class ×°ÔØ¶àÎÄ¼ş·ÖÎöÄ¿Â¼  extends AbstractFileOperation implements Operation
 {
-	private String folderPath;				//è¦åˆ†æçš„zipæ–‡ä»¶å
-	private List<String> suffix;			//æ–‡ä»¶ç±»å‹
-	private boolean isDepth;				//æ˜¯å¦éå†å­ç›®å½•
+	private String folderPath;				//Òª·ÖÎöµÄzipÎÄ¼şÃû
+	private List<String> suffix;			//ÎÄ¼şÀàĞÍ
+	private boolean isDepth;				//ÊÇ·ñ±éÀú×ÓÄ¿Â¼
 	
-	private List<String> fileList;			//éå†è¿‡åçš„æ–‡ä»¶åæ•°ç»„
+	private List<String> fileList;			//±éÀú¹ıºóµÄÎÄ¼şÃûÊı×é
 	
 	public void execute() throws Exception
 	{
 		File folder = unzipFolder();
 		
-		ListDirFiles.initalize();		
-		
-		/** åˆ—å‡ºæŒ‡å®šç›®å½•ä¸­æ‰€æœ‰æ–‡ä»¶ */
+		/** ÁĞ³öÖ¸¶¨Ä¿Â¼ÖĞËùÓĞÎÄ¼ş */
 		for (File f : folder.listFiles())
 		{
 			fileList = ListDirFiles.listFile(f, suffix, isDepth);
 		}
 		if (fileList.isEmpty())
 		{
-			throw new UserException("æŒ‡å®šç›®å½•ä¸­æ²¡æœ‰ç¬¦åˆè¦æ±‚çš„æ–‡ä»¶!");
+			throw new UserException("Ö¸¶¨Ä¿Â¼ÖĞÃ»ÓĞ·ûºÏÒªÇóµÄÎÄ¼ş!");
 		}
 	}
 
 	private File unzipFolder() throws Exception
 	{
-		/** å–åˆ°æ–‡ä»¶å */
+		/** È¡µ½ÎÄ¼şÃû */
 		if (!folderPath.endsWith(".zip"))
-			throw new Exception("æ‚¨ä¸Šä¼ çš„æ–‡ä»¶æ ¼å¼ä¸æ­£ç¡®ï¼Œå¿…é¡»ä¸ºzipæ ¼å¼ï¼");
+			throw new Exception("ÄúÉÏ´«µÄÎÄ¼ş¸ñÊ½²»ÕıÈ·£¬±ØĞëÎªzip¸ñÊ½£¡");
 		
 		folderPath = folderPath.replace('\\', '/');
 		int k = folderPath.lastIndexOf("/");
 		if (k > 0) folderPath  = folderPath.substring(k + 1);
 		
-		/** å¾—åˆ°è§£å‹ç›®å½•åï¼Œå»æ‰â€œ.zipâ€ */
+		/** µÃµ½½âÑ¹Ä¿Â¼Ãû£¬È¥µô¡°.zip¡± */
 		String folderName = folderPath.substring(0, folderPath.length() - 4);
 		String parentPath = getWorkFile("").getAbsolutePath();
 		
-		/** åœ¨å½“å‰ç›®å½•è§£å‹æ–‡ä»¶  */
+		/** ÔÚµ±Ç°Ä¿Â¼½âÑ¹ÎÄ¼ş  */
 		Zip.unzip(parentPath + File.separator + folderPath, parentPath + File.separator + folderName);
 		
 		File folder = new File(getWorkFile(""), folderName);

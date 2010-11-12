@@ -5,11 +5,14 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.pe.dao.DaoManager;
 import com.pe.operation.OperationManager;
+import com.pe.util.FileManager;
 import com.pe.util.SystemConfigure;
 
 public class Launcher extends HttpServlet implements ServletContextListener
@@ -23,49 +26,49 @@ public class Launcher extends HttpServlet implements ServletContextListener
 
 		try
 		{
-			log.info("å¯åŠ¨PEåˆ†æç³»ç»Ÿ...");
+			log.info("Æô¶¯PE·ÖÎöÏµÍ³...");
 
 			Context context = new javax.naming.InitialContext();
 			context = (Context) context.lookup("java:comp/env");
 
-			// è½½å…¥ç³»ç»Ÿé…ç½®
+			// ÔØÈëÏµÍ³ÅäÖÃ
 			try
 			{
 				SystemConfigure.load((String) context.lookup("configure")); 
 			}
 			catch (Exception e)
 			{
-				throw new Exception("è¯·æ£€æŸ¥tomcatç›®å½•ä¸‹çš„peparser.xmlæ–‡ä»¶", e);
+				throw new Exception("Çë¼ì²étomcatÄ¿Â¼ÏÂµÄpeparser.xmlÎÄ¼ş", e);
 			}
 			
-			// åˆå§‹åŒ–DAOç®¡ç†å™¨
-//			DaoManager.initialize((DataSource) context.lookup("jdbc/tcc"));
+			// ³õÊ¼»¯DAO¹ÜÀíÆ÷
+			DaoManager.initialize((DataSource) context.lookup("jdbc/tcc"));
 			
-			// æ–‡ä»¶ç®¡ç†å™¨
-//			FileManager.initialize();
+			// ÎÄ¼ş¹ÜÀíÆ÷
+			FileManager.initialize();
 
-			// æ“ä½œç®¡ç†å™¨
+			// ²Ù×÷¹ÜÀíÆ÷
 			OperationManager.initialize();
 
-			// æŠ¥è¡¨ç®¡ç†ç³»ç»Ÿ
+			// ±¨±í¹ÜÀíÏµÍ³
 //			ReportManager.initialize();
 						
-			log.info("å¯åŠ¨PEåˆ†æç³»ç»Ÿå®Œæ¯•ï¼");
+			log.info("Æô¶¯PE·ÖÎöÏµÍ³Íê±Ï£¡");
 		}
 		catch (Exception e)
 		{
-			log.fatal("å¯åŠ¨PEåˆ†æç³»ç»Ÿå¤±è´¥ï¼", e);
+			log.fatal("Æô¶¯PE·ÖÎöÏµÍ³Ê§°Ü£¡", e);
 
-			throw new ServletException("å¯åŠ¨æäº¤ç³»ç»Ÿå¤±è´¥: " + e.getMessage(), e);
+			throw new ServletException("Æô¶¯Ìá½»ÏµÍ³Ê§°Ü: " + e.getMessage(), e);
 		}
 	}
 
 	@Override
 	public void destroy()
 	{
-		log.info("å…³é—­PEåˆ†æç³»ç»Ÿ...");
+		log.info("¹Ø±ÕPE·ÖÎöÏµÍ³...");
 		
-		log.info("å…³é—­PEåˆ†æç³»ç»Ÿå®Œæ¯•ï¼");
+		log.info("¹Ø±ÕPE·ÖÎöÏµÍ³Íê±Ï£¡");
 
 		super.destroy();
 	}
