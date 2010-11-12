@@ -24,7 +24,7 @@ class DateConverter extends Converter
 		}
 		catch (ParseException e)
 		{
-			throw new RuntimeException("ä¸èƒ½è½¬æ¢ " + s + " ä¸ºæ—¥æœŸç±»å‹");
+			throw new RuntimeException("²»ÄÜ×ª»» " + s + " ÎªÈÕÆÚÀàĞÍ");
 		}
 	}
 }

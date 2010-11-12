@@ -4,7 +4,7 @@ import java.beans.BeanInfo;
 import java.lang.reflect.Method;
 
 /**
- * Beançš„å±æ€§ä¿¡æ¯
+ * BeanµÄÊôĞÔĞÅÏ¢
  */
 class FieldInfo
 {
