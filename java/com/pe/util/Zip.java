@@ -20,7 +20,7 @@ public class Zip
 			File f = new File(zipFileName);
 			if ((!f.exists()) && (f.length() <= 0)) 
 			{ 
-				throw new Exception("è¦è§£åŽ‹çš„æ–‡ä»¶ä¸å­˜åœ¨!"); 
+				throw new Exception("Òª½âÑ¹µÄÎÄ¼þ²»´æÔÚ!"); 
 			}
 			
 			ZipFile zipFile = new ZipFile(zipFileName);
@@ -41,13 +41,13 @@ public class Zip
 				}
 				else
 				{
-					// è¯»å†™æ–‡ä»¶
+					// ¶ÁÐ´ÎÄ¼þ
 					InputStream is = zipFile.getInputStream(zipEnt);
 					BufferedInputStream bis = new BufferedInputStream(is);
 					gbkPath = zipEnt.getName();
 					strtemp = strPath + File.separator + gbkPath;
 
-					// å»ºç›®å½•
+					// ½¨Ä¿Â¼
 					String strsubdir = gbkPath;
 					for (int i = 0; i < strsubdir.length(); i++)
 					{
