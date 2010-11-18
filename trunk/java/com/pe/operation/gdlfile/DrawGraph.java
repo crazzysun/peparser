@@ -6,11 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,9 +38,11 @@ import edu.uci.ics.jung.visualization.renderers.Renderer;
 public class DrawGraph extends JApplet
 {
 	private static final long serialVersionUID = 1L;
-	public List<Node> nodeList = new ArrayList<Node>();
-	public List<Edge> edgeList = new ArrayList<Edge>();
-	public static String title = "";
+//	public List<Node> nodeList = new ArrayList<Node>();
+//	public List<Edge> edgeList = new ArrayList<Edge>();
+//	public static String title = "";
+	private List<Node> nodeList;
+	private List<Edge> edgeList;
 	private int index = 0;
 
 	private Graph<Number, Number> g = null;
@@ -56,57 +53,11 @@ public class DrawGraph extends JApplet
 	protected JButton switchLayout;
 
 	public static final int EDGE_LENGTH = 100;
-
-	public DrawGraph()
+	
+	public DrawGraph(List<Node> nodeList, List<Edge> edgeList, String title)
 	{
-		try
-		{
-			File file = new File("D:/work/peparser/data/pe/nodes.txt");
-			
-			FileInputStream fileinputstream = new FileInputStream(file);
-			InputStreamReader reader = new InputStreamReader(fileinputstream, "GB2312");
-			BufferedReader br = new BufferedReader(reader);
-
-			String str = "";
-			while ((str = br.readLine()) != null)
-			{
-				if (str.startsWith("title"))
-				{
-					title = str.substring(6, str.length());
-				}
-				if (str.startsWith("node"))
-				{
-					Node node = new Node();
-					/** 节点Id */
-					String nodeIndex = str.substring(5, str.length());
-
-					node.setNodeId(nodeIndex);
-					nodeList.add(node);
-				}
-				if (str.startsWith("edge"))
-				{
-					Edge edge = new Edge();
-					
-					String ch = "-";
-					/** sourceNode节点Id */
-					String sourceNode = str.substring(5, str.indexOf(ch));
-
-					/** tagetNode节点Id */
-					String targetNode = str.substring(str.indexOf(ch) + 1, str.length());
-					
-					edge.setSource(sourceNode);
-					edge.setTarget(targetNode);
-					edgeList.add(edge);
-				}
-			}
-			
-			br.close();
-		}
-		catch(Exception ioe)
-		{
-			System.out.println(ioe.getMessage());
-		}
-		
+		this.nodeList = nodeList;
+		this.edgeList = edgeList;
 	}
 
 	public void init()
@@ -120,8 +71,7 @@ public class DrawGraph extends JApplet
 
 			public void handleGraphEvent(GraphEvent<Number, Number> evt)
 			{
-				System.err.println("got " + evt);
-
+//				System.err.println("got " + evt);
 			}
 		});
 		this.g = og;
@@ -200,7 +150,7 @@ public class DrawGraph extends JApplet
 				{
 					Integer v = new Integer(node.getNodeId());
 					g.addVertex(v);
-					System.err.println("added node " + v);
+//					System.err.println("added node " + v);
 				}
 				
 				int edgeNum = 0;
