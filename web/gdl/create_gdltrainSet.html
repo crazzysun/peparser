@@ -1,0 +1,189 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>创建GDL文件判断训练集</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+$import("rpc.js");
+
+var status = null;
+var completed = false;
+
+/** 1.提交，检查输入 */
+function onSubmit()
+{
+	completed = false;
+	status = null;
+	
+	if ($("optionValue").value == "" || $("optionValue").value == null)
+	{
+		alert("请输入TestOptions的值！");
+		return;
+	}
+
+	if ($("dataset").value == "" || $("dataset").value == null)
+	{
+		if (confirm("训练样本文件未选择，确认使用系统默认训练样本？"))
+		{
+			createTrainSet();
+		}
+		return;
+	}
+	
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
+	}
+	$("progress").style.display = "";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = "";
+	operation.execute(callback);
+}
+
+/** 2.检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				status = null;
+				createTrainSet();
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
+	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
+}
+
+/** 3.创建训练集 */
+function createTrainSet()
+{
+	var callback = function(result)
+	{
+		showTrainResult(result.trainSetName);
+	};
+	
+	var operation = new Operation("gdlfile.创建GDL分析训练集");
+	operation.classifier = $("classifier").value;
+	operation.dataset = $("dataset").value;
+	operation.testOptions = $("testOptions").value;
+	operation.optionValue = $("optionValue").value;
+	operation.execute(callback);
+}
+
+/** 4.显示训练集结果 */
+function showTrainResult(trainSetName)
+{
+	$("result").style.display = "";
+	$("progress").style.display = "none";
+	$("container").style.display = "block";
+	$("resultFrame").src = "../gdlresult/" + trainSetName + ".html";
+}
+
+/** 修改选项值的单位 */
+function changeValueUnit()
+{
+	if ($("testOptions").value == 0)
+		$("valueUnit").innerHTML = "等份（请输入大于1的整数）";
+	else if ($("testOptions").value == 1)
+		$("valueUnit").innerHTML = "%（请输入大于0小于100的整数）";
+}
+
+function onLoad()
+{
+	$("result").style.display = "none";
+	$("container").style.display = "none";
+}
+</script>
+
+</head>
+<body onLoad="onLoad()">
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 创建GDL判断训练集 </div>
+<div id="wrap">
+<div id="containaer" >
+	<div id="title" class="title">创建GDL训练集</div>
+	<div class="filter">
+		<div class="filterTitle">
+				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+					<tr class='tablecell'>
+						<td class='tit' width="20%">选择所需的分类器</td>
+						<td class='inp'>
+							<select id="classifier" name="classifier" class="form_input_l">
+								<option value="1">C4.5</option>
+								<option value="2">MultilayerPerceptron</option>
+								<option value="3">NaiveBayes</option>
+								<option value="4">IBk</option>
+							</select>
+						</td>
+					</tr>
+					<tr class='tablecell'>
+						<td class='tit'>选择训练样本文件</td>
+						<td class='inp'>
+							<!-- 表单提交，上传文件 -->
+							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+								<input id="dataset" name="dataset" type="file" size="40"/>
+								<span style="color:red">&nbsp;&nbsp;</span>
+								
+							</form> 
+							<td class='tit' width="20%">注：为空即为使用.......系统默认训练样本</td>
+							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
+						</td>
+					</tr>
+					<tr class="tablecell">
+						<td class="tit">Test Options</td>
+						<td class="inp">
+							<select id="testOptions" class="form_input_l" onchange="changeValueUnit()">
+								<option value="0">Cross-Validation(将训练样本平分n等份)</option>
+								<option value="1">Percentage split(按训练样本百分比)</option>
+							</select>
+						</td>
+					</tr>
+					<tr class="tablecell">
+						<td class="tit">选项值</td>
+						<td class="inp">
+							<input id="optionValue" type="text" class="form_input_s"/><span id="valueUnit">等份（请输入大于1的整数）</span>
+						</td>
+					</tr>
+				</table>
+		</div>
+		<div class="filterInput" style="padding:42px 0px 0px 25px;">
+			<input type="button" class="pe_result" onClick="onSubmit()"/>
+			<span id="progress" style="display:none">创建中...<img src="../images/loading.gif" align="absmiddle"></span>
+		</div>
+		<div class="clear"></div>
+		<div class="title" id="result">
+			恭喜你训练集创建完成，结果已保存!具体生成树结果如下:
+			(现在你可以在<a href="judge.html">"判断GDL文件"</a>菜单选择文件进行判断或<a href="trainSet_list.html">"查看所有训练集"</a>)
+		</div>
+	</div>
+	
+	<!-- 结果展示div，默认隐藏的 -->
+	<div id="container" style="display:none;">
+		<iframe id="resultFrame" style="width:100%;height:80%"></iframe>
+	</div>
+	
+</div>
+</div>
+</body>
+</html>
