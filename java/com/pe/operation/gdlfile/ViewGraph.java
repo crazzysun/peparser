@@ -9,8 +9,8 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import com.pe.entity.parser.Edge;
-import com.pe.entity.parser.Node;
+import com.pe.entity.gdl.Edge;
+import com.pe.entity.gdl.Node;
 import com.pe.operation.Operation;
 import com.pe.operation.нд╪Ч.AbstractFileOperation;
 
