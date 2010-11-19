@@ -39,7 +39,7 @@ public class PEDllTest
 		// System.out.println("连接失败，正在发起第" + i + "连接");
 		// }�汾
 		PEAnalyzerDll PE = PEAnalyzerDll.INSTANCE;
-		// PE.LoadPEHeader("c:/test/createlang.exe");
+		PE.LoadPEHeader("c:/test/createlang.exe");
 //		String str = PE.say(new String("Hello World!"));
 //		System.out.println(getWebContext(str));
 		// String str = PE.GetRSCType(0);
@@ -49,7 +49,7 @@ public class PEDllTest
 		// String(str.getBytes("gb18030"),"gb18030"));
 		// System.out.println("2:" +new String(str.getBytes("utf-8"),"utf-8"));
 		// System.out.println("2:" +new
-		// String(str.getBytes("utf-8"),"gb18030"));
+		System.out.println(PE.GetRSCType(0));
 	}
 
 	private static String getWebContext(String aa)
