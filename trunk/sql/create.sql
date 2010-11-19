@@ -13,6 +13,7 @@ create function get_generated_id(text) returns int8 as $BODY$
 $BODY$ language sql;
 
 \i create/packed.sql
+\i create/gdl.sql
 
 reset session authorization;
 
