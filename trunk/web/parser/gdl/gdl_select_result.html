@@ -77,7 +77,8 @@ function check()
 			{
 				completed = true;
 				status = null;
-				peAnalyzer();
+//				peAnalyzer();
+//              gdlView()
 				return;
 			}
 		}
@@ -88,8 +89,8 @@ function check()
 	operation.execute(callback);
 }
 
-/** 分析上传后的gdl文件 */
-function peAnalyzer()
+/** 分析上传后的gdl文件*/
+function gdlView()
 {
 	var callback = function (o)
 	{
@@ -106,25 +107,27 @@ function peAnalyzer()
 	var operation = new Operation("gdlfile.文件关系分析");
 	operation.fileName = fileName;
 	operation.execute(callback);
-}
+	viewGraph();
+} 
 
 //查看图形
-/*function onView(data)
+function viewGraph()
 {
 	var callback = function (o)
 	{
 	}
+	
 	var operation = new Operation("gdlfile.ViewGraph");
 	operation.nodeList = nodeList;
 	operation.edgeList = edgeList;
 	operation.title = $("name").innerHTML;
 	operation.execute(callback);
-}*/
-
+}
+/*
 function drawGraph()
 {
 	window.location.href = "gdl_result.html";
-}
+}*/
 
 </script>
 
@@ -159,7 +162,7 @@ function drawGraph()
 			<td align ="center" width="25%"><span id="name"></span></td>
 			<td align ="center" width="25%"><span id="nodeCount"></span></td>
 			<td align ="center" width="25%"><span id="edgeCount"></span></td>
-			<td align ="center" width="25%"><input class="but_in" id="trainButton" type="button" value="查看图形结构" onclick="drawGraph();" /></td>
+			<td align ="center" width="25%"><input class="but_in" id="trainButton" type="button" value="查看图形结构" onclick="gdlView();" /></td>
 		</tr>
 	</table>
 </div>
