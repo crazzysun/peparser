@@ -4,25 +4,28 @@
     <title>{FileName}训练集分析报告</title>
 <style type="text/css">
 <!--
+<!-- 主背景 -->
 body {
 	margin:5px;
 	padding:0;
 	font-size:14px;
-	color:#FFF;
+	color:#000;
 	line-height:200%;
-	background-color: #000;
+	background-color: #EDF3F9;
 	font-family:"微软雅黑",verdana,"宋体";
 }
+<!-- 表头背景 -->
 .t
 {
-	background-color: #484D66;
+	background-color: #DAE7F8;
 	padding: 15px 10px 5px 10px;
 }
+<!-- 表头字体 -->
 .clr
 {
 	font-size: 16px;
 	font-weight: bolder;
-	color:#FFCC00;
+	color:#3D686B;
 }
 p {
 line-height:1.5em;
@@ -32,7 +35,7 @@ margin:1.2em 0;
 {
 padding: 0px 3px;
 font-size:12px;
-color:#999999;
+color:#000;
 }
 .Quickguide a {
 -moz-border-radius-topleft:3px;
@@ -49,19 +52,34 @@ background:#B4B4B4 none repeat scroll 0 0;
 color:#333333;
 text-decoration:none;
 }
-.tb
-{
-background-color:#222942;
+<!-- 表格字体 -->
+.tb {
+	border:1px solid #B2CCDD; 
+	border-collapse:collapse; 
+	width:100%; 
+	align:center; 
+	font-size: 12px;
 }
-.tb .head
-{
-color:#EED3A6;
-background-color:#3D686B;
+.tb td{
+	height:25px; 
+	line-height:25px; 
+	border:1px solid #B2CCDD; 
+	text-decoration:none; 
+	text-align:center; 
+	white-space:nowrap;
 }
-td
-{
-padding:3px;
-}
+.tb .head{
+	color:#0C2742;
+	background:#FFF;
+	height:24px;line-height:24px;
+	text-align:center;font-weight:800;
+	border-right:1px solid #B2CCDD;
+	white-space:nowrap;}
+
+.tb tr.odd{background:#E5EEF5;}
+.tb tr.even{background-color:#FFF;}
+
+
 .special
 {
 color:#E19A24;
@@ -103,11 +121,13 @@ text-decoration:none;
     <p class="clr">主要指标<a name="CONTENT"></a></p>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
         <tr class="head">
-            <td width="20%">分类名称</td>
-            <td width="20%">该类样本总数</td>
-            <td width="20%">判断正确数目<span class="info">(TruePositiveNum)</span></td>
-            <td width="20%">判断错误数目<span class="info">(FalsePositiveNum)</span></td>
-            <td width="20%">正确率<span class="info">(Precision)</span></td>
+            <td width="10%">分类名称<br/><span class="info">(ClassName)</span></td>
+            <td width="15%">该类样本总数<br/><span class="info">(SampleCount)</span></td>
+            <td width="15%">判断正确数目<br/><span class="info">(TruePositiveNum)</span></td>
+            <td width="15%">判断错误数目<br/><span class="info">(FalsePositiveNum)</span></td>
+			<td width="15%">判断正确率<br/><span class="info">(TruePositiveRate)</span></td>
+            <td width="15%">判断错误率<br/><span class="info">(FalsePositiveRate)</span></td>
+            <td width="15%">正确率<br/><span class="info">(Precision)</span></td>
         </tr>
 		<!--Content_Start-->
         <tr>
@@ -115,6 +135,8 @@ text-decoration:none;
             <td>{totalNum}</td>
             <td>{trueNum}</td>
             <td>{falseNum}</td>
+            <td>{trueRate}</td>
+            <td>{falseRate}</td>
             <td>{precision}</td>
         </tr>
 		<!--Content_End-->

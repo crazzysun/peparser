@@ -35,7 +35,8 @@ function loadTrainSets()
 			element.user = data;
 			element.onclick = function()
 			{
-				trainSetId = data.id;
+				trainSet.id = data.id;
+				trainSet.name = data.name;
 			};
 			return element;
 		}, 

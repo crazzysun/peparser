@@ -232,11 +232,11 @@ public class PackClassifier implements Serializable
 		return m_Evaluation.errorRate();
 	}
 	
-	/** 得到正确率（6位小数） */
+	/** 得到正确率（2位小数） */
 	public String getCorrectRate()
 	{
 		BigDecimal a = new BigDecimal(1 - getErrorRate());   
-		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
+		return a.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
 	}
 
 	public int getTruePositiveNum(int ClassIndex)
@@ -282,6 +282,6 @@ public class PackClassifier implements Serializable
 	public String getPrecision(int ClassIndex)
 	{
 		BigDecimal a = new BigDecimal(m_Evaluation.precision(ClassIndex));   
-		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
+		return a.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
 	}
 }
