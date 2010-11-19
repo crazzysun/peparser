@@ -16,8 +16,8 @@ import javax.swing.JRootPane;
 
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
-import com.pe.entity.parser.Edge;
-import com.pe.entity.parser.Node;
+import com.pe.entity.gdl.Edge;
+import com.pe.entity.gdl.Node;
 
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
