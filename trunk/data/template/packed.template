@@ -77,10 +77,6 @@ text-decoration:none;
 	white-space:nowrap;
 }
 
-.tb tr.odd{background:#E5EEF5;}
-.tb tr.even{background-color:#FFF;}
-
-
 .special
 {
 color:#E19A24;
