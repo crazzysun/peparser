@@ -78,7 +78,7 @@ function check()
 				completed = true;
 				status = null;
 //				peAnalyzer();
-//              gdlView()
+             gdlView()
 				return;
 			}
 		}
@@ -107,7 +107,6 @@ function gdlView()
 	var operation = new Operation("gdlfile.文件关系分析");
 	operation.fileName = fileName;
 	operation.execute(callback);
-	viewGraph();
 } 
 
 //查看图形
@@ -162,7 +161,7 @@ function drawGraph()
 			<td align ="center" width="25%"><span id="name"></span></td>
 			<td align ="center" width="25%"><span id="nodeCount"></span></td>
 			<td align ="center" width="25%"><span id="edgeCount"></span></td>
-			<td align ="center" width="25%"><input class="but_in" id="trainButton" type="button" value="查看图形结构" onclick="gdlView();" /></td>
+			<td align ="center" width="25%"><input class="but_in" id="trainButton" type="button" value="查看图形结构" onclick="viewGraph();" /></td>
 		</tr>
 	</table>
 </div>
