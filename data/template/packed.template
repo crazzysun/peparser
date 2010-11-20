@@ -74,7 +74,8 @@ text-decoration:none;
 	height:24px;line-height:24px;
 	text-align:center;font-weight:800;
 	border-right:1px solid #B2CCDD;
-	white-space:nowrap;}
+	white-space:nowrap;
+}
 
 .tb tr.odd{background:#E5EEF5;}
 .tb tr.even{background-color:#FFF;}
