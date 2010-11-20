@@ -289,7 +289,7 @@ public class CreateHTML
 		{
 			strSectionData = strSectionTemplate;
 			Map<String, String> sectionValue = sectionHeader.get(i).getValue();
-			String strBgClr = (i % 2 != 0 ? "#161f35" : "#222942");
+			String strBgClr = (i % 2 != 0 ? "#E5EEF5" : "#DAE7F8");
 			strSectionData = replace(strSectionData, "{SHS_BGCOLOR}", strBgClr);
 			
 			strSectionData = replace(strSectionData, "{Name1_add}", getNewOffset(offset));
