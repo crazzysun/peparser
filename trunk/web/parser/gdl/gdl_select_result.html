@@ -77,8 +77,7 @@ function check()
 			{
 				completed = true;
 				status = null;
-//				peAnalyzer();
-             gdlView()
+             	gdlView()
 				return;
 			}
 		}
@@ -103,6 +102,7 @@ function gdlView()
 
 		nodeList = o.nodeList;
 		edgeList = o.edgeList;
+		viewAttr();
 	}
 	var operation = new Operation("gdlfile.文件关系分析");
 	operation.fileName = fileName;
@@ -120,6 +120,77 @@ function viewGraph()
 	operation.nodeList = nodeList;
 	operation.edgeList = edgeList;
 	operation.title = $("name").innerHTML;
+	operation.execute(callback);
+}
+//显示指标
+function viewAttr()
+{
+	var callback = function (o)
+	{
+		$("baseAttr").style.display = "";
+		$("otherAttr").style.display = "";
+
+		//基本指标
+		$("sumSub").innerHTML = o.sumSub;
+		$("exterSub").innerHTML = o.exterSub;
+		$("innerSub").innerHTML = o.innerSub;
+		$("remoteSub").innerHTML = o.remoteSub;
+		$("stSub").innerHTML = o.stSub;
+		$("sumGraphs").innerHTML = o.sumGraphs;
+		$("sumNondirectGraphs").innerHTML = o.sumNondirectGraphs;
+		$("startNodeId").innerHTML = o.startNodeId;
+		$("graphsVar").innerHTML = o.graphsVar;
+		$("averageNodes").innerHTML = o.averageNodes;
+		$("extendGraphsNodes").innerHTML = o.extendGraphsNodes;
+		$("foreGraphsNodes").innerHTML = o.foreGraphsNodes;
+		$("startnodes").innerHTML = o.startnodes;
+		$("maxGraphNodes").innerHTML = o.maxGraphNodes;
+		$("maxNondirectedGraph").innerHTML = o.maxNondirectedGraph;
+		$("startNondirectNodes").innerHTML = o.startNondirectNodes;
+		if(o.isStartMax = true)
+		{
+			$("isStartMax").innerHTML = "是";
+		}
+		else
+		{
+			$("isStartMax").innerHTML = "否";
+		}
+		
+		$("maxDegree").innerHTML = o.maxDegree;
+		$("averageDegree").innerHTML = o.averageDegree;
+		$("degreeVar").innerHTML = o.degreeVar;
+		$("abSub").innerHTML = o.abSub;
+		$("abExterSub").innerHTML = o.abExterSub;
+		$("abInnerSub").innerHTML = o.abInnerSub;
+		$("abRemoteSub").innerHTML = o.abRemoteSub;
+		$("finalAdressSub").innerHTML = o.finalAdressSub;
+		$("finalExterSub").innerHTML = o.finalExterSub;
+		$("finalInnerSub").innerHTML = o.finalInnerSub;
+		$("finalRemoteSub").innerHTML = o.finalRemoteSub;
+		//其它指标
+		$("sumnodes").innerHTML = o.sumnodes;
+		$("absolutenodes").innerHTML = o.absolutenodes;
+		$("finalSub").innerHTML = o.finalSub;
+		$("quotientsumSub").innerHTML = o.quotientsumSub;
+		$("quotientinnerSub").innerHTML = o.quotientinnerSub;
+		$("quotientexterSub").innerHTML = o.quotientexterSub;
+		$("quotientfinalSub").innerHTML = o.quotientfinalSub;
+		$("quotientfinalAddressSub").innerHTML = o.quotientfinalAddressSub;
+		$("quotientfinalInnerSub").innerHTML = o.quotientfinalInnerSub;
+		$("quotientfinalremoteSub").innerHTML = o.quotientfinalremoteSub;
+		$("quotientfinalexterSub").innerHTML = o.quotientfinalexterSub;
+		$("quotientabAddressSub").innerHTML = o.quotientabAddressSub;
+		$("quotientabInnerSub").innerHTML = o.quotientabInnerSub;
+		$("quotientabRemoteSub").innerHTML = o.quotientabRemoteSub;
+		$("quotientabExterSub").innerHTML = o.quotientabExterSub;
+		$("quotientremoteSub").innerHTML = o.quotientremoteSub;
+		$("quotientStartNodeId").innerHTML = o.quotientStartNodeId;
+		$("quotientStartGraphNodes").innerHTML = o.quotientStartGraphNodes;
+		$("quotientabNodes").innerHTML = o.quotientabNodes;
+	}
+
+	var operation = new Operation("gdlfile.GdlAttribute");
+	operation.fileName = fileName;
 	operation.execute(callback);
 }
 /*
@@ -161,7 +232,176 @@ function drawGraph()
 			<td align ="center" width="25%"><span id="name"></span></td>
 			<td align ="center" width="25%"><span id="nodeCount"></span></td>
 			<td align ="center" width="25%"><span id="edgeCount"></span></td>
-			<td align ="center" width="25%"><input class="but_in" id="trainButton" type="button" value="查看图形结构" onclick="viewGraph();" /></td>
+			<td align ="center" width="25%">
+				<input class="but_in" id="trainButton" type="button" value="查看图形结构" onclick="viewGraph();" />
+			</td>
+		</tr>
+	</table>
+	<table id="baseAttr" style="display: none" width="100%" align="center" cellpadding="0" cellspacing="0" class="table_list">
+		<tr class="oddtr">
+			<td colspan="7" align="center" style="font-size:14px; font-weight:bold;"><b>基本指标</b></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">名称</td>
+			<td align ="center" width="25%">值</td>
+			<td align ="center" width="25%">名称</td>
+			<td align ="center" width="25%">值</td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">地址函数节点个数</td>
+			<td align ="center" width="25%"><span id="sumSub"></span></td>
+			<td align ="center" width="25%">外部函数节点个数</td>
+			<td align ="center" width="25%"><span id="exterSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">内部函数节点个数</td>
+			<td align ="center" width="25%"><span id="innerSub"></span></td>
+			<td align ="center" width="25%">导入名称节点个数</td>
+			<td align ="center" width="25%"><span id="remoteSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">入口节点个数</td>
+			<td align ="center" width="25%"><span id="stSub"></span></td>
+			<td align ="center" width="25%">有向连通图个数</td>
+			<td align ="center" width="25%"><span id="sumGraphs"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">无向连通图个数</td>
+			<td align ="center" width="25%"><span id="sumNondirectGraphs"></span></td>
+			<td align ="center" width="25%">入口节点序号</td>
+			<td align ="center" width="25%"><span id="startNodeId"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">有向连通图节点数绝对平均方差</td>
+			<td align ="center" width="25%"><span id="graphsVar"></span></td>
+			<td align ="center" width="25%">有向连通图平均度数</td>
+			<td align ="center" width="25%"><span id="averageNodes"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">入口节点后扩展图节点总数</td>
+			<td align ="center" width="25%"><span id="extendGraphsNodes"></span></td>
+			<td align ="center" width="25%">入口节点前扩展图节点总数</td>
+			<td align ="center" width="25%"><span id="foreGraphsNodes"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">入口节点有向连通图节点个数</td>
+			<td align ="center" width="25%"><span id="startnodes"></span></td>
+			<td align ="center" width="25%">最大有向连通图节点数</td>
+			<td align ="center" width="25%"><span id="maxGraphNodes"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">最大无向连通图节点数</td>
+			<td align ="center" width="25%"><span id="maxNondirectedGraph"></span></td>
+			<td align ="center" width="25%">入口节点无向连通图节点数</td>
+			<td align ="center" width="25%"><span id="startNondirectNodes"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">入口节点连通图是否为最大无向连通图</td>
+			<td align ="center" width="25%"><span id="isStartMax"></span></td>
+			<td align ="center" width="25%">节点最大度数</td>
+			<td align ="center" width="25%"><span id="maxDegree"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点平均度数</td>
+			<td align ="center" width="25%"><span id="averageDegree"></span></td>
+			<td align ="center" width="25%">度数的绝对平均方差</td>
+			<td align ="center" width="25%"><span id="degreeVar"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">孤立地址函数节点个数</td>
+			<td align ="center" width="25%"><span id="abSub"></span></td>
+			<td align ="center" width="25%">孤立外部函数节点个数</td>
+			<td align ="center" width="25%"><span id="abExterSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">孤立内部函数节点个数</td>
+			<td align ="center" width="25%"><span id="abInnerSub"></span></td>
+			<td align ="center" width="25%">孤立导入名称节点个数</td>
+			<td align ="center" width="25%"><span id="abRemoteSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">终端地址子函数节点个数</td>
+			<td align ="center" width="25%"><span id="finalAdressSub"></span></td>
+			<td align ="center" width="25%">终端外部函数节点个数</td>
+			<td align ="center" width="25%"><span id="finalExterSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">终端内部函数节点个数</td>
+			<td align ="center" width="25%"><span id="finalInnerSub"></span></td>
+			<td align ="center" width="25%">终端导入名称节点个数</td>
+			<td align ="center" width="25%"><span id="finalRemoteSub"></span></td>
+		</tr>
+	</table>
+	
+	<table id="otherAttr" style="display: none" width="100%" align="center" cellpadding="0" cellspacing="0" class="table_list">
+		<tr class="oddtr">
+			<td colspan="7" align="center" style="font-size:14px; font-weight:bold;"><b>其它指标</b></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">名称</td>
+			<td align ="center" width="25%">值</td>
+			<td align ="center" width="25%">名称</td>
+			<td align ="center" width="25%">值</td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数</td>
+			<td align ="center" width="25%"><span id="sumnodes"></span></td>
+			<td align ="center" width="25%">孤立节点总数</td>
+			<td align ="center" width="25%"><span id="absolutenodes"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/地址函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientsumSub"></span></td>
+			<td align ="center" width="25%">节点总数/内部函数节点数</td>
+			<td align ="center" width="25%"><span id="quotientinnerSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/外部函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientexterSub"></span></td>
+			<td align ="center" width="25%">节点总数/非孤立的终端节点总数</td>
+			<td align ="center" width="25%"><span id="quotientfinalSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/终端地址子函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientfinalAddressSub"></span></td>
+			<td align ="center" width="25%">节点总数/终端内部函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientfinalInnerSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/终端导入名称节点个数</td>
+			<td align ="center" width="25%"><span id="quotientfinalremoteSub"></span></td>
+			<td align ="center" width="25%">节点总数/终端外部函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientfinalexterSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/孤立地址函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientabAddressSub"></span></td>
+			<td align ="center" width="25%">节点总数/终端内部函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientabInnerSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/孤立导入名称节点个数</td>
+			<td align ="center" width="25%"><span id="quotientabRemoteSub"></span></td>
+			<td align ="center" width="25%">节点总数/孤立外部函数节点个数</td>
+			<td align ="center" width="25%"><span id="quotientabExterSub"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/导入名称节点个数</td>
+			<td align ="center" width="25%"><span id="quotientremoteSub"></span></td>
+			<td align ="center" width="25%">节点总数/入口节点序号</td>
+			<td align ="center" width="25%"><span id="quotientStartNodeId"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">节点总数/入口节点有向连通图节点个数</td>
+			<td align ="center" width="25%"><span id="quotientStartGraphNodes"></span></td>
+			<td align ="center" width="25%">节点总数/孤立节点总数</td>
+			<td align ="center" width="25%"><span id="quotientabNodes"></span></td>
+		</tr>
+		<tr>
+			<td align ="center" width="25%">非孤立的终端节点总数</td>
+			<td align ="center" width="25%"><span id="finalSub"></span></td>
+			<td></td>
+			<td></td>
 		</tr>
 	</table>
 </div>
