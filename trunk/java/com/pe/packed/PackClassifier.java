@@ -236,7 +236,7 @@ public class PackClassifier implements Serializable
 	public String getCorrectRate()
 	{
 		BigDecimal a = new BigDecimal(1 - getErrorRate());   
-		return a.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
 	}
 
 	public int getTruePositiveNum(int ClassIndex)
@@ -259,14 +259,16 @@ public class PackClassifier implements Serializable
 		return (int) m_Evaluation.numFalseNegatives(ClassIndex);
 	}
 
-	public double getTruePositiveRate(int ClassIndex)
+	public String getTruePositiveRate(int ClassIndex)
 	{
-		return m_Evaluation.truePositiveRate(ClassIndex);
+		BigDecimal a = new BigDecimal(m_Evaluation.truePositiveRate(ClassIndex));   
+		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
 	}
 
-	public double getFalsePositiveRate(int ClassIndex)
+	public String getFalsePositiveRate(int ClassIndex)
 	{
-		return m_Evaluation.falsePositiveRate(ClassIndex);
+		BigDecimal a = new BigDecimal(m_Evaluation.falsePositiveRate(ClassIndex));
+		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
 	}
 
 	public double getTrueNegativeRate(int ClassIndex)
@@ -282,6 +284,6 @@ public class PackClassifier implements Serializable
 	public String getPrecision(int ClassIndex)
 	{
 		BigDecimal a = new BigDecimal(m_Evaluation.precision(ClassIndex));   
-		return a.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+		return a.setScale(6, BigDecimal.ROUND_HALF_UP).toString();
 	}
 }

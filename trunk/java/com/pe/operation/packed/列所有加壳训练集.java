@@ -1,4 +1,4 @@
-package com.pe.operation.PE分析;
+package com.pe.operation.packed;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.pe.dao.packed.PackedTrainSetDao;
 import com.pe.entity.packed.PackedTrainSet;
 import com.pe.operation.Operation;
 
-public class 列所有训练集 implements Operation
+public class 列所有加壳训练集 implements Operation
 {
 	private List<PackedTrainSet> data;
 	private int limit;

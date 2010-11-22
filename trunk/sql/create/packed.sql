@@ -9,5 +9,6 @@ create table t_packed_trainSet
 	option_value						int						not null,							-- 选项值
 	create_time							varchar(255)			not null,							-- 训练集创建时间
 	
+	unique(name),
 	primary key (id)
 );

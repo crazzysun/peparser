@@ -1,4 +1,4 @@
-package com.pe.operation.PE分析;
+package com.pe.operation.packed;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,6 +27,7 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 	private int optionValue;
 	private PackedTrainSet trainSet;
 	private String trainSetName;
+	private boolean exist;
 	
 	public void execute() throws Exception
 	{
@@ -72,6 +73,8 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 			result.setTotalNum(cls.getTruePositiveNum(i) + cls.getFalsePositiveNum(i));
 			result.setTrueNum(cls.getTruePositiveNum(i));
 			result.setFalseNum(cls.getFalsePositiveNum(i));
+			result.setTrueRate(cls.getTruePositiveRate(i));
+			result.setFalseRate(cls.getFalsePositiveRate(i));
 			result.setPrecision(cls.getPrecision(i));
 			resultShow.add(result);
 		}
@@ -81,6 +84,11 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 		
 		/** 结果加入数据库 */
 		PackedTrainSetDao trainSetDao = DaoManager.getInstance().getDao(PackedTrainSetDao.class);
+		//数据库中没有同名的就添加, 否则先删除再添加 
+		exist = trainSetDao.isExist(trainSetName);
+		if (exist)
+			trainSetDao.deleteTrainSetByName(trainSetName);
+		
 		trainSetDao.AddTrainSet(trainSet);
 		
 		/** 创建结果文件 */
@@ -92,8 +100,7 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 	{
 		if (dataset == null || dataset.equals(""))
 		{
-			dataset = SystemConfigure.get("DefaultTrainSetPath");
-			trainSetName = "PEC_trainingset";
+			dataset = SystemConfigure.get("DefaultPackedTrainSample");
 		}
 		else
 		{
@@ -101,8 +108,6 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 			dataset = dataset.replace('\\', '/');
 			int k = dataset.lastIndexOf("/");
 			if (k > 0) dataset  = dataset.substring(k + 1);
-			/** 去掉.arff */
-			trainSetName = dataset.substring(0, dataset.length() - 5);
 			
 			File file = new File(getWorkFile(""), dataset);
 			if (!file.isFile())

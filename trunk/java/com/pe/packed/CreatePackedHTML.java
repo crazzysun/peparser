@@ -83,10 +83,12 @@ public class CreatePackedHTML
 			strContentData = strContentTemplate;
 			PackedResultShow result = resultShow.get(i);
 
-			strContentData = replace(strContentData, "{name}", result.getClassName());
+			strContentData = replace(strContentData, "{name}", result.getClassName().equals("packed") ? "¼Ó¿Ç" : "Î´¼Ó¿Ç");
 			strContentData = replace(strContentData, "{totalNum}", String.valueOf(result.getTotalNum()));
 			strContentData = replace(strContentData, "{trueNum}", String.valueOf(result.getTrueNum()));
 			strContentData = replace(strContentData, "{falseNum}", String.valueOf(result.getFalseNum()));
+			strContentData = replace(strContentData, "{trueRate}", String.valueOf(result.getTrueRate()));
+			strContentData = replace(strContentData, "{falseRate}", String.valueOf(result.getFalseRate()));
 			strContentData = replace(strContentData, "{precision}", result.getPrecision());
 
 			strTemp += strContentData;
