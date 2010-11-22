@@ -16,7 +16,9 @@ public class PackedResultShow implements Bean
 	private int totalNum;				//该类样本总数
 	private int trueNum;				//判断正确数目
 	private int falseNum;				//判断错误数目
-	private String precision;				//正确率
+	private String trueRate;				//判断正确比率
+	private String falseRate;				//判断错误比率
+	private String precision;			//正确率
 	public String getClassName()
 	{
 		return className;
@@ -56,5 +58,21 @@ public class PackedResultShow implements Bean
 	public void setPrecision(String precision)
 	{
 		this.precision = precision;
+	}
+	public String getTrueRate()
+	{
+		return trueRate;
+	}
+	public void setTrueRate(String trueRate)
+	{
+		this.trueRate = trueRate;
+	}
+	public String getFalseRate()
+	{
+		return falseRate;
+	}
+	public void setFalseRate(String falseRate)
+	{
+		this.falseRate = falseRate;
 	}
 }

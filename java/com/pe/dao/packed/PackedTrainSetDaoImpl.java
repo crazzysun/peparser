@@ -29,5 +29,21 @@ public class PackedTrainSetDaoImpl extends BaseDao implements PackedTrainSetDao,
 	{
 		return esql.helper().query(PackedTrainSet.class, "t_packed_trainSet", null, null, "id = ?", trainSetId);
 	}
-	
+
+	public void deleteTrainSet(long trainSetId) throws Exception
+	{
+		esql.helper().delete("t_packed_trainSet", "id = ?", trainSetId);
+	}
+
+	public boolean isExist(String name) throws Exception
+	{
+		String sql = "select id from t_packed_trainSet where name=?";
+		Long id = esql.query(Long.class, sql, name);
+		return id == null ? false : true;
+	}
+
+	public void deleteTrainSetByName(String name) throws Exception
+	{
+		esql.helper().delete("t_packed_trainSet", "name = ?", name);
+	}
 }

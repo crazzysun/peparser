@@ -45,7 +45,7 @@ public class ListDirFiles
 		{
 			String filePath = f.getAbsolutePath();
 
-			if (suffix.size() != 0)
+			if (suffix != null && suffix.size() != 0)
 			{
 				int begIndex = filePath.lastIndexOf(".");	// 最后一个.(即后缀名前面的.)的索引
 				String tempsuffix = "";

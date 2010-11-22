@@ -11,6 +11,7 @@ $import("rpc.js");
 var status = null;
 var completed = false;
 
+
 /** 1.提交，检查输入 */
 function onSubmit()
 {
@@ -20,6 +21,11 @@ function onSubmit()
 	if ($("optionValue").value == "" || $("optionValue").value == null)
 	{
 		alert("请输入TestOptions的值！");
+		return;
+	}
+	if ($("trainSetName").value == "" || $("trainSetName").value == null)
+	{
+		alert("请输入训练集的名称！");
 		return;
 	}
 
@@ -37,7 +43,6 @@ function onSubmit()
 		$("fileForm").submit();
 		check();				//检查文件上传进度，完成后开始PE文件分析
 	}
-	$("progress").style.display = "";
 
 	var operation = new Operation("文件.准备上载文件");
 	operation.path = "";
@@ -79,16 +84,19 @@ function check()
 /** 3.创建训练集 */
 function createTrainSet()
 {
+	$("progress").style.display = "";			//显示分析的进度条
+	
 	var callback = function(result)
 	{
 		showTrainResult(result.trainSetName);
 	};
 	
-	var operation = new Operation("PE分析.创建加壳分析训练集");
+	var operation = new Operation("packed.创建加壳分析训练集");
 	operation.classifier = $("classifier").value;
 	operation.dataset = $("dataset").value;
 	operation.testOptions = $("testOptions").value;
 	operation.optionValue = $("optionValue").value;
+	operation.trainSetName = $("trainSetName").value;
 	operation.execute(callback);
 }
 
@@ -110,6 +118,24 @@ function changeValueUnit()
 		$("valueUnit").innerHTML = "%（请输入大于0小于100的整数）";
 }
 
+function isExist()
+{
+	var callback = function(data)
+	{
+		var exist = data.exist;
+		if (exist)
+		{
+			if (!confirm("系统中已存在名为'" + $("trainSetName").value + "'的训练集，\n确认要覆盖这条训练集信息吗？"))
+				return;
+		}
+		onSubmit();
+	}
+	var operation = new Operation("packed.判断加壳训练集是否存在");
+	
+	operation.trainSetName = $("trainSetName").value;
+	operation.execute(callback);
+}
+
 function onLoad()
 {
 	$("result").style.display = "none";
@@ -126,6 +152,12 @@ function onLoad()
 	<div class="filter">
 		<div class="filterTitle">
 				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+					<tr class='tablecell'>
+						<td class='tit' width="20%"><span style="color:red">*</span>训练集名称</td>
+						<td class='inp'>
+							<input type="text" id="trainSetName" class="form_input_s"/>
+						</td>
+					</tr>
 					<tr class='tablecell'>
 						<td class='tit' width="20%"><span style="color:red">*</span>选择所需的分类器</td>
 						<td class='inp'>
@@ -144,7 +176,7 @@ function onLoad()
 							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
 								<input id="dataset" name="dataset" type="file" size="40"/>
 								<br/>
-								<span style="color:red">注：不选择则使用系统默认的训练样本“default_samples.arff”</span>
+								<span style="color:red">注：不选择则使用系统默认的训练样本“default_packed_samples.arff”</span>
 							</form> 
 							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
 						</td>
@@ -166,8 +198,8 @@ function onLoad()
 					</tr>
 				</table>
 		</div>
-		<div class="filterInput" style="padding:42px 0px 0px 25px;">
-			<input type="button" class="pe_result" onClick="onSubmit()"/>
+		<div class="filterInput" style="padding:65px 0px 0px 25px;">
+			<input type="button" class="pe_result" onClick="isExist()"/>
 			<span id="progress" style="display:none">创建中...<img src="../images/loading.gif" align="absmiddle"></span>
 		</div>
 		<div class="clear"></div>

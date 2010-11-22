@@ -9,11 +9,14 @@
 $import("rpc.js");
 $import("table_list.js");
 
+var tableList;
+
 function showTrainSet()
 {
 	var operations = 
 	[
-		{icon: "../images/icon_view.gif", text: "查看详情", onclick: onView}
+		{icon: "", text: "查看", onclick: onView},
+		{icon: "", text: "删除", onclick: onDelete}
 	];
 	var titles = 
 	[
@@ -36,8 +39,8 @@ function showTrainSet()
 		function(data) { return data.createTime; },
 		function(data) { return TableList.links(operations, data); }
 	];   
-	var operation = new Operation("PE分析.列所有训练集");
-	var tableList = new TableList(operation, titles, columns);
+	var operation = new Operation("packed.列所有加壳训练集");
+	tableList = new TableList(operation, titles, columns);
 	tableList.create($("container"));
 	tableList.refresh();
 }
@@ -45,6 +48,18 @@ function showTrainSet()
 function onView(data)
 {
 	window.open("../packedResult/" + data.name + ".html", "_blank");
+}
+
+function onDelete(data)
+{
+	var callback = function()
+	{
+		alert("训练集" + data.name + "删除成功！");
+		tableList.refresh();
+	}
+	var operation = new Operation("packed.删除加壳训练集");
+	operation.trainSetId = data.id;
+	operation.execute(callback);
 }
 
 function onLoad()
@@ -60,7 +75,7 @@ function onLoad()
 <div id="wrap">
 <div id="containaer" >
 	<div class="title" id="result">
-		所有训练结果如下		
+		所有训练集		
 	</div>
 	<!-- 结果展示div -->
 	<div id="container"></div>
