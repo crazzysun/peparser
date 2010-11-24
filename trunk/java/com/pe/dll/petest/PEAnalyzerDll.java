@@ -73,5 +73,14 @@ public interface PEAnalyzerDll extends Library
 	public int GetRSCItemSize(int RSCIndex, int ItemIndex);
 	
 	/** PE feature extractor */
-	public void OutputPEFeature();
+	public void OutputPEFeature(int hdr);
+	public int GetStandardSectionNumber();
+	public int GetNonStandardSectionNumber();
+	public int GetExecutableSectionNumber();
+	public int GetRWESectionNumber();
+	public int GetIATEntryNumber();
+	public float GetFileEntropy();
+	public float GetHeaderEntropy();
+	public float GetCodeSectionEntropy();
+	public float GetDataSectionEntropy();
 }

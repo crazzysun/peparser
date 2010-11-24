@@ -50,7 +50,7 @@ function loadTrainSets()
 		function(data) { return data.createTime; }
 	];
 	
-	var operation = new Operation("PE分析.列所有训练集");
+	var operation = new Operation("packed.列所有加壳训练集");
 	var tableList = new TableList(operation, titles, columns);
 	tableList.create($("container"));
 	tableList.refresh();
@@ -92,7 +92,7 @@ function onLoad()
 	<table cellpadding=0 cellspacing=0 border=0 width="100%">
 		<tr>
 			<td class="buttom_div">
-				<input class="form_sub" type="button" onClick="onOk();"/>
+				<input class="form_ok" type="button" onClick="onOk();"/>
        			<input class="form_back" type="button" onClick="onCancel();"/>
 	  		</td>
 		</tr>

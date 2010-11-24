@@ -61,7 +61,17 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 			resultShow.add(result);
 		}
 		trainSet.setResultShow(resultShow);
-		trainSet.setTree(Util.replace2HTML(cls.getModal()));
+		
+		String tree = cls.getModal();
+		
+		//按照需求，去掉树的前两行
+		int loc = 0;
+		for (int i = 0; i < 3; i++)
+		{
+			loc = tree.indexOf("\n", loc);
+			loc += 1;
+		}
+		trainSet.setTree(Util.replace2HTML(tree.substring(loc)));
 
 		/** 序列化该对象 */
 		// 由于weka存在bug，Evaluation类没有继承“序列化方法”，所以采用别的方法序列化
