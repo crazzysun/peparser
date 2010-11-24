@@ -52,9 +52,12 @@ function onView(data)
 
 function onDelete(data)
 {
+	if (!confirm("确定要删除训练集'" + data.name + "'吗？"))
+		return;			
+	
 	var callback = function()
 	{
-		alert("训练集" + data.name + "删除成功！");
+		alert("训练集'" + data.name + "'删除成功！");
 		tableList.refresh();
 	}
 	var operation = new Operation("packed.删除加壳训练集");

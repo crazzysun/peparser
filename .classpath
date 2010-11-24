@@ -37,5 +37,6 @@
 	<classpathentry kind="lib" path="D:/tomcat/common/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/weka.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/ant.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/postgresql-8.3-604.jdbc3.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
