@@ -25,47 +25,29 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 	private String dataset;
 	private int testOptions;
 	private int optionValue;
-	private PackedTrainSet trainSet;
 	private String trainSetName;
-	private boolean exist;
-	
+
 	public void execute() throws Exception
 	{
 		/** 创建训练集 */
 		validateClassifierName();
 		validateTrainFile();
 		PackClassifier cls = PackClassifier.BuildClassifier(classifierName, dataset, testOptions, optionValue);
-		
+
 		/** 保存训练集的相关属性 */
-		trainSet = new PackedTrainSet();
+		PackedTrainSet trainSet = new PackedTrainSet();
 		trainSet.setName(trainSetName);
 		trainSet.setClassifier(classifierName);
 		trainSet.setTestOptions(testOptions);
 		trainSet.setOptionValue(optionValue);
-		
-		PackedResult rst = new PackedResult();
-		rst.setClassifier(cls.getClassifier());
-		rst.setInstance(cls.getTraining());
-		
-		trainSet.setResult(Serialize.serializeData(rst));
-//		try
-//		{
-//			trainSet.setResult(Serialize.serializeData(cls));
-//		}
-//		catch (NotSerializableException e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		trainSet.setCreateTime(Util.showNowTime());
-		
 		trainSet.setInstanceNum(cls.getInstanceNum());
 		trainSet.setCorrectNum(cls.getCorrectNum());
 		trainSet.setIncorrectNum(cls.getIncorrectNum());
 		trainSet.setCorrectRate(cls.getCorrectRate());
-		
+
 		List<PackedResultShow> resultShow = new ArrayList<PackedResultShow>();
-		
+
 		for (int i = 0; i < cls.getClassSize(); i++)
 		{
 			PackedResultShow result = new PackedResultShow();
@@ -78,19 +60,33 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 			result.setPrecision(cls.getPrecision(i));
 			resultShow.add(result);
 		}
-		
 		trainSet.setResultShow(resultShow);
 		trainSet.setTree(Util.replace2HTML(cls.getModal()));
-		
+
+		/** 序列化该对象 */
+		// 由于weka存在bug，Evaluation类没有继承“序列化方法”，所以采用别的方法序列化
+		// try
+		// {
+		// trainSet.setResult(Serialize.serializeData(cls));
+		// }
+		// catch (NotSerializableException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		PackedResult rst = new PackedResult();
+		rst.setClassifier(cls.getClassifier());
+		rst.setInstance(cls.getTraining());
+		trainSet.setResult(Serialize.serializeData(rst));
+
 		/** 结果加入数据库 */
 		PackedTrainSetDao trainSetDao = DaoManager.getInstance().getDao(PackedTrainSetDao.class);
-		//数据库中没有同名的就添加, 否则先删除再添加 
-		exist = trainSetDao.isExist(trainSetName);
-		if (exist)
-			trainSetDao.deleteTrainSetByName(trainSetName);
-		
+		// 数据库中没有同名的就添加, 否则先删除再添加
+		boolean exist = trainSetDao.isExist(trainSetName);
+		if (exist) trainSetDao.deleteTrainSetByName(trainSetName);
+
 		trainSetDao.AddTrainSet(trainSet);
-		
+
 		/** 创建结果文件 */
 		CreatePackedHTML HTML = new CreatePackedHTML(trainSet);
 		HTML.create();
@@ -107,19 +103,18 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 			/** 只取文件名，解决ie低版本的安全问题 */
 			dataset = dataset.replace('\\', '/');
 			int k = dataset.lastIndexOf("/");
-			if (k > 0) dataset  = dataset.substring(k + 1);
-			
+			if (k > 0) dataset = dataset.substring(k + 1);
+
 			File file = new File(getWorkFile(""), dataset);
-			if (!file.isFile())
-				throw new UserException("训练集文件选取错误，请重新选择！");
-			dataset = file.getAbsolutePath();		
+			if (!file.isFile()) throw new UserException("训练集文件选取错误，请重新选择！");
+			dataset = file.getAbsolutePath();
 		}
 	}
 
 	/** 根据前台的select控件值，获取分类器的值 */
 	private void validateClassifierName() throws UserException
 	{
-		switch(classifier)
+		switch (classifier)
 		{
 		case 1:
 			classifierName = "C4.5";
@@ -136,16 +131,6 @@ public class 创建加壳分析训练集 extends AbstractFileOperation implements Operati
 		default:
 			throw new UserException("classifier选择错误，请重新选择！");
 		}
-	}
-
-	public PackedTrainSet getTrainSet()
-	{
-		return trainSet;
-	}
-
-	public void setTrainSet(PackedTrainSet trainSet)
-	{
-		this.trainSet = trainSet;
 	}
 
 	public String getClassifierName()
