@@ -165,6 +165,8 @@ span.but_out a:hover {text-decoration:none;}
 .form_allow{background:transparent url('../images/allow.gif') no-repeat;height:25px;border:0px;width:68px;cursor:pointer}
 /*提交*/
 .form_not_allow{background:transparent url('../images/not_allow.gif') no-repeat;height:25px;border:0px;width:68px;cursor:pointer}
+/*确定*/
+.form_ok{background:transparent url('../images/icon_ok.gif') no-repeat;height:25px;border:0px;width:68px;cursor:pointer}
 
 /*上一步*/
 .form_prev{background:transparent url('../images/prev_step.gif') no-repeat;height:25px;border:0px;width:68px;cursor:pointer}
@@ -192,13 +194,11 @@ span.but_out a:hover {text-decoration:none;}
 .form_result{background:transparent url('../images/icon_result.gif') no-repeat;height:25px;border:0px;width:90px;cursor:pointer}
 
 /*查看pe文件分析结果*/
-.pe_result {
-	background:transparent url('../images/icon_pe.gif') no-repeat;
-	height:25px;
-	border:0px;
-	width:90px;
-	cursor:pointer;
-}
+.pe_result {background:transparent url('../images/icon_pe.gif') no-repeat;height:25px;border:0px;width:90px;cursor:pointer;}
+/*开始创建*/
+.form_create {background:transparent url('../images/icon_create.gif') no-repeat;height:25px;border:0px;width:90px;cursor:pointer;}
+/*开始判断*/
+.form_judge {background:transparent url('../images/icon_judge.gif') no-repeat;height:25px;border:0px;width:90px;cursor:pointer;}
 
 
 .table_list_header td{text-align:center;color:#0C2742;background:url('../images/table_list_header_bg.gif') repeat-x left top;height:24px;line-height:24px;text-align:left;padding-left:10px;font-weight:800;border-right:1px solid #cecece}

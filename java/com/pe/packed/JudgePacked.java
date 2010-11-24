@@ -47,7 +47,13 @@ public class JudgePacked
 		for (String file : fileList)
 		{
 		    PE.LoadPEHeader(file);
-		    PE.OutputPEFeature();
+		    
+		    /**
+		     * 改写的C++的函数，
+		     * 用于对要判断的文件生成arff文件，
+		     * 可实现动态指定arff的生成路径位置 
+		     */
+		    OutputPEFeature.output(PE, file);					
 		    rs = new JudgedResult();
 		    rs.setName(file);
 		    rs.setResult(classifyInstance(result.getInstance(), result.getClassifier(), file));
@@ -61,7 +67,7 @@ public class JudgePacked
 	{
 		List<String> list = new ArrayList<String>();
 		
-		list.add(testFile);
+		list.add(FileManager.getInstance().getPEHome().getAbsolutePath() + File.separator + testFile);
 		return list;
 	}
 
