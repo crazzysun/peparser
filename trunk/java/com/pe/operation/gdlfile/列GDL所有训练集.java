@@ -17,7 +17,6 @@ public class 列GDL所有训练集 implements Operation
 	
 	public void execute() throws Exception
 	{
-		System.out.println("list gdl trainset.....");
 		GdlTrainSetDao dao = DaoManager.getInstance().getDao(GdlTrainSetDao.class);
 		PagedList<GdlTrainSet> list = dao.listTrainSet(offset, limit);
 		data = list.getData();

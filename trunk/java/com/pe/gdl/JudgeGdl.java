@@ -34,30 +34,24 @@ public class JudgeGdl
 	public List<JudgedResult> judge() throws Exception
 	{
 		fileList = new ArrayList<String>();
-		if (testFile.endsWith(".zip")) 
+		if (testFile.endsWith(".zip"))
 			fileList = judgeMulti();
 		else
 			fileList = judgeSingle();
-		
-		if (fileList.isEmpty())
-			throw new Exception("没有要分析的文件！");
-		
-		//PEAnalyzerDll PE = PEAnalyzerDll.INSTANCE;
-		OperateGdl op=new OperateGdl();
+
+		if (fileList.isEmpty()) throw new Exception("没有要分析的文件！");
+
+		OperateGdl op = new OperateGdl();
 		JudgedResult rs;
 		data = new ArrayList<JudgedResult>();
 		for (String file : fileList)
 		{
-			
-			//System.out.println("准备分析文件。。。。。"+file);
-			file=op.createArffRec (file);
-			
-			//System.out.println(file+"!!!!!!");
-		 
-		    rs = new JudgedResult();
-		    rs.setName(file);
-		    rs.setResult(classifyInstance(result.getInstance(), result.getClassifier(), file));
-		    data.add(rs);
+			op.createArffRec(file);
+
+			rs = new JudgedResult();
+			rs.setName(file);
+			rs.setResult(classifyInstance(result.getInstance(), result.getClassifier(), file));
+			data.add(rs);
 		}
 		return data;
 	}
@@ -80,8 +74,6 @@ public class JudgeGdl
 		/** 列出指定目录中所有文件 */
 		for (File f : folder.listFiles())
 		{
-			
-			//System.out.println("file in zip is  "+f.getName());
 			list = ListDirFiles.listFile(f, null, true);
 		}
 		if (list.isEmpty())
@@ -115,11 +107,8 @@ public class JudgeGdl
 
 	public static String classifyInstance(Instances m_Training, Classifier m_Classifier, String filename) throws Exception  //这里的filename是训练集还是PE文件
 	{
-		String FileName =filename + ".arff";
-		//System.out.println("....."+FileName);
-		//System.out.println("...@@@.."+m_Training.numAttributes());
+		String FileName = filename + ".arff";
 		Instances test = DataSource.read(FileName);
-		//System.out.println("...@@@.."+test.numAttributes());
 		test.setClassIndex(test.numAttributes() - 1);
 		if (!m_Training.equalHeaders(test)) throw new IllegalArgumentException("Train data and test data are not compatible!");
 
