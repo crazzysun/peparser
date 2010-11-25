@@ -31,4 +31,20 @@ public class GdlTrainSetDaoImpl extends BaseDao implements GdlTrainSetDao, Postg
 		return esql.helper().query(GdlTrainSet.class, "t_gdl_trainSet", null, null, "id = ?", trainSetId);
 	}
 
+	public void deleteTrainSet(long trainSetId) throws Exception
+	{
+		esql.helper().delete("t_gdl_trainSet", "id = ?", trainSetId);
+	}
+
+	public boolean isExist(String name) throws Exception
+	{
+		String sql = "select id from t_gdl_trainSet where name=?";
+		Long id = esql.query(Long.class, sql, name);
+		return id == null ? false : true;
+	}
+
+	public void deleteTrainSetByName(String name) throws Exception
+	{
+		esql.helper().delete("t_gdl_trainSet", "name = ?", name);
+	}
 }

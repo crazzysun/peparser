@@ -35,4 +35,26 @@ public interface GdlTrainSetDao
 	 * @throws Exception
 	 */
 	public GdlTrainSet getTrainSetById(long trainSetId) throws Exception;
+	
+	/**
+	 * Delete the trainSet
+	 * @param trainSetId
+	 * @throws Exception
+	 */
+	public void deleteTrainSet(long trainSetId) throws Exception;
+	
+	/**
+	 * Delete the trainSet by name
+	 * @param name
+	 * @throws Exception
+	 */
+	public void deleteTrainSetByName(String name) throws Exception;
+	
+	/**
+	 * Judge the existence of a particular training set
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean isExist(String name) throws Exception;
 }

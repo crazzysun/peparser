@@ -22,6 +22,11 @@ function onSubmit()
 		alert("请输入TestOptions的值！");
 		return;
 	}
+	if ($("trainSetName").value == "" || $("trainSetName").value == null)
+	{
+		alert("请输入训练集的名称！");
+		return;
+	}
 
 	if ($("dataset").value == "" || $("dataset").value == null)
 	{
@@ -37,7 +42,6 @@ function onSubmit()
 		$("fileForm").submit();
 		check();				//检查文件上传进度，完成后开始PE文件分析
 	}
-	$("progress").style.display = "";
 
 	var operation = new Operation("文件.准备上载文件");
 	operation.path = "";
@@ -79,6 +83,8 @@ function check()
 /** 3.创建训练集 */
 function createTrainSet()
 {
+	$("progress").style.display = "";			//显示分析的进度条
+	
 	var callback = function(result)
 	{
 		showTrainResult(result.trainSetName);
@@ -89,6 +95,7 @@ function createTrainSet()
 	operation.dataset = $("dataset").value;
 	operation.testOptions = $("testOptions").value;
 	operation.optionValue = $("optionValue").value;
+	operation.trainSetName = $("trainSetName").value;
 	operation.execute(callback);
 }
 
@@ -110,6 +117,24 @@ function changeValueUnit()
 		$("valueUnit").innerHTML = "%（请输入大于0小于100的整数）";
 }
 
+function isExist()
+{
+	var callback = function(data)
+	{
+		var exist = data.exist;
+		if (exist)
+		{
+			if (!confirm("系统中已存在名为'" + $("trainSetName").value + "'的训练集，\n确认要覆盖这条训练集信息吗？"))
+				return;
+		}
+		onSubmit();
+	}
+	var operation = new Operation("gdlfile.判断GDL训练集是否存在");
+	
+	operation.trainSetName = $("trainSetName").value;
+	operation.execute(callback);
+}
+
 function onLoad()
 {
 	$("result").style.display = "none";
@@ -126,6 +151,12 @@ function onLoad()
 	<div class="filter">
 		<div class="filterTitle">
 				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+					<tr class='tablecell'>
+						<td class='tit' width="20%"><span style="color:red">*</span>训练集名称</td>
+						<td class='inp'>
+							<input type="text" id="trainSetName" class="form_input_s"/>
+						</td>
+					</tr>
 					<tr class='tablecell'>
 						<td class='tit' width="20%"><span style="color:red">*</span>选择所需的分类器</td>
 						<td class='inp'>
@@ -166,7 +197,7 @@ function onLoad()
 				</table>
 		</div>
 		<div class="filterInput" style="padding:55px 0px 0px 25px;">
-			<input type="button" class="form_create" onClick="onSubmit()"/>
+			<input type="button" class="form_create" onClick="isExist()"/>
 			<span id="progress" style="display:none">创建中...<img src="../images/loading.gif" align="absmiddle"></span>
 		</div>
 		<div class="clear"></div>

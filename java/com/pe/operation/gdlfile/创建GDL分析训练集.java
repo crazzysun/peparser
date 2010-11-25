@@ -25,7 +25,6 @@ public class 创建GDL分析训练集 extends AbstractFileOperation implements Operatio
 	private String dataset;
 	private int testOptions;
 	private int optionValue;
-	private GdlTrainSet trainSet;
 	private String trainSetName;
 
 	public void execute() throws Exception
@@ -36,28 +35,12 @@ public class 创建GDL分析训练集 extends AbstractFileOperation implements Operatio
 		GdlClassifier cls = GdlClassifier.BuildClassifier(classifierName, dataset, testOptions, optionValue);
 
 		/** 保存训练集的相关属性 */
-		trainSet = new GdlTrainSet();
+		GdlTrainSet trainSet = new GdlTrainSet();
 		trainSet.setName(trainSetName);
 		trainSet.setClassifier(classifierName);
 		trainSet.setTestOptions(testOptions);
 		trainSet.setOptionValue(optionValue);
-
-		GdlResult rst = new GdlResult();
-		rst.setClassifier(cls.getClassifier());
-		rst.setInstance(cls.getTraining());
-
-		trainSet.setResult(Serialize.serializeData(rst));
-		// try
-		// {
-		// trainSet.setResult(Serialize.serializeData(cls));
-		// }
-		// catch (NotSerializableException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 		trainSet.setCreateTime(Util.showNowTime());
-
 		trainSet.setInstanceNum(cls.getInstanceNum());
 		trainSet.setCorrectNum(cls.getCorrectNum());
 		trainSet.setIncorrectNum(cls.getIncorrectNum());
@@ -75,10 +58,33 @@ public class 创建GDL分析训练集 extends AbstractFileOperation implements Operatio
 			result.setPrecision(cls.getPrecision(i));
 			resultShow.add(result);
 		}
-
 		trainSet.setResultShow(resultShow);
-		trainSet.setTree(Util.replace2HTML(cls.getModal()));
+		
+		String tree = cls.getModal();
+		
+		//按照需求，去掉树的前两行
+		int loc = 0;
+		for (int i = 0; i < 3; i++)
+		{
+			loc = tree.indexOf("\n", loc);
+			loc += 1;
+		}
+		trainSet.setTree(Util.replace2HTML(tree.substring(loc)));
 
+		GdlResult rst = new GdlResult();
+		rst.setClassifier(cls.getClassifier());
+		rst.setInstance(cls.getTraining());
+		trainSet.setResult(Serialize.serializeData(rst));
+		// try
+		// {
+		// trainSet.setResult(Serialize.serializeData(cls));
+		// }
+		// catch (NotSerializableException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		
 		/** 结果加入数据库 */
 		GdlTrainSetDao trainSetDao = DaoManager.getInstance().getDao(GdlTrainSetDao.class);
 		trainSetDao.AddTrainSet(trainSet);
@@ -92,8 +98,7 @@ public class 创建GDL分析训练集 extends AbstractFileOperation implements Operatio
 	{
 		if (dataset == null || dataset.equals(""))
 		{
-			dataset = SystemConfigure.get("DefaultTrainSetPath");
-			trainSetName = "PEC_trainingset";
+			dataset = SystemConfigure.get("DefaultGdlTrainSample");
 		}
 		else
 		{
@@ -101,8 +106,6 @@ public class 创建GDL分析训练集 extends AbstractFileOperation implements Operatio
 			dataset = dataset.replace('\\', '/');
 			int k = dataset.lastIndexOf("/");
 			if (k > 0) dataset = dataset.substring(k + 1);
-			/** 去掉.arff */
-			trainSetName = dataset.substring(0, dataset.length() - 5);
 
 			File file = new File(getWorkFile(""), dataset);
 			if (!file.isFile()) throw new UserException("训练集文件选取错误，请重新选择！");
@@ -130,16 +133,6 @@ public class 创建GDL分析训练集 extends AbstractFileOperation implements Operatio
 		default:
 			throw new UserException("classifier选择错误，请重新选择！");
 		}
-	}
-
-	public GdlTrainSet getTrainSet()
-	{
-		return trainSet;
-	}
-
-	public void setTrainSet(GdlTrainSet trainSet)
-	{
-		this.trainSet = trainSet;
 	}
 
 	public String getClassifierName()

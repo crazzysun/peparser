@@ -23,8 +23,6 @@ public class OperateGdl
 	private final int START = 4;
 	private final int FUNFORWIDE = 5; // 内部定义的，为了引用外部的函数
 
-//	private String PEFlieName = "";
-
 	public List<Node> allnodeList = new ArrayList<Node>();
 	private String[] aNode;
 	private boolean[] visited;
@@ -106,7 +104,7 @@ public class OperateGdl
 	public String createArffRec(String sourcefile) throws Exception
 	{
 
-		String suffix = sourcefile.substring(sourcefile.lastIndexOf("."), sourcefile.length());
+		String suffix = sourcefile.substring(sourcefile.lastIndexOf("."));
 		if (!suffix.equalsIgnoreCase(".gdl"))
 		{
 			sourcefile = createGdlFile(sourcefile);

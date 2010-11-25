@@ -13,7 +13,8 @@ function showTrainSet()
 {
 	var operations = 
 	[
-		{icon: "../images/icon_view.gif", text: "查看详情", onclick: onView}
+		{icon: "../images/icon_view_s.gif", text: "查看详情", onclick: onView},
+		{icon: "../images/icon_del.gif", text: "删除", onclick: onDelete}
 	];
 	var titles = 
 	[
@@ -45,6 +46,21 @@ function showTrainSet()
 function onView(data)
 {
 	window.open("../gdlresult/" + data.name + ".html", "_blank");
+}
+
+function onDelete(data)
+{
+	if (!confirm("确定要删除训练集'" + data.name + "'吗？"))
+		return;			
+	
+	var callback = function()
+	{
+		alert("训练集'" + data.name + "'删除成功！");
+		tableList.refresh();
+	}
+	var operation = new Operation("gdlfile.删除GDL训练集");
+	operation.trainSetId = data.id;
+	operation.execute(callback);
 }
 
 function onLoad()

@@ -14,9 +14,10 @@ import com.pe.util.Serialize;
 
 public class 判断GDL文件 extends AbstractFileOperation implements Operation
 {
-	private String name; // 要判断的文件
-	private long trainSetId; // 已有的训练集
+	private String name; 		// 要判断的文件
+	private long trainSetId; 	// 已有的训练集
 	private List<JudgedResult> data;
+	private int total;
 
 	public void execute() throws Exception
 	{
@@ -28,7 +29,7 @@ public class 判断GDL文件 extends AbstractFileOperation implements Operation
 		/** 开始判断 */
 		JudgeGdl judgeGdl = new JudgeGdl(rst, name);
 		data = judgeGdl.judge();
-
+		total = data.size();
 	}
 
 	public String getName()
@@ -59,5 +60,15 @@ public class 判断GDL文件 extends AbstractFileOperation implements Operation
 	public void setData(List<JudgedResult> data)
 	{
 		this.data = data;
+	}
+
+	public int getTotal()
+	{
+		return total;
+	}
+
+	public void setTotal(int total)
+	{
+		this.total = total;
 	}
 }

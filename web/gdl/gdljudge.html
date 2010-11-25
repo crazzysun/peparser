@@ -80,7 +80,11 @@ function createResult()
 	var columns =  
 	[
 		function(data) { return data.name; },
-		function(data) { showResult();return data.result; }
+		function(data) 
+		{ 
+			showResult();
+			return data.result == "virus" ? "病毒" : " 正常文件"; 
+		}
 	];   
 	var operation = new Operation("gdlfile.判断GDL文件");
 	operation.name = $("testfile").value;
