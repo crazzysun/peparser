@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.pe.dao.DaoManager;
 import com.pe.operation.OperationManager;
+import com.pe.report.ReportManager;
 import com.pe.util.FileManager;
 import com.pe.util.SystemConfigure;
 
@@ -51,7 +52,7 @@ public class Launcher extends HttpServlet implements ServletContextListener
 			OperationManager.initialize();
 
 			// 报表管理系统
-//			ReportManager.initialize();
+			ReportManager.initialize();
 						
 			log.info("启动PE分析系统完毕！");
 		}

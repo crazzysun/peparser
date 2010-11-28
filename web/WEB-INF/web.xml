@@ -55,5 +55,15 @@
         <servlet-name>Upload</servlet-name>
         <url-pattern>/servlet/Upload</url-pattern>
     </servlet-mapping>
-	
+    
+    <!-- 报表 -->
+	<servlet>
+		<servlet-name>report</servlet-name>
+		<servlet-class>com.pe.web.servlet.ReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>report</servlet-name>
+		<url-pattern>/report</url-pattern>
+	</servlet-mapping>
+
 </web-app>

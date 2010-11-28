@@ -2,9 +2,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>PE文件分析</title>
-<link rel="stylesheet" href="../../styles/style.css" type="text/css" />
-<link rel="stylesheet" href="../../styles/table.css" type="text/css" />
-<script src="../../script/common.js"></script>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
 <script type="text/javascript">
 
 $import("table_list.js");
@@ -198,17 +198,17 @@ function viewAttr()
 
 </head>
 <body>
-<div id="ur_here"><img src="../../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 文件关系节点分析 </div>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 文件关系节点分析 </div>
 <div id="wrap">
 <div id="containaer" >
 
 	<div class="title">
-		<form id="fileForm" name="fileForm" action = "../../upload" method="post" enctype="multipart/form-data" target="upload_result">
+		<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
 			选取分析文件:
 			<input name="fileName" type="file" id="fileName" size="40" style="margin-right: 50px;"/>
 			<input class="pe_result" type="button" onClick="onSubmit()"/>
 			&nbsp;&nbsp;
-			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../../images/loading.gif" align="absmiddle"></span>
+			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
 		</form> 
 		<iframe name="upload_result" id="upload_result" width="0" height="0" style="display:none"></iframe>
 	</div>
