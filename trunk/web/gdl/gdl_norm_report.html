@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>指标影响度分析</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+
+$import("rpc.js");
+$import("debug.js");
+$import("tab.js");
+
+
+function OnReport()
+{
+	//$("format").value = "html";
+    $("normForm").submit();
+}
+
+</script>
+
+</head>
+<body>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 文件关系节点分析 </div>
+<div id="wrap">
+<div id="containaer" >
+	<div>
+		<form id="normForm" name="selectUserForm" action="../report" method="post">
+		<input type="hidden" name="format" id="format" value="html"/>
+		<input type="hidden" name="design" id="design" value="new_report.rptdesign"/>
+		</form>
+	</div>
+	<div>
+		<input class="but_in" id="trainButton" type="button" value="查看分析结果" onclick="OnReport();" />
+	</div>
+	
+</div>
+</div>
+</body>
+</html>

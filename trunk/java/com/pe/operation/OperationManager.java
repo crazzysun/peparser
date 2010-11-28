@@ -93,7 +93,7 @@ public class OperationManager
 	}
 
 	/** Ö´ÐÐ²Ù×÷ */
-	public Object execute(String name, Map<String, ? extends Object> parameters) throws Exception
+	public Object execute(String name, Map<String, ? extends Object> parameters, OperationContext context) throws Exception
 	{
 		try
 		{
@@ -101,6 +101,7 @@ public class OperationManager
 			Class<? extends Operation> type = getOperationClass(name);
 			Operation operation = BeanCreator.create(type, parameters);
 
+			OperationContext.setContext(context);
 			operation.execute();
 
 			return operation;
