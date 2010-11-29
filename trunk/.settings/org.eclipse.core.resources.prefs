@@ -1,17 +1,17 @@
-#Mon Nov 29 08:55:27 CST 2010
+#Mon Nov 29 09:54:06 CST 2010
 eclipse.preferences.version=1
 encoding//java/com/pe/operation/Operation.java=GB18030
 encoding//java/com/pe/rptdesigns/new_report.rptdesign=UTF-8
 encoding//java/com/pe/web/dwr/RPC.java=GB18030
 encoding//java/com/pe/web/servlet/Launcher.java=GB18030
-encoding//java/com/pe/web/servlet/ReportServlet.java=UTF-8
 encoding//web/index.html=UTF-8
 encoding//web/left.html=UTF-8
 encoding//web/packed/create_trainSet.html=UTF-8
 encoding//web/packed/judge.html=UTF-8
 encoding//web/parser/file_select.html=UTF-8
 encoding//web/parser/parser_result.jsp=UTF-8
-encoding//web/styles/style.css=gbk
+encoding//web/styles/style.css=UTF-8
+encoding//web/styles/table.css=UTF-8
 encoding/PEAnalyzer.dll=UTF-8
 encoding/conf=UTF-8
 encoding/data=UTF-8
