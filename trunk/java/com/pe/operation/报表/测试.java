@@ -15,7 +15,7 @@ import com.pe.report.ReportEventHandle;
 public class ≤‚ ‘ extends AbstractReportOperation implements Operation, ReportEventHandle
 {
 	private List<String> portions = new ArrayList<String>();
-	private Map<String, String> pMap = new HashMap<String, String>();
+	private Map<String, Integer> pMap = new HashMap<String, Integer>();
 	
 	private int index = 0;
 	
@@ -29,11 +29,11 @@ public class ≤‚ ‘ extends AbstractReportOperation implements Operation, ReportEv
 		portions.add("d");
 		portions.add("e");
 		
-		pMap.put("a", "15");
-		pMap.put("b", "10");
-		pMap.put("c", "8");
-		pMap.put("d", "20");
-		pMap.put("e", "16");
+		pMap.put("a", 15);
+		pMap.put("b", 10);
+		pMap.put("c", 8);
+		pMap.put("d", 20);
+		pMap.put("e", 16);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		String title = "124";
