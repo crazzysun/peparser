@@ -59,14 +59,14 @@ public class ReportManager
 	
 	public void startup() throws Exception
 	{
-		log.info("å¯åŠ¨æŠ¥è¡¨å¼•æ“");
+		log.info("Æô¶¯±¨±íÒıÇæ");
 
 		// System.setProperty("RUN_UNDER_ECLIPSE", "false");
 
 		String birtHome = SystemConfigure.get("BirtRuntime");
 		if (birtHome.equals(""))
 		{
-			log.warn("æœªè®¾ï¿½?BirtRuntimeï¼Œæœªå¯åŠ¨æŠ¥è¡¨å¼•æ“");
+			log.warn("Î´ÉèÖÃ BirtRuntime£¬Î´Æô¶¯±¨±íÒıÇæ");
 			return;
 		}
 
@@ -92,7 +92,7 @@ public class ReportManager
 
 	public void shutdown()
 	{
-		log.info("å…³é—­æŠ¥è¡¨å¼•æ“");
+		log.info("¹Ø±Õ±¨±íÒıÇæ");
 
 		if (engine != null)
 		{
@@ -106,7 +106,7 @@ public class ReportManager
 			Map<String, Object> paramValues) throws Exception
 	{
 
-		if (log.isDebugEnabled()) log.debug(String.format("æ ¹æ®æ¨¡æ¿ %s è¾“å‡ºæŠ¥è¡¨", design));
+		if (log.isDebugEnabled()) log.debug(String.format("¸ù¾İÄ£°å %s Êä³ö±¨±í", design));
 
 		IReportRunnable report = null;
 		IRunAndRenderTask task = null;
@@ -122,7 +122,7 @@ public class ReportManager
 
 			task.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, ReportManager.class.getClassLoader());
 
-			// è®¾ç½®render options
+			// ÉèÖÃrender options
 			IRenderOption options = null;
 			if (format.equalsIgnoreCase("html"))
 			{
@@ -153,14 +153,14 @@ public class ReportManager
 			}
 			else
 			{
-				throw new Exception("éæ³•çš„æŠ¥è¡¨æ ¼å¼ï¼š" + format);
+				throw new Exception("·Ç·¨µÄ±¨±í¸ñÊ½£º" + format);
 			}
 			options.setOutputStream(os);
 			task.setRenderOption(options);
 
-			// è®¾ç½®taskçš„handle
+			// ÉèÖÃtaskµÄhandle
 			task.setParameterValue("handle", handle);
-			// è®¾ç½®é¡µé¢å‚æ•°
+			// ÉèÖÃÒ³Ãæ²ÎÊı
 			if (paramValues != null)
 			{
 				Map<String, Object> paramMap = new HashMap<String, Object>();
