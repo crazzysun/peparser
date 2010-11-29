@@ -16,10 +16,10 @@ import com.pe.UserException;
 import com.pe.dao.DaoManager;
 import com.pe.operation.OperationContext;
 import com.pe.operation.OperationManager;
-import com.pe.operation.鎶ヨ〃.OperationMap;
+import com.pe.operation.报表.OperationMap;
 
 /**
- * 鎶ヨ〃Servlet 鐢ㄤ簬浜х敓鎶ヨ〃
+ * 报表Servlet 用于产生报表
  */
 public class ReportServlet extends HttpServlet
 {
@@ -59,7 +59,7 @@ public class ReportServlet extends HttpServlet
 		}
 		catch (Exception e)
 		{
-			log.error("鐢熸垚鎶ヨ〃閿欒", e);
+			log.error("生成报表错误", e);
 			response.sendError(503, e.getMessage());
 		}
 		finally

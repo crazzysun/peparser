@@ -23,17 +23,17 @@ public class ≤‚ ‘ extends AbstractReportOperation implements Operation, ReportEv
 	public void execute() throws Exception
 	{
 		
-		portions.add("1");
-		portions.add("2");
-		portions.add("3");
-		portions.add("4");
-		portions.add("5");
+		portions.add("a");
+		portions.add("b");
+		portions.add("c");
+		portions.add("d");
+		portions.add("e");
 		
-		pMap.put("1", "15");
-		pMap.put("2", "10");
-		pMap.put("3", "8");
-		pMap.put("4", "20");
-		pMap.put("5", "16");
+		pMap.put("a", "15");
+		pMap.put("b", "10");
+		pMap.put("c", "8");
+		pMap.put("d", "20");
+		pMap.put("e", "16");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		String title = "124";
