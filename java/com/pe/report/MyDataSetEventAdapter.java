@@ -9,7 +9,7 @@ public class MyDataSetEventAdapter extends ScriptedDataSetEventAdapter
 {
 	private ReportEventHandle handle;
 
-	/** 澶勭悊context鍖呭惈鐨勫閮ㄥ弬鏁帮紝骞跺瓨鍏ョ被鍙橀噺锛屼互渚縪pen璋冪敤 */
+	/** 处理context包含的外部参数，并存入类变量，以便open调用 */
 	@Override
 	public void beforeOpen(IDataSetInstance instance, IReportContext context)
 	{
