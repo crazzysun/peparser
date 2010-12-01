@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -102,29 +104,29 @@ public class GdlAttribute extends AbstractFileOperation implements Operation
 				System.out.println(ioe.getMessage());
 
 			}
-			if (startNodeId >= 1) quotientStartNodeId = this.sumnodes / startNodeId;
+			if (startNodeId >= 1) quotientStartNodeId = getDoubleBit(this.sumnodes / startNodeId);
 			childgraph(true);
-			if (this.startnodes >= 1) quotientStartGraphNodes = this.sumnodes / this.startnodes;
+			if (this.startnodes >= 1) quotientStartGraphNodes = getDoubleBit(this.sumnodes / this.startnodes);
 			childgraph(false);
 			calAbsolutenodes();
 			calDegree();
 			calAveDegVar();
 			extendStartGraphs();
-
-			if (sumSub != 0) quotientsumSub = this.sumnodes / sumSub;
-			if (innerSub != 0) quotientinnerSub = this.sumnodes / innerSub;
-			if (remoteSub != 0) quotientremoteSub = this.sumnodes / remoteSub;
-			if (exterSub != 0) quotientexterSub = this.sumnodes / exterSub;
-			if (this.absolutenodes != 0) quotientabNodes = this.sumnodes / absolutenodes;
-			if (quotientabAddressSub != 0) quotientabAddressSub = this.sumnodes / quotientabAddressSub;
-			if (abInnerSub != 0) quotientabInnerSub = this.sumnodes / abInnerSub;
-			if (abRemoteSub != 0) quotientabRemoteSub = this.sumnodes / abRemoteSub;
-			if (abExterSub != 0) quotientabExterSub = this.sumnodes / abExterSub;
-			if (this.finalSub != 0) quotientfinalSub = this.sumnodes / finalSub;
-			if (quotientfinalAddressSub != 0) quotientfinalAddressSub = this.sumnodes / quotientfinalAddressSub;
-			if (finalInnerSub != 0) quotientfinalInnerSub = this.sumnodes / finalInnerSub;
-			if (finalRemoteSub != 0) quotientfinalremoteSub = this.sumnodes / finalRemoteSub;
-			if (finalExterSub != 0) quotientfinalexterSub = this.sumnodes / finalExterSub;
+			
+			if (sumSub != 0) quotientsumSub = getDoubleBit(this.sumnodes / sumSub);
+			if (innerSub != 0) quotientinnerSub = getDoubleBit(this.sumnodes / innerSub);
+			if (remoteSub != 0) quotientremoteSub = getDoubleBit(this.sumnodes / remoteSub);
+			if (exterSub != 0) quotientexterSub = getDoubleBit(this.sumnodes / exterSub);
+			if (this.absolutenodes != 0) quotientabNodes = getDoubleBit(this.sumnodes / absolutenodes);
+			if (quotientabAddressSub != 0) quotientabAddressSub = getDoubleBit(this.sumnodes / quotientabAddressSub);
+			if (abInnerSub != 0) quotientabInnerSub = getDoubleBit(this.sumnodes / abInnerSub);
+			if (abRemoteSub != 0) quotientabRemoteSub = getDoubleBit(this.sumnodes / abRemoteSub);
+			if (abExterSub != 0) quotientabExterSub = getDoubleBit(this.sumnodes / abExterSub);
+			if (this.finalSub != 0) quotientfinalSub = getDoubleBit(this.sumnodes / finalSub);
+			if (quotientfinalAddressSub != 0) quotientfinalAddressSub = getDoubleBit(this.sumnodes / quotientfinalAddressSub);
+			if (finalInnerSub != 0) quotientfinalInnerSub = getDoubleBit(this.sumnodes / finalInnerSub);
+			if (finalRemoteSub != 0) quotientfinalremoteSub = getDoubleBit(this.sumnodes / finalRemoteSub);
+			if (finalExterSub != 0) quotientfinalexterSub = getDoubleBit(this.sumnodes / finalExterSub);
 		}
 		catch(IOException ioe)
 		{
@@ -154,29 +156,29 @@ public class GdlAttribute extends AbstractFileOperation implements Operation
 			System.out.println(ioe.getMessage());
 
 		}
-		if (startNodeId >= 1) quotientStartNodeId = this.sumnodes / startNodeId;
+		if (startNodeId >= 1) quotientStartNodeId = getDoubleBit(this.sumnodes / startNodeId);
 		childgraph(true);
-		if (this.startnodes >= 1) quotientStartGraphNodes = this.sumnodes / this.startnodes;
+		if (this.startnodes >= 1) quotientStartGraphNodes = getDoubleBit(this.sumnodes / this.startnodes);
 		childgraph(false);
 		calAbsolutenodes();
 		calDegree();
 		calAveDegVar();
 		extendStartGraphs();
 
-		if (sumSub != 0) quotientsumSub = this.sumnodes / sumSub;
-		if (innerSub != 0) quotientinnerSub = this.sumnodes / innerSub;
-		if (remoteSub != 0) quotientremoteSub = this.sumnodes / remoteSub;
-		if (exterSub != 0) quotientexterSub = this.sumnodes / exterSub;
-		if (this.absolutenodes != 0) quotientabNodes = this.sumnodes / absolutenodes;
-		if (quotientabAddressSub != 0) quotientabAddressSub = this.sumnodes / quotientabAddressSub;
-		if (abInnerSub != 0) quotientabInnerSub = this.sumnodes / abInnerSub;
-		if (abRemoteSub != 0) quotientabRemoteSub = this.sumnodes / abRemoteSub;
-		if (abExterSub != 0) quotientabExterSub = this.sumnodes / abExterSub;
-		if (this.finalSub != 0) quotientfinalSub = this.sumnodes / finalSub;
-		if (quotientfinalAddressSub != 0) quotientfinalAddressSub = this.sumnodes / quotientfinalAddressSub;
-		if (finalInnerSub != 0) quotientfinalInnerSub = this.sumnodes / finalInnerSub;
-		if (finalRemoteSub != 0) quotientfinalremoteSub = this.sumnodes / finalRemoteSub;
-		if (finalExterSub != 0) quotientfinalexterSub = this.sumnodes / finalExterSub;
+		if (sumSub != 0) quotientsumSub = getDoubleBit(this.sumnodes / sumSub);
+		if (innerSub != 0) quotientinnerSub = getDoubleBit(this.sumnodes / innerSub);
+		if (remoteSub != 0) quotientremoteSub = getDoubleBit(this.sumnodes / remoteSub);
+		if (exterSub != 0) quotientexterSub = getDoubleBit(this.sumnodes / exterSub);
+		if (this.absolutenodes != 0) quotientabNodes = getDoubleBit(this.sumnodes / absolutenodes);
+		if (quotientabAddressSub != 0) quotientabAddressSub = getDoubleBit(this.sumnodes / quotientabAddressSub);
+		if (abInnerSub != 0) quotientabInnerSub = getDoubleBit(this.sumnodes / abInnerSub);
+		if (abRemoteSub != 0) quotientabRemoteSub = getDoubleBit(this.sumnodes / abRemoteSub);
+		if (abExterSub != 0) quotientabExterSub = getDoubleBit(this.sumnodes / abExterSub);
+		if (this.finalSub != 0) quotientfinalSub = getDoubleBit(this.sumnodes / finalSub);
+		if (quotientfinalAddressSub != 0) quotientfinalAddressSub = getDoubleBit(this.sumnodes / quotientfinalAddressSub);
+		if (finalInnerSub != 0) quotientfinalInnerSub = getDoubleBit(this.sumnodes / finalInnerSub);
+		if (finalRemoteSub != 0) quotientfinalremoteSub = getDoubleBit(this.sumnodes / finalRemoteSub);
+		if (finalExterSub != 0) quotientfinalexterSub = getDoubleBit(this.sumnodes / finalExterSub);
 	}
 
 	// 根据gdl文件创建邻接表
@@ -543,7 +545,7 @@ public class GdlAttribute extends AbstractFileOperation implements Operation
 		}
 		this.maxDegree = maxNond;
 		average = sum / this.sumnodes;
-		this.averageDegree = average;
+		this.averageDegree = getDoubleBit(average);
 	}
 
 	// 求孤立节点的类型
@@ -616,7 +618,8 @@ public class GdlAttribute extends AbstractFileOperation implements Operation
 			loopNode = it.next();
 			asum = asum + Math.abs(loopNode.getNondirectedlinked().size() - this.averageDegree);
 		}
-		this.degreeVar = asum / this.sumnodes;
+		
+		this.degreeVar = getDoubleBit(asum / this.sumnodes);
 	}
 
 //	private void startMax()
@@ -667,6 +670,13 @@ public class GdlAttribute extends AbstractFileOperation implements Operation
 		finalRemoteSub = 0;
 		startNonGraph = false;
 		startNondirectNodes = 0;
+	}
+	/** 获取精度*/
+	private double getDoubleBit(double val)
+	{
+		BigDecimal b1 = new BigDecimal(val);
+		
+		return b1.setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 	/*---------------------------------------------*/
 	public String getFileName()
