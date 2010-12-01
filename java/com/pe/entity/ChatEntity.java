@@ -1,13 +1,16 @@
-package com.pe.util;
+package com.pe.entity;
 import java.util.List;
 import java.util.Map;
 
 
-public class ChatEntity
+public class ChatEntity implements Bean
 {
+	private static final long serialVersionUID = -8964584547867355159L;
+	
 	private List<String> list;
 	private Map<String, Integer> map1;
 	private Map<String, Integer> map2;
+	private List<String> classNameList;
 	
 	public List<String> getList()
 	{
@@ -32,5 +35,13 @@ public class ChatEntity
 	public void setMap2(Map<String, Integer> map2)
 	{
 		this.map2 = map2;
+	}
+	public List<String> getClassNameList()
+	{
+		return classNameList;
+	}
+	public void setClassNameList(List<String> classNameList)
+	{
+		this.classNameList = classNameList;
 	}
 }
