@@ -10,7 +10,7 @@ public class OperationMap extends HashMap<String,String>
     static
 	{
 		operationmap = 	new OperationMap();
-		operationmap.put("new_report.rptdesign", "报表.测试");
+		operationmap.put("graph_report.rptdesign", "报表.查看指标分析图");
 	}
     
 	public static String getOperationName(String design)

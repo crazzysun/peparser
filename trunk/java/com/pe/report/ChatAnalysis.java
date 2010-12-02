@@ -25,7 +25,8 @@ public class ChatAnalysis
 		Instances m_Training = new Instances(new BufferedReader(new FileReader(m_TrainingFile)));
 		m_Training.setClassIndex(m_Training.numAttributes() - 1);
 		
-		System.out.println(m_Training.numClasses());
+		Attribute a = (Attribute) m_Training.enumerateAttributes().nextElement();
+		System.out.println(a.numValues());
 //		analysize("", m_TrainingFile);
 	}
 

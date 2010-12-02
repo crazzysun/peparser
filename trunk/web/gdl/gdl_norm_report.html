@@ -6,16 +6,108 @@
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
 <script src="../script/common.js"></script>
 <script type="text/javascript">
-
 $import("rpc.js");
-$import("debug.js");
-$import("tab.js");
+$import("table_list_without_page_control_bar.js");
 
+var status = null;
+var completed = false;
+var trainSetId = null;
 
-function OnReport()
+/** 1.提交，检查输入 */
+function onSubmit()
 {
-	//$("format").value = "html";
-    $("normForm").submit();
+	completed = false;
+	status = null;
+
+	if ($("testfile").value == "")
+	{
+		alert("请选择要分析的样本文件！");
+		return;
+	}
+
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
+	}
+	$("progress").style.display = "";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = "";
+	operation.execute(callback);
+}
+
+/** 2.检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				status = null;
+				createResult();
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
+	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
+}
+
+/** 3.创建结果 */
+function createResult()
+{
+	var operations = 
+	[
+		{icon: "../images/icon_grade.gif", text: "查看直方图", onclick: onChat}
+	];
+	var titles = 
+	[
+		{text:"指标名", width:"30%"},
+		{text:"备注", width:"30%"},
+		{text:"操作", width:"20%"}
+	];
+	var columns =  
+	[
+		function(data) { return data.name; },
+		function(data) { return data.comment; },
+		function(data) { showResult();return TableList.links(operations, data); }
+	];   
+	var operation = new Operation("报表.列arff文件指标");
+	operation.dataset = $("testfile").value;
+	var tableList = new TableList(operation, titles, columns);
+	tableList.create($("container"));
+	tableList.refresh();
+}
+
+/** 4.显示判断结果 */
+function showResult()
+{
+	$("progress").style.display = "none";
+	$("result").style.display = "";
+	$("testFile_div").style.display = "none";
+}
+
+function onChat(data)
+{
+	$("trainSet").value = $("testfile").value;
+	$("indicatorName").value = data.name;
+	$("normForm").submit();
 }
 
 </script>
@@ -25,14 +117,43 @@ function OnReport()
 <div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 指标影响分析 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div>
-		<form id="normForm" name="selectUserForm" action="../report" method="post">
-		<input type="hidden" name="format" id="format" value="html"/>
-		<input type="hidden" name="design" id="design" value="new_report.rptdesign"/>
-		</form>
+	<div id="title" class="title">指标直方图统计</div>
+	<div class="filter" id="testFile_div">
+		<div class="filterTitle">
+		<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+			<tr class='tablecell'>
+				<td class='tit' width="20%"><span style="color:red">*</span>选择分析文件</td>
+				<td class='inp'>
+					<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+						<input id="testfile" name="testfile" type="file" size="40"/>
+					</form> 
+					<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<div class="filterInput" style="padding:2px 0px 0px 25px;">
+			<input type="button" class="pe_result" onClick="onSubmit()"/>
+			<span id="progress" style="display:none">判断中...<img src="../images/loading.gif" align="absmiddle"></span>
+		</div>
+		<div class="clear"></div>
+		<div class="title" id="result" style="display:none">
+			所有指标如下！
+		</div>
 	</div>
-	<div>
-		<input class="but_in" id="trainButton" type="button" value="查看分析结果" onclick="OnReport();" />
+	
+	<!-- 结果展示div -->
+	<div id="container"></div>
+	
+	
+	<div style="display:none">
+		<form id="normForm" name="selectUserForm" action="../report" target="_blank" method="post">
+		<input type="hidden" name="trainSet" id="trainSet"/>
+		<input type="hidden" name="indicatorName" id="indicatorName"/>
+		
+		<input type="hidden" name="format" id="format" value="html"/>
+		<input type="hidden" name="design" id="design" value="graph_report.rptdesign"/>
+		</form>
 	</div>
 	
 </div>
