@@ -30,6 +30,8 @@ public class 列arff文件指标 implements Operation
 		
 		validateTrainFile();
 		Instances m_Training = new Instances(new BufferedReader(new FileReader(dataset)));
+		m_Training.setClassIndex(m_Training.numAttributes() - 1);
+		
 		Enumeration<Attribute> e = m_Training.enumerateAttributes();
 		List<String> indicatorNames = new ArrayList<String>();
 		
@@ -37,7 +39,8 @@ public class 列arff文件指标 implements Operation
 		{
 			Attribute att = e.nextElement();
 			
-			if (att.name().equalsIgnoreCase("class")) continue;
+			//排除最后一个分类指标
+			if (att.name().equalsIgnoreCase(m_Training.classAttribute().name())) continue;
 			indicatorNames.add(att.name());
 		}
 		
