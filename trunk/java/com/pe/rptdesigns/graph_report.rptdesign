@@ -376,7 +376,7 @@
       <Left>0.0</Left>
       <Top>0.0</Top>
       <Width>649.5</Width>
-      <Height>257.25</Height>
+      <Height>329.25</Height>
     </Bounds>
     <Insets>
       <Top>3.0</Top>
@@ -3518,7 +3518,7 @@
                         <property name="outputFormat">SVG</property>
                         <property name="marginTop">0pt</property>
                         <property name="dataSet">数据集</property>
-                        <property name="height">3.5729166667in</property>
+                        <property name="height">4.573in</property>
                         <property name="width">9.031in</property>
                         <list-property name="boundDataColumns">
                             <structure>
