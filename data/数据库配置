@@ -1,0 +1,20 @@
+数据库安装
+
+首先将C:\PostgreSQL\8.3\bin的路径添加到windows环境变量的path中。
+进入dos：
+a)	创建数据库集群
+initdb --locale=C -E UTF-8 d:\pgsql\data
+b)	注册为windows服务（可以将该服务设置为自动启动，便可以不手动启动集群）
+pg_ctl register -N postgresql -D d:\pgsql\data
+c)	启动数据库集群
+pg_ctl -D d:\pgsql\data start
+d)	创建tccuser超级用户
+createuser -a tccuser
+e)	创建数据库
+createdb -O tccuser tcc
+f)	创建语言
+createlang plpgsql tcc
+g)	Load_data
+load_data tcc
+h)	还原数据库(数据库备份文件一般位于tcc项目的database文件夹内，按时间顺序排列)
+pg_restore -d tcc < tcc.dmp
