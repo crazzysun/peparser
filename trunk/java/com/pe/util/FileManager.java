@@ -17,13 +17,15 @@ public class FileManager
 	}
 
 	// ========================================================
-	private File PEHome; 			// PE文件目录
-	private File TemplateHome; 		// 模板目录
-	private File PEResultHome; 		// PE文件分析结果
-	private File DefaultPackedTrainSample;		// 加壳训练集默认存放目录
-	private File PackedResultHome;	// 加壳分析训练集结果存放目录
-	private File DefaultGdlTrainSample;		// GDL训练集默认存放目录
-	private File GdlResultHome;	// 加壳分析训练集结果存放目录
+	private File PEHome; 					// PE文件目录
+	private File TemplateHome; 				// 模板目录
+	private File PEResultHome; 				// PE文件分析结果
+	private File DefaultPackedTrainSample;	// 加壳训练样本默认存放目录
+	private File PackedResultHome;			// 加壳分析训练集结果存放目录
+	private File DefaultGdlTrainSample;		// GDL训练样本默认存放目录
+	private File GdlResultHome;				// 加壳分析训练集结果存放目录
+	private File DefaultGBIDSample;			// GBID模式集样本默认存放目录
+	private File GBIDResultHome;			// GBID模式集结果存放目录
 	
 
 	public void startup() throws Exception
@@ -35,12 +37,15 @@ public class FileManager
 		DefaultGdlTrainSample = new File(SystemConfigure.get("DefaultGdlTrainSample"));
 		PackedResultHome = new File(SystemConfigure.get("PackedResultHome"));
 		GdlResultHome = new File(SystemConfigure.get("GdlResultHome"));
+		DefaultGBIDSample = new File(SystemConfigure.get("DefaultGBIDSample"));
+		GBIDResultHome = new File(SystemConfigure.get("GBIDResultHome"));
 		
 		if (!PEHome.exists()) PEHome.mkdirs();
 		if (!TemplateHome.exists()) TemplateHome.mkdirs();
 		if (!PEResultHome.exists()) PEResultHome.mkdirs();
 		if (!PackedResultHome.exists()) PackedResultHome.mkdirs();
 		if (!GdlResultHome.exists()) GdlResultHome.mkdirs();
+		if (!GBIDResultHome.exists()) GBIDResultHome.mkdirs();
 	}
 
 	public File getPEHome()
@@ -111,5 +116,25 @@ public class FileManager
 	public void setGdlResultHome(File gdlResultHome)
 	{
 		GdlResultHome = gdlResultHome;
+	}
+
+	public File getDefaultGBIDSample()
+	{
+		return DefaultGBIDSample;
+	}
+
+	public void setDefaultGBIDSample(File defaultGBIDSample)
+	{
+		DefaultGBIDSample = defaultGBIDSample;
+	}
+
+	public File getGBIDResultHome()
+	{
+		return GBIDResultHome;
+	}
+
+	public void setGBIDResultHome(File gBIDResultHome)
+	{
+		GBIDResultHome = gBIDResultHome;
 	}
 }

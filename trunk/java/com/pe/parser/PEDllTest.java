@@ -2,23 +2,26 @@ package com.pe.parser;
 
 import java.io.IOException;
 
-import com.pe.dll.petest.PEAnalyzerDll;
+import com.pe.dll.petest.GBIDDll;
 
 public class PEDllTest
 {
 	public static void main(String[] args) throws IOException
 	{
-		String tree = "13\n22\n33";
-		int loc = 0;
-//		for (int i = 0; i < 2; i++)
-//		{
-//			loc = tree.indexOf("\n", loc);
-//			loc += 2;
-//			System.out.println(tree.charAt(loc));
-//		}
-//		System.out.println(tree.substring(loc));
-		System.out.println("\n".length());
+		GBIDDll GBID = GBIDDll.INSTANCE;
+		
+		String bounceFilePath[] = new String[3];
+		bounceFilePath[0] = "D:/work/peparser/data/GBIDFiles/int/norm/synth/bounce.int";
+		bounceFilePath[1] = "D:/work/peparser/data/GBIDFiles/int/norm/synth/bounce-1.int";
+		bounceFilePath[2] = "D:/work/peparser/data/GBIDFiles/int/norm/synth/bounce-2.int";
+		
+		String allLibFilePath = "d:/AllRulesLib.lib";
+//		String ntvLibFilePath;
+//		String plusFilePath;
+//		double results[];
+//		int trans[];
+//		double matchRate;
+		
+		GBID.GetAllRulesLib(bounceFilePath, allLibFilePath);
 	}
-	
-
 }

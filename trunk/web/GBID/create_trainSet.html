@@ -18,20 +18,15 @@ function onSubmit()
 	completed = false;
 	status = null;
 	
-	if ($("optionValue").value == "" || $("optionValue").value == null)
-	{
-		alert("请输入TestOptions的值！");
-		return;
-	}
 	if ($("trainSetName").value == "" || $("trainSetName").value == null)
 	{
-		alert("请输入训练集的名称！");
+		alert("请输入模式集的名称！");
 		return;
 	}
 
 	if ($("dataset").value == "" || $("dataset").value == null)
 	{
-		if (confirm("训练样本文件未选择，确认使用系统默认训练样本？"))
+		if (confirm("样本文件未选择，确认使用系统默认样本‘bounce.zip’？"))
 		{
 			createTrainSet();
 		}
@@ -81,7 +76,7 @@ function check()
 	operation.execute(callback);
 }
 
-/** 3.创建训练集 */
+/** 3.创建模式集 */
 function createTrainSet()
 {
 	$("progress").style.display = "";			//显示分析的进度条
@@ -109,51 +104,19 @@ function showTrainResult(trainSetName)
 	$("resultFrame").src = "../packedResult/" + trainSetName + ".html";
 }
 
-/** 修改选项值的单位 */
-function changeValueUnit()
-{
-	if ($("testOptions").value == 0)
-		$("valueUnit").innerHTML = "等份（请输入大于1的整数）";
-	else if ($("testOptions").value == 1)
-		$("valueUnit").innerHTML = "%（请输入大于0小于100的整数）";
-}
-
-function isExist()
-{
-	var callback = function(data)
-	{
-		var exist = data.exist;
-		if (exist)
-		{
-			if (!confirm("系统中已存在名为'" + $("trainSetName").value + "'的训练集，\n确认要覆盖这条训练集信息吗？"))
-				return;
-		}
-		onSubmit();
-	}
-	var operation = new Operation("packed.判断加壳训练集是否存在");
-	
-	operation.trainSetName = $("trainSetName").value;
-	operation.execute(callback);
-}
-
-function onLoad()
-{
-	$("result").style.display = "none";
-	$("container").style.display = "none";
-}
 </script>
 
 </head>
-<body onLoad="onLoad()">
+<body>
 <div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 创建动态分析模式集 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div id="title" class="title">训练</div>
+	<div id="title" class="title">创建模式集</div>
 	<div class="filter">
 		<div class="filterTitle">
 				<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
 					<tr class='tablecell'>
-						<td class='tit' width="20%"><span style="color:red">*</span>训练集名称</td>
+						<td class='tit' width="20%"><span style="color:red">*</span>模式集名称</td>
 						<td class='inp'>
 							<input type="text" id="trainSetName" class="form_input_s"/>
 						</td>
@@ -165,43 +128,23 @@ function onLoad()
 							<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
 								<input id="dataset" name="dataset" type="file" size="40"/>
 								<br/>
-								<span style="color:red">注：不选择则使用系统默认的训练样本“default_Gdl_samples.arff”</span>
+								<span style="color:red">注：不选择则使用系统默认的样本“bounce.zip”</span>
 							</form> 
 							<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
 						</td>
 					</tr>
-					<tr class="tablecell">
-						<td class="tit"><span style="color:red">*</span>Test Options</td>
-						<td class="inp">
-							<select id="testOptions" class="form_input_l" onchange="changeValueUnit()">
-								<option value="0">Cross-Validation(将训练样本平分n等份)</option>
-								<option value="1">Percentage split(按训练样本百分比)</option>
-							</select>
-						</td>
-					</tr>
-					<tr class="tablecell">
-						<td class="tit"><span style="color:red">*</span>选项值</td>
-						<td class="inp">
-							<input id="optionValue" type="text" class="form_input_s"/><span id="valueUnit">等份（请输入大于1的整数）</span>
-						</td>
-					</tr>
 				</table>
 		</div>
-		<div class="filterInput" style="padding:65px 0px 0px 25px;">
+		<div class="filterInput" style="padding:15px 0px 0px 25px;">
 			<input type="button" class="form_create" onClick="isExist()"/>
 			<span id="progress" style="display:none">创建中...<img src="../images/loading.gif" align="absmiddle"></span>
 		</div>
 		<div class="clear"></div>
-		<div class="title" id="result">
-			恭喜你模式集创建完成，结果已保存!具体生成树结果如下:
-			(现在你可以在<a href="judge.html">"判断PE文件是否加壳"</a>菜单选择文件进行是否加壳判断或<a href="trainSet_list.html">"查看所有训练集"</a>)
-		</div>
+		<div class="title">已有的模式集</div>
 	</div>
 	
-	<!-- 结果展示div，默认隐藏的 -->
-	<div id="container" style="display:none;">
-		<iframe id="resultFrame" style="width:100%;height:80%"></iframe>
-	</div>
+	<!-- 结果展示div -->
+	<div id="container"></div>
 	
 </div>
 </div>
