@@ -12,6 +12,7 @@ $import("table_list_without_page_control_bar.js");
 var status = null;
 var completed = false;
 var trainSetId = null;
+var chatData = {};
 
 /** 1.提交，检查输入 */
 function onSubmit()
@@ -93,7 +94,7 @@ function showPlus()
 	
 	var columns =  
 	[
-		function(data) { return data.name; },
+		function(data) { chatData = data;return data.name; },
 		function(data) { return data.allRulesRate; },
 		function(data) { return data.ntvRulesRate; },
 		function(data) { return data.increaseRate; }
@@ -174,7 +175,8 @@ function selectTrainSet()
 
 function showPlusChat()
 {
-	
+	if (chatData == null)
+	return;
 }
 </script>
 
