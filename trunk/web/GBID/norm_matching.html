@@ -1,0 +1,252 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>正常文件检测</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+$import("rpc.js");
+$import("table_list_without_page_control_bar.js");
+
+var status = null;
+var completed = false;
+var trainSetId = null;
+
+/** 1.提交，检查输入 */
+function onSubmit()
+{
+	completed = false;
+	status = null;
+
+	if ($("testfile").value == "")
+	{
+		alert("请选择要检测的样本文件！");
+		return;
+	}
+
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
+	}
+	$("progress").style.display = "";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = "";
+	operation.execute(callback);
+}
+
+/** 2.检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				status = null;
+				createResult();
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
+	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
+}
+
+/** 3.创建检测结果 */
+function createResult()
+{
+	var fileName = "";
+	fileName = $("testfile").value;
+	if (fileName == "plus.int")
+		showPlus();
+	else
+		showBounce();
+}
+
+/** 创建plus.int检测结果 */
+function showPlus()
+{
+	var titles = 
+	[
+		{text:"正常序列文档", width:"20%"},
+		{text:"采用衍生规则", width:"20%"},
+		{text:"未采用衍生规则", width:"20%"},
+		{text:"匹配率增幅", width:"20%"}
+	];
+	
+	var columns =  
+	[
+		function(data) { return data.name; },
+		function(data) { return data.allRulesRate; },
+		function(data) { return data.ntvRulesRate; },
+		function(data) { return data.increaseRate; }
+	];  
+	 
+	var columns1 =  
+	[
+		function(data1) { return data1.name; },
+		function(data1) { return data1.allRulesRate; },
+		function(data1) { return data1.ntvRulesRate; },
+		function(data1) { return data1.increaseRate; }
+	];   
+	
+	var operation = new Operation("GBID.检测正常文件");
+	operation.name = $("testfile").value;
+	operation.trainSetId = trainSetId;
+	
+	//local
+	var tableList = new TableList(operation, titles, columns);
+	tableList.create($("container"));
+	tableList.refresh();
+	//global
+	var tableList1 = new TableList(operation, titles, columns1);
+	tableList1.create($("container1"));
+	tableList1.refresh();
+	
+	$("progress").style.display = "none";
+	$("result").style.display = "";
+	$("localResult").style.display = "";
+	$("globalResult").style.display = "";
+	$("plusChat").style.display = "";
+}
+
+/** 4.显示检测结果 */
+function showBounce()
+{
+	var callback = function(o)
+	{
+		var result = o.result;
+		var content = $("bounceContent");
+	
+		var td = document.createElement("td");
+		td.innerHTML = result.name;
+		content.appendChild(td);
+		
+		td.innerHTML = result.allRulesRate;
+		content.appendChild(td);
+		
+		td.innerHTML = result.ntvRulesRate;
+		content.appendChild(td);
+		
+		td.innerHTML = result.increaseRate;
+		content.appendChild(td);
+		
+		$("bounceResult").style.display = "";
+		$("progress").style.display = "none";
+		$("result").style.display = "";
+		$("localResult").style.display = "";
+	};
+	
+	var operation = new Operation("GBID.检测异常文件")
+	operation.name = $("testfile").value;
+	operation.trainSetId = trainSetId;
+	operation.execute(callback);
+}
+
+function selectTrainSet()
+{
+	var result = window.showModalDialog("trainSet_select.html", null, "dialogWidth=800px;dialogHeight=600px");
+	if (result == null)
+	    return ;
+	else
+	{
+		$("trainSet").value = result.name;
+		trainSetId = result.id;
+	}
+}
+
+function showPlusChat()
+{
+	
+}
+</script>
+
+</head>
+<body>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 正常文件检测 </div>
+<div id="wrap">
+<div id="containaer" >
+	<div id="title" class="title">正常文件检测</div>
+	<div class="filter" id="testFile_div">
+		<div class="filterTitle">
+		<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
+			<tr class='tablecell'>
+				<td class='tit' width="20%"><span style="color:red">*</span>选择检测文件</td>
+				<td class='inp'>
+					<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+						<input id="testfile" name="testfile" type="file" size="40"/>
+					</form> 
+					<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
+				</td>
+			</tr>
+			<tr class='tablecell'>
+				<td class='tit' width="20%"><span style="color:red">*</span>选择模式集</td>
+				<td class='inp'>
+					<input id="trainSet" type="text"/>
+					<input id="trainSetSelect" type="button" value="选择模式集" onclick="selectTrainSet()"/>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<div class="filterInput" style="padding:17px 0px 0px 25px;">
+			<input type="button" class="form_judge" onClick="onSubmit()"/>
+			<span id="progress" style="display:none">检测中...<img src="../images/loading.gif" align="absmiddle"></span>
+		</div>
+		<div class="clear"></div>
+		<div class="title" id="result" style="display:none">
+			检测结果如下！
+		</div>
+	</div>
+	
+	<!-- 结果展示div -->
+	<div id="localResult" style="display:none;">
+		<div class="title">窗口为20的局部检测匹配率</div>
+		<div id="container"></div>
+		<table id="bounceResult" class="table_list" style="display:none;">
+			<tr>
+				<th>正常序列文档</th>
+				<th>采用衍生规则</th>
+				<th>未采用衍生规则</th>
+				<th>匹配率增幅</th>
+			</tr>
+			<tr id="bounceContent">
+			</tr>
+		</table>
+	</div>
+	<br>
+	<br>
+	<div id="globalResult" style="display:none;">
+		<div class="title">全局检测</div>
+		<div id="container1"></div>
+	</div>
+	
+	<div id="plusChat" style="display:none;">
+		<table cellpadding=0 cellspacing=0 border=0 width="100%">
+		<tr>
+			<td class="buttom_div">
+				<input class="form_ok" type="button" onClick="showPlusChat();"/>
+	  		</td>
+		</tr>
+		</table>
+	</div>
+</div>
+</div>
+</body>
+</html>
