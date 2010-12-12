@@ -4,21 +4,21 @@ import java.util.List;
 
 import com.pe.dao.DaoManager;
 import com.pe.dao.PagedList;
-import com.pe.dao.packed.PackedTrainSetDao;
-import com.pe.entity.packed.PackedTrainSet;
+import com.pe.dao.GBID.GBIDDao;
+import com.pe.entity.GBID.RulesLib;
 import com.pe.operation.Operation;
 
-public class 列所有加壳训练集 implements Operation
+public class 列所有模式集 implements Operation
 {
-	private List<PackedTrainSet> data;
+	private List<RulesLib> data;
 	private int limit;
 	private int offset;
 	private int total;
 	
 	public void execute() throws Exception
 	{
-		PackedTrainSetDao dao = DaoManager.getInstance().getDao(PackedTrainSetDao.class);
-		PagedList<PackedTrainSet> list = dao.listTrainSet(offset, limit);
+		GBIDDao dao = DaoManager.getInstance().getDao(GBIDDao.class);
+		PagedList<RulesLib> list = dao.listRulesLib(offset, limit);
 		data = list.getData();
 		total = list.getTotal();
 	}
@@ -53,12 +53,12 @@ public class 列所有加壳训练集 implements Operation
 		this.total = total;
 	}
 
-	public List<PackedTrainSet> getData()
+	public List<RulesLib> getData()
 	{
 		return data;
 	}
 
-	public void setData(List<PackedTrainSet> data)
+	public void setData(List<RulesLib> data)
 	{
 		this.data = data;
 	}

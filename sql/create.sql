@@ -15,6 +15,7 @@ $BODY$ language sql;
 \i create/packed.sql
 \i create/gdl.sql
 \i create/indicator.sql
+\i create/GBID.sql
 
 reset session authorization;
 

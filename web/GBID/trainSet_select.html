@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>选择训练集</title>
+<title>选择模式集</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
 <script src="../script/common.js"></script>
@@ -18,11 +18,8 @@ function loadTrainSets()
 	var titles = 
 	[
 		{text: "选择", width: "5%"}, 
-		{text: "名称", width:"10%"},
-		{text: "分类器", width:"10%"},
-		{text: "训练选项", width:"10%"},
-		{text: "选项值", width:"10%"},
-		{text: "创建时间", width:"10%"}
+		{text: "名称", width:"30%"},
+		{text: "创建时间", width:"30%"}
 	];
 	
 	var columns = 
@@ -41,16 +38,10 @@ function loadTrainSets()
 			return element;
 		}, 
 		function(data) { return data.name; },
-		function(data) { return data.classifier; },
-		function(data) 
-		{ 
-			return data.testOptions == 0 ? "Cross-Validation" : "Percentage split"; 
-		},
-		function(data) { return data.optionValue; },
 		function(data) { return data.createTime; }
 	];
 	
-	var operation = new Operation("packed.列所有加壳训练集");
+	var operation = new Operation("GBID.列所有模式集");
 	var tableList = new TableList(operation, titles, columns);
 	tableList.create($("container"));
 	tableList.refresh();
@@ -60,7 +51,7 @@ function onOk()
 {
 	if (!trainSet.id) 
 	{
-		alert("你没有选中任何训练集！");
+		alert("你没有选中任何模式集！");
 		return;
 	}
 	
@@ -81,11 +72,11 @@ function onLoad()
 </script>
 </head>
 <body onLoad="onLoad();">
-<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 选择训练集 </div>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 选择模式集 </div>
 <div id="wrap">
 <div id="containaer" >
 	<div class="title" id="result">
-		请在下面的列表中选择所需的训练集
+		请在下面的列表中选择所需的模式集
 	</div>
 	<!-- 结果展示div -->
 	<div id="container"></div> 
