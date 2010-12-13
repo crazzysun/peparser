@@ -1,7 +1,7 @@
 ﻿<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>正常文件检测</title>
+<title>文件动态序列检测</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
 <script src="../script/common.js"></script>
@@ -12,7 +12,6 @@ $import("table_list_without_page_control_bar.js");
 var status = null;
 var completed = false;
 var trainSetId = null;
-var chatData = {};
 
 /** 1.提交，检查输入 */
 function onSubmit()
@@ -188,8 +187,6 @@ function selectTrainSet()
 
 function showPlusChat()
 {
-	if (chatData == null)
-	return;
 	$("fileName").value = $("testfile").value;
 	$("normForm").submit();
 }
@@ -206,10 +203,10 @@ function onLoad()
 
 </head>
 <body onload="onLoad()">
-<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 正常文件检测 </div>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 文件动态序列检测 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div id="title" class="title">正常文件检测</div>
+	<div id="title" class="title">文件动态序列检测</div>
 	<div class="filter" id="testFile_div">
 		<div class="filterTitle">
 		<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
