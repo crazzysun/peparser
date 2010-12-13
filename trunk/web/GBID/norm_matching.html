@@ -190,6 +190,8 @@ function showPlusChat()
 {
 	if (chatData == null)
 	return;
+	$("fileName").value = $("testfile").value;
+	$("normForm").submit();
 }
 
 function onLoad()
@@ -262,6 +264,7 @@ function onLoad()
 	</div>
 	
 	<div id="plusChat">
+	
 		<table cellpadding=0 cellspacing=0 border=0 width="100%">
 		<tr>
 			<td class="buttom_div">
@@ -270,6 +273,15 @@ function onLoad()
 		</tr>
 		</table>
 	</div>
+	
+	<div style="display:none">
+		<form id="normForm" name="selectUserForm" action="../report" target="_blank" method="post">
+		<input type="hidden" name="format" id="format" value="html"/>
+		<input type="hidden" name="design" id="design" value="dynamic_graph_report.rptdesign"/>
+		<input name="fileName" id="fileName" value=""/>
+		</form>
+	</div>
+	
 </div>
 </div>
 </body>
