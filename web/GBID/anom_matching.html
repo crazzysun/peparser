@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>文件检测</title>
+<title>异常文件检测</title>
 <link rel="stylesheet" href="../styles/style.css" type="text/css" />
 <link rel="stylesheet" href="../styles/table.css" type="text/css" />
 <script src="../script/common.js"></script>
@@ -21,14 +21,14 @@ function onSubmit()
 
 	if ($("testfile").value == "")
 	{
-		alert("请选择要判断的样本文件！");
+		alert("请选择要检测的样本文件！");
 		return;
 	}
 
 	var callback = function()
 	{
 		$("fileForm").submit();
-		check();				//检查文件上传进度，完成后开始PE文件分析
+		check();				//检查文件上传进度，完成后开始分析
 	}
 	$("progress").style.display = "";
 
@@ -58,7 +58,7 @@ function check()
 			{
 				completed = true;
 				status = null;
-				createResult();
+				showBounce();
 				return;
 			}
 		}
@@ -69,41 +69,44 @@ function check()
 	operation.execute(callback);
 }
 
-/** 3.创建判断结果 */
-function createResult()
+/** 3.创建检测结果 */
+function showBounce()
 {
-	var titles = 
-	[
-		{text:"文件名", width:"40%"},
-		{text:"判断结果", width:"40%"}
-	];
-	var columns =  
-	[
-		function(data) { return data.name; },
-		function(data)
-		{ 
-			showResult();
-			return data.result == "packed" ? "加壳" : "未加壳"; 
-		}
-	];   
-	var operation = new Operation("packed.判断文件是否加壳");
+	var callback = function(o)
+	{
+		var result = o.result;
+		var content = $("bounceContent");
+	
+		var td = document.createElement("td");
+		td.innerHTML = result.fileName;
+		content.appendChild(td);
+		
+		var td1 = document.createElement("td");
+		td1.innerHTML = result.allRulesRate;
+		content.appendChild(td1);
+		
+		var td2 = document.createElement("td");
+		td2.innerHTML = result.ntvRulesRate;
+		content.appendChild(td2);
+		
+		var td3 = document.createElement("td");
+		td3.innerHTML = result.increaseRate;
+		content.appendChild(td3);
+		
+		$("progress").style.display = "none";
+		$("bounceResult").style.display = "";
+		$("result").style.display = "";
+	};
+	
+	var operation = new Operation("GBID.检测异常文件")
 	operation.name = $("testfile").value;
 	operation.trainSetId = trainSetId;
-	var tableList = new TableList(operation, titles, columns);
-	tableList.create($("container"));
-	tableList.refresh();
-}
-
-/** 4.显示判断结果 */
-function showResult()
-{
-	$("progress").style.display = "none";
-	$("result").style.display = "";
+	operation.execute(callback);
 }
 
 function selectTrainSet()
 {
-	var result = window.showModalDialog("trainSet_select.html", null, "dialogWidth=800px;dialogHeight=600px");
+	var result = window.showModalDialog("trainSet_select.html", null, "dialogWidth=800px;dialogHeight=500px");
 	if (result == null)
 	    return ;
 	else
@@ -112,14 +115,15 @@ function selectTrainSet()
 		trainSetId = result.id;
 	}
 }
+
 </script>
 
 </head>
 <body>
-<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 文件检测 </div>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 异常文件检测 </div>
 <div id="wrap">
 <div id="containaer" >
-	<div id="title" class="title">文件检测</div>
+	<div id="title" class="title">异常文件检测</div>
 	<div class="filter" id="testFile_div">
 		<div class="filterTitle">
 		<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-right:1px solid #A7B9CF;">
@@ -127,33 +131,44 @@ function selectTrainSet()
 				<td class='tit' width="20%"><span style="color:red">*</span>选择检测文件</td>
 				<td class='inp'>
 					<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
-						<input id="testfile" name="testfile" type="file" size="40"/><br/>
-						<span style="color:red">注：单个文件直接上传分析，多个文件请打包为zip格式上传分析</span>
+						<input id="testfile" name="testfile" type="file" size="40"/>
 					</form> 
 					<iframe name="upload_result" id="upload_result" style="display:none"></iframe>
 				</td>
 			</tr>
 			<tr class='tablecell'>
-				<td class='tit' width="20%"><span style="color:red">*</span>选择训练集</td>
+				<td class='tit' width="20%"><span style="color:red">*</span>选择模式集</td>
 				<td class='inp'>
 					<input id="trainSet" type="text"/>
-					<input id="trainSetSelect" type="button" value="选择训练集" onclick="selectTrainSet()"/>
+					<input id="trainSetSelect" type="button" value="选择模式集" onclick="selectTrainSet()"/>
 				</td>
 			</tr>
 		</table>
 		</div>
-		<div class="filterInput" style="padding:27px 0px 0px 25px;">
+		<div class="filterInput" style="padding:17px 0px 0px 25px;">
 			<input type="button" class="form_judge" onClick="onSubmit()"/>
-			<span id="progress" style="display:none">判断中...<img src="../images/loading.gif" align="absmiddle"></span>
+			<span id="progress" style="display:none">检测中...<img src="../images/loading.gif" align="absmiddle"></span>
 		</div>
 		<div class="clear"></div>
 		<div class="title" id="result" style="display:none">
-			判断结果如下！
+			检测结果如下！
 		</div>
 	</div>
 	
 	<!-- 结果展示div -->
-	<div id="container"></div>
+		<div id="bounceResult" style="display:none;">
+		<div class="title">窗口为20的局部检测匹配率</div>
+		<table class="table_list">
+			<tr>
+				<th>正常序列文档</th>
+				<th>采用衍生规则</th>
+				<th>未采用衍生规则</th>
+				<th>匹配率增幅</th>
+			</tr>
+			<tr id="bounceContent">
+			</tr>
+		</table>
+		</div>
 </div>
 </div>
 </body>

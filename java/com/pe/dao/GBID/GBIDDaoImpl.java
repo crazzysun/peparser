@@ -3,6 +3,7 @@ package com.pe.dao.GBID;
 import com.pe.dao.BaseDao;
 import com.pe.dao.PagedList;
 import com.pe.dao.PostgreSQL;
+import com.pe.entity.GBID.ChatResult;
 import com.pe.entity.GBID.RulesLib;
 
 public class GBIDDaoImpl extends BaseDao implements GBIDDao, PostgreSQL
@@ -53,5 +54,24 @@ public class GBIDDaoImpl extends BaseDao implements GBIDDao, PostgreSQL
 		list.setTotal(esql.query(Integer.class, sql));
 		return list;
 	}
+
+	@Override
+	public void addChatResult(ChatResult result) throws Exception
+	{
+		ChatResult rs = esql.helper().query(ChatResult.class, "t_chat_result", null, "result", "name=?", result.getName());
+		if (rs != null)
+		{
+			esql.helper().delete("t_chat_result", "name=?", result.getName());
+		}
+		esql.helper().insert(result, "t_chat_result", null, null);
+	}
+
+	@Override
+	public ChatResult getChatResult(String name) throws Exception
+	{
+		return esql.helper().query(ChatResult.class, "t_chat_result", null, null, "name=?", name);
+	}
+
+
 
 }

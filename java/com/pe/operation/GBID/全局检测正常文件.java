@@ -16,27 +16,25 @@ import com.pe.entity.GBID.RulesLib;
 import com.pe.operation.Operation;
 import com.pe.util.FileManager;
 
-public class 检测正常文件 implements Operation
+public class 全局检测正常文件 implements Operation
 {
-	private static Log log = LogFactory.getLog(检测正常文件.class);
+	private static Log log = LogFactory.getLog(全局检测正常文件.class);
 	
 	private String name;
 	private String filePath;
 	private long trainSetId;
 	private List<MatchingResult> data;		//local
-	private List<MatchingResult> data1;		//global
 	private int total;
 	
 	public void execute() throws Exception
 	{
-		/** 得到训练集 */
+		/** 得到模式集 */
 		GBIDDao dao = DaoManager.getInstance().getDao(GBIDDao.class);
 		RulesLib lib = dao.getLibById(trainSetId);
 		
 		/** 开始检测 */
 		GBIDDll GBID = GBIDDll.INSTANCE;
 		data = new ArrayList<MatchingResult>();
-		data1 = new ArrayList<MatchingResult>();
 		
 		/** 检测plus.int */
 		validateName();
@@ -59,26 +57,7 @@ public class 检测正常文件 implements Operation
 	{
 		//local
 		double[] results1 = new double[10];
-		if (log.isTraceEnabled())
-			log.trace("正在用带衍生规则的模式集对plus文件进行局部检测...");
-		GBID.PlusLocal(filePath, lib.getAllLibFilePath(), results1);
-		
 		double[] results2 = new double[10];
-		if (log.isTraceEnabled())
-			log.trace("正在用不带衍生规则的模式集对plus文件进行局部检测...");
-		GBID.PlusLocal(filePath, lib.getNtvLibFilePath(), results2);
-		
-		for (int i = 0; i < 10; i++)
-		{
-			MatchingResult result = new MatchingResult();
-			result.setFileName("plus-" + ( i + 1 ));
-			result.setAllRulesRate(validateRate(results1[i]));
-			result.setNtvRulesRate(validateRate(results2[i]));
-			result.setIncreaseRate(getIncreaseRate(result.getAllRulesRate(), result.getNtvRulesRate()));
-			
-			data.add(result);
-		}
-		
 		//global
 		results1 = new double[10];
 		if (log.isTraceEnabled())
@@ -92,31 +71,25 @@ public class 检测正常文件 implements Operation
 		
 		for (int i = 0; i < 10; i++)
 		{
-			MatchingResult result = new MatchingResult();
-			result.setFileName("plus-" + ( i + 1 ));
-			result.setAllRulesRate(validateRate(results1[i]));
-			result.setNtvRulesRate(validateRate(results2[i]));
-			result.setIncreaseRate(getIncreaseRate(result.getAllRulesRate(), result.getNtvRulesRate()));
-			
-			data1.add(result);
+			MatchingResult result = getResult(results1, results2, i);
+			data.add(result);
 		}
 		
-		total = 10;
+		total = data.size();
 	}
-	
-	private String validateRate(double d)
+
+	private MatchingResult getResult(double[] results1, double[] results2, int i)
 	{
-		BigDecimal a = new BigDecimal(d*100);   
-		return a.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%";
-	}
-	
-	/** 计算比率增幅 */
-	private String getIncreaseRate(String all, String ntv)
-	{
-		BigDecimal a = new BigDecimal(all);
-		BigDecimal b = new BigDecimal(ntv);
+		BigDecimal a = new BigDecimal(results1[i] * 100);
+		BigDecimal b = new BigDecimal(results2[i] * 100);
+		BigDecimal sub = a.subtract(b);
 		
-		return a.subtract(b).toString();
+		MatchingResult result = new MatchingResult();
+		result.setFileName("plus-" + ( i + 1 ));
+		result.setAllRulesRate(a.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%");
+		result.setNtvRulesRate(b.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%");
+		result.setIncreaseRate(sub.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%");
+		return result;
 	}
 	
 	public String getFilePath()
@@ -167,15 +140,5 @@ public class 检测正常文件 implements Operation
 	public void setData(List<MatchingResult> data)
 	{
 		this.data = data;
-	}
-
-	public List<MatchingResult> getData1()
-	{
-		return data1;
-	}
-
-	public void setData1(List<MatchingResult> data1)
-	{
-		this.data1 = data1;
 	}
 }
