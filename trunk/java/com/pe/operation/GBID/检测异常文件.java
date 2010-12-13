@@ -46,25 +46,17 @@ public class 检测异常文件 implements Operation
 	/** 对bounce文件进行检测 */
 	private void bounceMatching(RulesLib lib, GBIDDll GBID)
 	{
-		result.setFileName(name);
-		result.setAllRulesRate(validateRate(GBID.FileMatching(filePath, lib.getAllLibFilePath())));
-		result.setNtvRulesRate(validateRate(GBID.FileMatching(filePath, lib.getNtvLibFilePath())));
-		result.setIncreaseRate(getIncreaseRate(result.getAllRulesRate(), result.getNtvRulesRate()));
-	}
-	
-	private String validateRate(double d)
-	{
-		BigDecimal a = new BigDecimal(d*100);   
-		return a.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%";
-	}
-	
-	/** 计算比率增幅 */
-	private String getIncreaseRate(String all, String ntv)
-	{
-		BigDecimal a = new BigDecimal(all);
-		BigDecimal b = new BigDecimal(ntv);
+		double allRate = GBID.FileMatching(filePath, lib.getAllLibFilePath());
+		double ntvRate = GBID.FileMatching(filePath, lib.getNtvLibFilePath());
+		BigDecimal a = new BigDecimal(allRate * 100);
+		BigDecimal b = new BigDecimal(ntvRate * 100);
+		BigDecimal sub = a.subtract(b);
 		
-		return a.subtract(b).toString();
+		result = new MatchingResult();
+		result.setFileName(name);
+		result.setAllRulesRate(a.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%");
+		result.setNtvRulesRate(b.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%");
+		result.setIncreaseRate(sub.setScale(2, BigDecimal.ROUND_HALF_UP).toString() + "%");
 	}
 	
 	public String getName()

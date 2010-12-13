@@ -1,6 +1,7 @@
 package com.pe.dao.GBID;
 
 import com.pe.dao.PagedList;
+import com.pe.entity.GBID.ChatResult;
 import com.pe.entity.GBID.RulesLib;
 
 public interface GBIDDao
@@ -22,4 +23,8 @@ public interface GBIDDao
 	public void deleteRulesLibByName(String name) throws Exception;
 	
 	public boolean isExist(String name) throws Exception;
+	
+	public void addChatResult(ChatResult result) throws Exception;
+	
+	public ChatResult getChatResult(String name) throws Exception;
 }

@@ -17,6 +17,8 @@ var chatData = {};
 /** 1.提交，检查输入 */
 function onSubmit()
 {
+	onLoad();
+	
 	completed = false;
 	status = null;
 
@@ -74,7 +76,7 @@ function check()
 function createResult()
 {
 	var fileName = $("testfile").value;
-	if (fileName == "plus.int")
+	if (fileName == "plus.int")					//此处IE下会出问题
 		showPlus();
 	else
 		showBounce();
@@ -83,6 +85,11 @@ function createResult()
 /** 创建plus.int检测结果 */
 function showPlus()
 {
+	$("localResult").style.display = "";
+	$("globalResult").style.display = "";
+	$("result").style.display = "";
+	
+	
 	var titles = 
 	[
 		{text:"正常序列文档", width:"20%"},
@@ -93,7 +100,7 @@ function showPlus()
 	
 	var columns =  
 	[
-		function(data) { return data.name; },
+		function(data) { return data.fileName; },
 		function(data) { return data.allRulesRate; },
 		function(data) { return data.ntvRulesRate; },
 		function(data) { return data.increaseRate; }
@@ -101,31 +108,31 @@ function showPlus()
 	 
 	var columns1 =  
 	[
-		function(data1) { return data1.name; },
+		function(data1) { return data1.fileName; },
 		function(data1) { return data1.allRulesRate; },
 		function(data1) { return data1.ntvRulesRate; },
 		function(data1) { return data1.increaseRate; }
 	];   
 	
-	var operation = new Operation("GBID.检测正常文件");
+	var operation = new Operation("GBID.局部检测正常文件");
 	operation.name = $("testfile").value;
 	operation.trainSetId = trainSetId;
 	
 	//local
 	var tableList = new TableList(operation, titles, columns);
 	tableList.create($("container"));
-	tableList.onChange = function()
+	tableList.onchange = function(result)
 	{
-		$("progress").style.display = "none";
-		$("result").style.display = "";
-		$("localResult").style.display = "";
-		$("globalResult").style.display = "";
 		$("plusChat").style.display = "";
+		$("progress").style.display = "none";
 	};
 	tableList.refresh();
 	
 	//global
-	var tableList1 = new TableList(operation, titles, columns1);
+	var operation1 = new Operation("GBID.全局检测正常文件");
+	operation1.name = $("testfile").value;
+	operation1.trainSetId = trainSetId;
+	var tableList1 = new TableList(operation1, titles, columns1);
 	tableList1.create($("container1"));
 	tableList1.refresh();
 }
@@ -137,24 +144,28 @@ function showBounce()
 	{
 		var result = o.result;
 		var content = $("bounceContent");
+		util.clear(content);
 	
 		var td = document.createElement("td");
-		td.innerHTML = result.name;
+		td.innerHTML = result.fileName;
 		content.appendChild(td);
 		
-		td.innerHTML = result.allRulesRate;
-		content.appendChild(td);
+		var td1 = document.createElement("td");
+		td1.innerHTML = result.allRulesRate;
+		content.appendChild(td1);
 		
-		td.innerHTML = result.ntvRulesRate;
-		content.appendChild(td);
+		var td2 = document.createElement("td");
+		td2.innerHTML = result.ntvRulesRate;
+		content.appendChild(td2);
 		
-		td.innerHTML = result.increaseRate;
-		content.appendChild(td);
+		var td3 = document.createElement("td");
+		td3.innerHTML = result.increaseRate;
+		content.appendChild(td3);
 		
 		$("progress").style.display = "none";
+		$("localResult").style.display = "";
 		$("bounceResult").style.display = "";
 		$("result").style.display = "";
-		$("localResult").style.display = "";
 	};
 	
 	var operation = new Operation("GBID.检测异常文件")
@@ -165,7 +176,7 @@ function showBounce()
 
 function selectTrainSet()
 {
-	var result = window.showModalDialog("trainSet_select.html", null, "dialogWidth=800px;dialogHeight=600px");
+	var result = window.showModalDialog("trainSet_select.html", null, "dialogWidth=800px;dialogHeight=500px");
 	if (result == null)
 	    return ;
 	else
@@ -180,10 +191,19 @@ function showPlusChat()
 	if (chatData == null)
 	return;
 }
+
+function onLoad()
+{
+	$("localResult").style.display = "none";
+	$("globalResult").style.display = "none";
+	$("plusChat").style.display = "none";
+	$("bounceResult").style.display = "none";
+}
+
 </script>
 
 </head>
-<body>
+<body onload="onLoad()">
 <div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 正常文件检测 </div>
 <div id="wrap">
 <div id="containaer" >
@@ -220,10 +240,10 @@ function showPlusChat()
 	</div>
 	
 	<!-- 结果展示div -->
-	<div id="localResult" style="display:none;">
+	<div id="localResult">
 		<div class="title">窗口为20的局部检测匹配率</div>
 		<div id="container"></div>
-		<table id="bounceResult" class="table_list" style="display:none;">
+		<table id="bounceResult" class="table_list">
 			<tr>
 				<th>正常序列文档</th>
 				<th>采用衍生规则</th>
@@ -236,16 +256,16 @@ function showPlusChat()
 	</div>
 	<br>
 	<br>
-	<div id="globalResult" style="display:none;">
+	<div id="globalResult">
 		<div class="title">全局检测</div>
 		<div id="container1"></div>
 	</div>
 	
-	<div id="plusChat" style="display:none;">
+	<div id="plusChat">
 		<table cellpadding=0 cellspacing=0 border=0 width="100%">
 		<tr>
 			<td class="buttom_div">
-				<input class="form_ok" type="button" onClick="showPlusChat();"/>
+				<input class="form_report" type="button" onClick="showPlusChat();"/>
 	  		</td>
 		</tr>
 		</table>

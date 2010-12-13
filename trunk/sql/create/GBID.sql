@@ -9,3 +9,11 @@ create table t_rules_lib
 	
 	primary key (id)
 );
+
+create table t_chat_result
+(
+	name							varchar(255)				not null,				-- 检测文件名
+	result							bytea						not null,				-- 局部检测结果
+	
+	primary key (name)
+);
