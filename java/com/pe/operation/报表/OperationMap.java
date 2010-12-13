@@ -11,6 +11,7 @@ public class OperationMap extends HashMap<String,String>
 	{
 		operationmap = 	new OperationMap();
 		operationmap.put("graph_report.rptdesign", "报表.查看指标分析图");
+		operationmap.put("dynamic_graph_report.rptdesign", "报表.局部检测直方图");
 	}
     
 	public static String getOperationName(String design)
