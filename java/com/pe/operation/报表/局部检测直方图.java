@@ -38,8 +38,9 @@ public class 局部检测直方图 extends AbstractReportOperation implements Operation
 	{
 		GBIDDao dao = DaoManager.getInstance().getDao(GBIDDao.class);
 		ChatResult result = dao.getChatResult(fileName);
+		ChatResult result1 = dao.getChatResult1(fileName);
 		data = (List<MatchingResult>)Serialize.deSerializeData(result.getResult());
-		//TODO: dataAll = ??
+		dataAll = (List<MatchingResult>)Serialize.deSerializeData(result1.getResult());
 		
 		/** 横坐标*/
 		for(int i = 1; i <= 10; i++)
