@@ -76,7 +76,8 @@ public class 局部检测直方图 extends AbstractReportOperation implements Operation
 	public boolean fetch(IDataSetInstance dataSet, IUpdatableDataSetRow row)
 	{
 		if(dataSet.getName().equals("数据集")) 	return fetch1(row);
-		else return fetch2(row);
+		if(dataSet.getName().equals("数据集1")) return fetch2(row);
+		else return true;
 	}
 	
 	public boolean fetch1(IUpdatableDataSetRow row)
