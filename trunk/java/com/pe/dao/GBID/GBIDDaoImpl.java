@@ -72,4 +72,20 @@ public class GBIDDaoImpl extends BaseDao implements GBIDDao, PostgreSQL
 		return esql.helper().query(ChatResult.class, "t_chat_result", null, null, "name=?", name);
 	}
 
+	@Override
+	public void addChatResult1(ChatResult result) throws Exception
+	{
+		ChatResult rs = esql.helper().query(ChatResult.class, "t_chat_result1", null, "result", "name=?", result.getName());
+		if (rs != null)
+		{
+			esql.helper().delete("t_chat_result1", "name=?", result.getName());
+		}
+		esql.helper().insert(result, "t_chat_result1", null, null);
+	}
+
+	@Override
+	public ChatResult getChatResult1(String name) throws Exception
+	{
+		return esql.helper().query(ChatResult.class, "t_chat_result1", null, null, "name=?", name);
+	}
 }

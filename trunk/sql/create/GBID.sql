@@ -17,3 +17,11 @@ create table t_chat_result
 	
 	primary key (name)
 );
+
+create table t_chat_result1
+(
+	name							varchar(255)				not null,				-- 检测文件名
+	result							bytea						not null,				-- 全局检测结果
+	
+	primary key (name)
+);

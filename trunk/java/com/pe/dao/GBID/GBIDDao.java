@@ -27,4 +27,8 @@ public interface GBIDDao
 	public void addChatResult(ChatResult result) throws Exception;
 	
 	public ChatResult getChatResult(String name) throws Exception;
+	
+	public void addChatResult1(ChatResult result) throws Exception;
+	
+	public ChatResult getChatResult1(String name) throws Exception;	
 }

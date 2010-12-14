@@ -11,10 +11,12 @@ import org.apache.commons.logging.LogFactory;
 import com.pe.dao.DaoManager;
 import com.pe.dao.GBID.GBIDDao;
 import com.pe.dll.petest.GBIDDll;
+import com.pe.entity.GBID.ChatResult;
 import com.pe.entity.GBID.MatchingResult;
 import com.pe.entity.GBID.RulesLib;
 import com.pe.operation.Operation;
 import com.pe.util.FileManager;
+import com.pe.util.Serialize;
 
 public class 全局检测正常文件 implements Operation
 {
@@ -39,6 +41,12 @@ public class 全局检测正常文件 implements Operation
 		/** 检测plus.int */
 		validateName();
 		plusMatching(lib, GBID);
+		
+		/** 局部结果保存如数据库，为直方图显示所用 */
+		ChatResult result = new ChatResult();
+		result.setName(name);
+		result.setResult(Serialize.serializeData(data));
+		dao.addChatResult1(result);
 	}
 
 	private void validateName()
