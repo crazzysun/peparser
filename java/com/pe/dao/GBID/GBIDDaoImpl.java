@@ -12,7 +12,8 @@ public class GBIDDaoImpl extends BaseDao implements GBIDDao, PostgreSQL
 	@Override
 	public long AddRuleslib(RulesLib lib) throws Exception
 	{
-		return esql.helper().insert(lib, "t_rules_lib", null, "id");
+		esql.helper().insert(lib, "t_rules_lib", null, "id");
+		return getGeneratedId("t_rules_lib");
 	}
 
 	@Override
