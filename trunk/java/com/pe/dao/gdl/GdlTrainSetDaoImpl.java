@@ -10,7 +10,8 @@ public class GdlTrainSetDaoImpl extends BaseDao implements GdlTrainSetDao, Postg
 {
 	public long AddTrainSet(GdlTrainSet trainSet) throws Exception
 	{
-		return esql.helper().insert(trainSet, "t_gdl_trainSet", null, "id");
+		esql.helper().insert(trainSet, "t_gdl_trainSet", null, "id");
+		return getGeneratedId("t_gdl_trainSet");
 	}
 
 	public PagedList<GdlTrainSet> listTrainSet(int offset, int limit) throws Exception

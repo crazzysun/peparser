@@ -9,7 +9,8 @@ public class PackedTrainSetDaoImpl extends BaseDao implements PackedTrainSetDao,
 {
 	public long AddTrainSet(PackedTrainSet trainSet) throws Exception
 	{
-		return esql.helper().insert(trainSet, "t_packed_trainSet", null, "id");
+		esql.helper().insert(trainSet, "t_packed_trainSet", null, "id");
+		return getGeneratedId("t_packed_trainSet");
 	}
 
 	public PagedList<PackedTrainSet> listTrainSet(int offset, int limit) throws Exception
