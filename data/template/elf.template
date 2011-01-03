@@ -1,0 +1,167 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{FileName}结构分析报告</title>
+<style type="text/css">
+<!--
+body {
+	margin:5px;
+	padding:0;
+	font-size:14px;
+	color:#000;
+	line-height:200%;
+	background-color: #EDF3F9;
+	font-family:"微软雅黑",verdana,"宋体";
+}
+.t
+{
+	background-color: #DAE7F8;
+	padding: 15px 10px 5px 10px;
+}
+.clr
+{
+	font-size: 16px;
+	font-weight: bolder;
+	color:#3D686B;
+}
+p {
+line-height:1.5em;
+margin:1.2em 0;
+}
+.info
+{
+padding: 0px 3px;
+font-size:12px;
+color:#000;
+}
+.Quickguide a {
+-moz-border-radius-topleft:3px;
+-moz-border-radius-topright:3px;
+color:white;
+font-size:14px;
+margin:0;
+padding:5px 10px;
+background-color:#333333;
+text-decoration:none;
+}
+.Quickguide a:hover {
+background:#B4B4B4 none repeat scroll 0 0;
+color:#333333;
+text-decoration:none;
+}
+<!-- 表格字体 -->
+.tb
+{
+	border:1px solid #B2CCDD; 
+	border-collapse:collapse; 
+	width:100%; 
+	align:center; 
+	font-size: 12px;
+}
+.tb .head
+{
+	color:#0C2742;
+	background:#FFF;
+	height:24px;line-height:24px;
+	text-align:center;font-weight:800;
+	border-right:1px solid #B2CCDD;
+	white-space:nowrap;
+}
+.tb td
+{
+	height:25px; 
+	line-height:25px; 
+	border:1px solid #B2CCDD; 
+	text-decoration:none; 
+	text-align:center; 
+	white-space:nowrap;
+}
+
+.special
+{
+	color:red;
+}
+#copyright
+{
+	padding:20px 0px 5px 5px;
+}
+#copyright a
+{
+	color:#0000FF;
+	text-decoration:none;
+}
+#copyright a:hover {
+color:#333333;
+text-decoration:none;
+}
+-->
+</style>
+</head>
+<body>
+    <div class="t">
+        <span class="clr">文件名：</span>{FileName}<br />
+        <span class="clr">大 小：</span>{FileSize}K
+        <br>
+        <span class="clr">创建时间：</span>{FileCreateTime}<br />
+        <span class="clr">修改时间：</span> {FileModifyTime}
+        <br />
+        <span class="clr">报告生成日期：</span> {FileCreateReportTime}
+        <br />
+        <div style="padding-top: 8px;">
+            <span class="Quickguide"><a href="#e_ident">ELF头e_ident数组</a></span>
+            <span class="Quickguide"><a href="#elfheader">ELF头部</a></span>
+            <span class="Quickguide"><a href="#programs">程序头部</a></span>
+            <span class="Quickguide"><a href="#sections">节区</a></span>
+        </div>
+    </div>
+    <p class="clr">
+        	ELF头部e_ident数组(ELF Header e_ident)<a name="e_ident"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="20%">
+                Description</td>
+            <td  width="80%" >
+                Value</td>
+        </tr>
+        {EI_NIDENT}
+    </table>
+    <br />
+    <p class="clr">
+        	ELF头部(ELF Header)<a name="elfheader"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="20%">
+                Description</td>
+            <td  width="80%" >
+                Value</td>
+        </tr>
+        {ElfHeader}
+    </table>
+    <br />
+    <p class="clr">
+        	程序头部（Program Header）<a name="programs"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="20%">
+                Description</td>
+            <td  width="80%" >
+                Value</td>
+        </tr>
+        {Programs}
+    </table>
+    <br />
+    <p class="clr">
+        	节区（Sections）<a name="sections"></a></p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+        <tr class="head">
+            <td width="20%">
+                Description</td>
+            <td  width="80%" >
+                Value</td>
+        </tr>
+        {Sections}
+    </table>
+    <br />
+    
+</body>
+</html>
