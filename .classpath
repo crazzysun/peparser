@@ -50,5 +50,6 @@
 	<classpathentry kind="lib" path="web/WEB-INF/lib/org.eclipse.emf.ecore_2.2.2.v200702131851.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/org.eclipse.emf.ecore.xmi_2.2.2.v200702131851.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/js.jar"/>
+	<classpathentry kind="lib" path="C:/jython2.5.2rc2/jython.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
