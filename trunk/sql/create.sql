@@ -13,9 +13,12 @@ create function get_generated_id(text) returns int8 as $BODY$
 $BODY$ language sql;
 
 \i create/packed.sql
+\i create/elf.sql
+\i create/pe.sql
 \i create/gdl.sql
 \i create/indicator.sql
 \i create/GBID.sql
+
 
 reset session authorization;
 
