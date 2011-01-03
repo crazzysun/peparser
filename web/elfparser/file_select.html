@@ -1,0 +1,171 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ELF文件分析</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+
+$import("rpc.js");
+
+var path = "";
+var status = null;
+var completed = false;
+var tabCount = 0;
+var fileNameArray = new Array();
+
+function onSubmit()
+{
+	completed = false;
+	status = null;
+
+	if ($("fileName").value == "")
+	{
+		alert("请选择要分析的文件");
+		return;
+	}
+
+	var callback = function()
+	{
+		$("fileForm").submit();
+		check();				//检查文件上传进度，完成后开始PE文件分析
+	}
+	$("progress").style.display = "inline";
+
+	var operation = new Operation("文件.准备上载文件");
+	operation.path = path;
+	operation.execute(callback);
+}
+
+/** 检查上载进度 */
+function check()
+{
+	var callback = function (result)
+	{
+		if (completed) return;
+
+		status = result.status;
+		if (status != null)
+		{
+			if (status.aborted)
+			{
+				completed = true;
+				alert("上载被取消: " + status.reason);
+				status = null;
+				return;
+			}
+			if (status.completed)
+			{
+				completed = true;
+				//alert("上载完成");
+				$("progress").style.display = "none";
+				status = null;
+				peAnalyzer();
+				return;
+			}
+		}
+		setTimeout(check, 1000);
+	}
+	
+	var operation = new Operation("文件.获取上载进度");
+	operation.execute(callback);
+}
+
+/** 分析上传后的PE文件 */
+function peAnalyzer()
+{
+	var callback = function (o)
+	{
+		var fileName = o.fileName;
+		appendTab(fileName);
+	}
+	var operation = new Operation("ELF分析.分析单个文件");
+	operation.fileName = $("fileName").value;
+	operation.execute(callback);
+}
+
+function appendTab(fileName)
+{
+	$("container").style.display = "block";
+	tabCount++;
+	fileNameArray.push(fileName);
+	if (tabCount != fileNameArray.length)
+	{
+		alert("页面中tab数目有误，请重新打开该页面");
+		/** 一旦发生错误，整个页面重新初始化 */
+		tabCount = 0;
+		util.clear(tabContainer);
+		fileNameArray = new Array();
+		$("progress").style.display = "none";
+		return;
+	}
+	
+	var tabContainer = $("tab_ul");
+	util.clear(tabContainer);
+	for (var i = 0; i < tabCount; i++)
+	{
+		var li = document.createElement("li");
+		li.innerHTML = fileNameArray[i];
+		li.id = "tab_bar_li_" + i;
+		var src = "../peResult/" + fileNameArray[i] + ".html";
+		li.src = src;
+		li.onclick = function()
+		{
+			form_tab_show(tabCount, this.id, this.src);
+		};
+		tabContainer.appendChild(li);
+	}
+
+	form_tab_show(tabCount, "tab_bar_li_" + (tabCount - 1), "../peResult/" + fileName + ".html");
+}
+
+/**
+ * ifram方式选项卡
+ * @param totle	选项卡总数
+ * @param now	选中序号
+ * @param src	iframe目标地址
+ * @return
+ */
+function form_tab_show(totle, now, src)
+{
+	for(i = 0; i < totle; i++)
+	{
+		$('tab_bar_li_'+i).className = "";
+	}
+	$(now).className = "on";
+	$('tab_form').src = decodeURI(decodeURI(src));
+}
+
+</script>
+
+</head>
+<body>
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » ELF单个文件分析 </div>
+<div id="wrap">
+<div id="containaer" >
+
+	<div class="title">
+		<form id="fileForm" name="fileForm" action = "../upload" method="post" enctype="multipart/form-data" target="upload_result">
+			选取分析文件:
+			<input name="fileName" type="file" id="fileName" size="40" style="margin-right: 50px;"/>
+			<input class="pe_result" type="button" onclick="onSubmit()"/>
+			&nbsp;&nbsp;
+			<span id="progress" style="display:none">文件分析中...&nbsp;<img src="../images/loading.gif" align="absmiddle"></span>
+		</form> 
+		<iframe name="upload_result" id="upload_result" width="0" height="0" style="display:none"></iframe>
+	</div>
+	
+	<div id="tab_bar">
+        <ul id="tab_ul">
+           	<!-- <li class="on" id="tab_bar_li_0">角色维护</li> -->
+        </ul>
+	</div>
+    
+	<div id="container" style="display:none">
+		<iframe id="tab_form"></iframe>
+	</div>
+</div>
+</div>
+</body>
+</html>

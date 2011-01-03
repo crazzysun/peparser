@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>查看PE恶意软件所有训练集</title>
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<link rel="stylesheet" href="../styles/table.css" type="text/css" />
+<script src="../script/common.js"></script>
+<script type="text/javascript">
+$import("rpc.js");
+$import("table_list.js");
+
+function showTrainSet()
+{
+	var operations = 
+	[
+		{icon: "../images/icon_view.gif", text: "查看详情", onclick: onView},
+		{icon: "../images/icon_del.gif", text: "删除", onclick: onDelete}
+	];
+	var titles = 
+	[
+		{text:"名称", width:"10%"},
+		{text:"分类器", width:"10%"},
+		{text:"训练选项", width:"10%"},
+		{text:"选项值", width:"10%"},
+		{text:"创建时间", width:"10%"},
+		{text:"操作", width:"20%"}		
+	];
+	var columns =  
+	[
+		function(data) { return data.name; },
+		function(data) { return data.classifier; },
+		function(data) 
+		{ 
+			return data.testOptions == 0 ? "Cross-Validation" : "Percentage split"; 
+		},
+		function(data) { return data.optionValue; },
+		function(data) { return data.createTime; },
+		function(data) { return TableList.links(operations, data); }
+	];   
+	var operation = new Operation("PE分析.列PE恶意软件所有训练集");
+	var tableList = new TableList(operation, titles, columns);
+	tableList.create($("container"));
+	tableList.refresh();
+}
+
+function onView(data)
+{
+	window.open("../PEVirusResult/" + data.name + ".html", "_blank");
+}
+function onDelete(data)
+{
+	if (!confirm("确定要删除训练集'" + data.name + "'吗？"))
+		return;			
+	
+	var callback = function()
+	{
+		alert("训练集'" + data.name + "'删除成功！");
+		showTrainSet();
+	}
+	var operation = new Operation("PE分析.删除PE训练集");
+	operation.trainSetId = data.id;
+	operation.execute(callback);
+}
+function onLoad()
+{
+	showTrainSet();
+}
+
+</script>
+
+</head>
+<body onload="onLoad()">
+<div id="ur_here"><img src="../images/icon_here.gif" style="align:absmiddle" align="absmiddle"/> 当前位置：首页 » 查看PE恶意软件所有训练集 </div>
+<div id="wrap">
+<div id="containaer" >
+	<div class="title" id="result">
+		所有PE恶意软件所有训练集如下		
+	</div>
+	<!-- 结果展示div -->
+	<div id="container"></div>
+	
+</div>
+</div>
+</body>
+</html>
