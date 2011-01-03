@@ -14,7 +14,7 @@ import com.pe.UserException;
  */
 public class ListDirFiles
 {
-	public static List<String> fileList = new ArrayList<String>();;		//存储遍历后的所有文件名
+	public static List<String> fileList = new ArrayList<String>();		//存储遍历后的所有文件名
 
 	/**
 	 * 
