@@ -16,6 +16,6 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.apache.catalina.startup.Bootstrap"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="start"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="peparser"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.util.logging.config.file=&quot;conf\logging.properties&quot;   -Djava.endorsed.dirs=&quot;common\endorsed&quot; -Dcatalina.base=&quot;.&quot; -Dcatalina.home=&quot;.&quot; -Djava.io.tmpdir=&quot;temp&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.util.logging.config.file=&quot;conf\logging.properties&quot;   -Djava.endorsed.dirs=&quot;common\endorsed&quot; -Dcatalina.base=&quot;.&quot; -Dcatalina.home=&quot;.&quot; -Djava.io.tmpdir=&quot;temp&quot;&#13;&#10;-Xms64m -Xmx256m"/>
 <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="D:\tomcat"/>
 </launchConfiguration>
